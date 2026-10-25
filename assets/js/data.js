@@ -459,7 +459,7 @@ const EV_DATA = [
       "410-mile (660 km) EPA certified range with the 141.5 kWh Max Pack",
       "True off-road air suspension capability with spacious 3-row seating"
     ],
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/2023_Rivian_R1S_Adventure%2C_front_1.29.23.jpg/960px-2023_Rivian_R1S_Adventure%2C_front_1.29.23.jpg",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/2025_Rivian_R1S_Ascend_Tri_Max%2C_front_right%2C_11-21-2025.jpg/960px-2025_Rivian_R1S_Ascend_Tri_Max%2C_front_right%2C_11-21-2025.jpg",
     "officialUrl": "https://rivian.com/r1s",
     "officialUrlKo": "https://rivian.com/r1s"
   },
@@ -546,7 +546,7 @@ const EV_DATA = [
     "sourceNote": "Cadillac Official / 102kWh Ultium / EPA 307 mi (494 km) / Korea 465km",
     "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/2023_Cadillac_Lyriq_in_Satin_Steel_Metallic%2C_front_left.jpg/960px-2023_Cadillac_Lyriq_in_Satin_Steel_Metallic%2C_front_left.jpg",
     "officialUrl": "https://www.cadillac.com/electric/lyriq",
-    "officialUrlKo": "https://www.cadillac.co.kr/electric/lyriq",
+    "officialUrlKo": "https://www.cadillac.co.kr/",
     "specs": {
       "batteryKwh": 102,
       "rangeKm": 494,
@@ -607,7 +607,7 @@ const EV_DATA = [
     "badgeEn": "America's Iconic Full-Size Electric Pickup",
     "rangeCycle": "EPA",
     "sourceNote": "Ford US Official / 131kWh Extended Range / EPA 320 mi (515 km)",
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/2022_Ford_F-150_Lightning_Lariat_in_Atlas_Blue_Metallic%2C_Front_Right%2C_08-06-2022.jpg/960px-2022_Ford_F-150_Lightning_Lariat_in_Atlas_Blue_Metallic%2C_Front_Right%2C_08-06-2022.jpg",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Ford_F-150_Lightning_Lariat%2C_Auto_2024%2C_Zurich_%28PANA1012%29.jpg/960px-Ford_F-150_Lightning_Lariat%2C_Auto_2024%2C_Zurich_%28PANA1012%29.jpg",
     "officialUrl": "https://www.ford.com/trucks/f150/f150-lightning/",
     "officialUrlKo": "https://www.ford.com/trucks/f150/f150-lightning/",
     "specs": {
@@ -775,7 +775,7 @@ const EV_DATA = [
       "Standard 12.8-inch rotating screen, V2L, and localized T-Map in Korea"
     ],
     "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/BYD_Yuan_Plus_II_011.jpg/960px-BYD_Yuan_Plus_II_011.jpg",
-    "officialUrl": "https://www.byd.com/eu/electric-cars/atto-3",
+    "officialUrl": "https://www.byd.com/eu/electric-cars/atto3",
     "officialUrlKo": "https://www.bydauto.kr/"
   },
   {
@@ -837,7 +837,7 @@ const EV_DATA = [
       "530 hp dual-motor AWD & 0-100 km/h in 3.8s rivaling Tesla Model 3",
       "Double-wishbone front suspension & iTAC intelligent torque control"
     ],
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/2022_BYD_Seal.jpg/960px-2022_BYD_Seal.jpg",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/2024_BYD_Seal_2.jpg/960px-2024_BYD_Seal_2.jpg",
     "officialUrl": "https://www.byd.com/eu/electric-cars/seal",
     "officialUrlKo": "https://www.bydauto.kr/"
   },
@@ -901,8 +901,8 @@ const EV_DATA = [
       "Over 135,000 deliveries in its debut year powered by Xiaomi HyperOS"
     ],
     "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/%28CHN-Shanghai%29_Private_Xiaomi_SU7_%E6%B2%AAA7WE106_2024-11-24.jpg/960px-%28CHN-Shanghai%29_Private_Xiaomi_SU7_%E6%B2%AAA7WE106_2024-11-24.jpg",
-    "officialUrl": "https://www.xiaomiev.com/su7",
-    "officialUrlKo": "https://www.xiaomiev.com/su7"
+    "officialUrl": "https://www.xiaomiev.com/",
+    "officialUrlKo": "https://www.xiaomiev.com/"
   },
   {
     "id": "xiaomi-yu7",
@@ -1175,8 +1175,8 @@ const EV_DATA = [
     "rangeCycle": "WLTP",
     "sourceNote": "XPeng Europe Official / 87.5kWh NCM / WLTP 570km",
     "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/XPeng_G6_018_%28cropped%29.jpg/960px-XPeng_G6_018_%28cropped%29.jpg",
-    "officialUrl": "https://www.xpeng.com/g6",
-    "officialUrlKo": "https://www.xpeng.com/g6",
+    "officialUrl": "https://www.heyxpeng.com/g6",
+    "officialUrlKo": "https://www.heyxpeng.com/g6",
     "specs": {
       "batteryKwh": 87.5,
       "rangeKm": 570,
@@ -1468,7 +1468,7 @@ const EV_DATA = [
       "Features i-Pedal 3.0, Smart Regen 3.0, AI Assistant & bidirectional V2L"
     ],
     "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Kia_EV3_GT-Line_Automesse_Ludwigsburg_2025_DSC_2635_%28cropped%29.jpg/960px-Kia_EV3_GT-Line_Automesse_Ludwigsburg_2025_DSC_2635_%28cropped%29.jpg",
-    "officialUrl": "https://www.kia.com/eu/models/ev3/discover/",
+    "officialUrl": "https://worldwide.kia.com/int/ev3",
     "officialUrlKo": "https://www.kia.com/kr/vehicles/ev3/features"
   },
   {
@@ -1593,9 +1593,9 @@ const EV_DATA = [
       "Capacitive hands-on detection steering wheel & ccNC curved display",
       "10–80% ultra-fast charging in 18 minutes via 800V E-GMP system"
     ],
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/2021_Kia_EV6_GT-Line_S.jpg/960px-2021_Kia_EV6_GT-Line_S.jpg",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Kia_EV6_GT-line_%28Facelift%29_%E2%80%93_f_27072025.jpg/960px-Kia_EV6_GT-line_%28Facelift%29_%E2%80%93_f_27072025.jpg",
     "officialUrl": "https://www.kia.com/us/en/ev6",
-    "officialUrlKo": "https://www.kia.com/kr/vehicles/the-new-ev6/features"
+    "officialUrlKo": "https://www.kia.com/kr/vehicles/ev6/features"
   },
   {
     "id": "kia-ev9",
@@ -1678,7 +1678,7 @@ const EV_DATA = [
     "badgeEn": "Cd 0.21 Streamliner · 84 kWh Refresh",
     "rangeCycle": "WLTP",
     "sourceNote": "Hyundai Official / 84.0kWh 4th-Gen / WLTP 614km+ / Korea 524km+",
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/2023_Hyundai_Ioniq_6_Limited%2C_front_4.27.23.jpg/960px-2023_Hyundai_Ioniq_6_Limited%2C_front_4.27.23.jpg",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Hyundai_Ioniq_6_CE1_PE_%E2%80%93_Seoul_Mobility_Show_2025_%2801%29.jpg/960px-Hyundai_Ioniq_6_CE1_PE_%E2%80%93_Seoul_Mobility_Show_2025_%2801%29.jpg",
     "officialUrl": "https://www.hyundai.com/worldwide/en/eco/ioniq6/highlights",
     "officialUrlKo": "https://www.hyundai.com/kr/ko/e/vehicles/ioniq6/intro",
     "specs": {
@@ -1804,9 +1804,9 @@ const EV_DATA = [
     "badgeEn": "Genesis Dedicated Luxury BEV · 84 kWh",
     "rangeCycle": "WLTP",
     "sourceNote": "Genesis Official (2025 Refresh) / 84.0kWh / WLTP 517km / Korea 481km(2WD)",
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Genesis_GV60_1X7A5760.jpg/960px-Genesis_GV60_1X7A5760.jpg",
-    "officialUrl": "https://www.genesis.com/us/en/models/luxury-suv-genesis/gv60/overview.html",
-    "officialUrlKo": "https://www.genesis.com/kr/ko/models/luxury-suv-genesis/gv60/overview.html",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/2025_Genesis_GV60_Auto_Zuerich_2025_DSC_3347.jpg/960px-2025_Genesis_GV60_Auto_Zuerich_2025_DSC_3347.jpg",
+    "officialUrl": "https://www.genesis.com/us/en/gv60",
+    "officialUrlKo": "https://www.genesis.com/kr/ko/models/luxury-suv-genesis/gv60.html",
     "specs": {
       "batteryKwh": 84,
       "rangeKm": 517,
@@ -1910,7 +1910,7 @@ const EV_DATA = [
     ],
     "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/BMW_iX3_50_xDrive_M_Sportpaket_Pro_%28NA5%29_%E2%80%93_f_17052026.jpg/960px-BMW_iX3_50_xDrive_M_Sportpaket_Pro_%28NA5%29_%E2%80%93_f_17052026.jpg",
     "officialUrl": "https://www.bmw.com/en/neue-klasse.html",
-    "officialUrlKo": "https://www.bmw.co.kr/ko/all-models/bmw-i/ix3/2021/bmw-ix3-highlights.html"
+    "officialUrlKo": "https://www.bmw.co.kr/ko/all-models/x-series/ix3/bmw-ix3.html"
   },
   {
     "id": "bmw-i4-edrive40",
@@ -1971,9 +1971,9 @@ const EV_DATA = [
       "Refreshed LCI model features laserlight taillights & BMW iDrive 8.5",
       "Consistent global sales leader among German luxury electric sedans"
     ],
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/BMW_i4_IMG_6695.jpg/960px-BMW_i4_IMG_6695.jpg",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/BMW_i4_eDrive40_Gran_Coup%C3%A9_M_Sportpaket_%28G26%2C_Facelift%29_%E2%80%93_f_18042025.jpg/960px-BMW_i4_eDrive40_Gran_Coup%C3%A9_M_Sportpaket_%28G26%2C_Facelift%29_%E2%80%93_f_18042025.jpg",
     "officialUrl": "https://www.bmwusa.com/vehicles/all-electric/i4/gran-coupe/overview.html",
-    "officialUrlKo": "https://www.bmw.co.kr/ko/all-models/bmw-i/i4/2024/bmw-i4-gran-coupe-overview.html"
+    "officialUrlKo": "https://www.bmw.co.kr/ko/all-models/bmw-i/i4/bmw-i4-gran-coupe.html"
   },
   {
     "id": "bmw-ix1-xdrive30",
@@ -2035,8 +2035,8 @@ const EV_DATA = [
       "Top seller in the European & Korean premium compact electric SUV segment"
     ],
     "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/BMW_iX1_1X7A6827.jpg/960px-BMW_iX1_1X7A6827.jpg",
-    "officialUrl": "https://www.bmw.de/de/neufahrzeuge/bmw-i/ix1/2022/bmw-ix1-ueberblick.html",
-    "officialUrlKo": "https://www.bmw.co.kr/ko/all-models/bmw-i/ix1/2022/bmw-ix1-highlights.html"
+    "officialUrl": "https://www.bmw.co.uk/en/all-models/bmw-i/ix1/2022/bmw-ix1-highlights.html",
+    "officialUrlKo": "https://www.bmw.co.kr/ko/all-models/bmw-i/ix1/bmw-ix1.html"
   },
   {
     "id": "mercedes-cla-ev",
@@ -2097,9 +2097,9 @@ const EV_DATA = [
       "2-speed transmission & 85 kWh silicon-oxide anode pack achieve 792 km WLTP range",
       "320 kW DC fast charging (+325 km in 10 mins) and full MB.OS software stack"
     ],
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Mercedes-Benz_CLA-Class_Concept_IAA_2023_1X7A0475.jpg/960px-Mercedes-Benz_CLA-Class_Concept_IAA_2023_1X7A0475.jpg",
-    "officialUrl": "https://www.mercedes-benz.com/en/vehicles/mercedes-benz-cars/concept-cla-class/",
-    "officialUrlKo": "https://www.mercedes-benz.co.kr/"
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Mercedes-Benz_C174_350_4Matic_IAA_2025_DSC_2108.jpg/960px-Mercedes-Benz_C174_350_4Matic_IAA_2025_DSC_2108.jpg",
+    "officialUrl": "https://www.mercedes-benz.co.uk/passengercars/models/saloon/cla-electric/overview.html",
+    "officialUrlKo": "https://www.mercedes-benz.co.kr/passengercars/models/saloon/cla/overview.html"
   },
   {
     "id": "mercedes-glc-eq",
@@ -2160,9 +2160,9 @@ const EV_DATA = [
       "94 kWh battery, 330 kW fast charging, and 2-speed rear drive unit for 715 km WLTP",
       "Direct German luxury rival to the Neue Klasse BMW iX3 and Audi Q6 e-tron"
     ],
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Mercedes-Benz_EQC_400_4MATIC_AMG_Line_%28N_293%29_%E2%80%93_f_02042021.jpg/960px-Mercedes-Benz_EQC_400_4MATIC_AMG_Line_%28N_293%29_%E2%80%93_f_02042021.jpg",
-    "officialUrl": "https://www.mercedes-benz.de/",
-    "officialUrlKo": "https://www.mercedes-benz.co.kr/"
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Mercedes-Benz_GLC_with_EQ_Technology_IAA_2025_DSC_2106_%28cropped%29.jpg/960px-Mercedes-Benz_GLC_with_EQ_Technology_IAA_2025_DSC_2106_%28cropped%29.jpg",
+    "officialUrl": "https://www.mercedes-benz.co.uk/passengercars/models/suv/glc-electric/overview.html",
+    "officialUrlKo": "https://www.mercedes-benz.co.kr/passengercars/models/suv/glc/overview.html"
   },
   {
     "id": "mercedes-gle-eq",
@@ -2224,8 +2224,8 @@ const EV_DATA = [
       "AIRMATIC air suspension & 10-degree rear-axle steering for supreme ride comfort"
     ],
     "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Mercedes-Benz_X294_IMG_8682.jpg/960px-Mercedes-Benz_X294_IMG_8682.jpg",
-    "officialUrl": "https://www.mbusa.com/en/vehicles/class/eqe-suv/mercedes-benz",
-    "officialUrlKo": "https://www.mercedes-benz.co.kr/passengercars/models/suv/eqe-suv/overview.html"
+    "officialUrl": "https://www.mercedes-benz.co.uk/passengercars/models/suv/eqe/overview.html",
+    "officialUrlKo": "https://www.mercedes-benz.co.kr/passengercars/models/suv/eqe/overview.html"
   },
   {
     "id": "audi-q6-etron",
@@ -2288,7 +2288,7 @@ const EV_DATA = [
     ],
     "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Audi_Q6_e-tron_DSC_7829.jpg/960px-Audi_Q6_e-tron_DSC_7829.jpg",
     "officialUrl": "https://www.audiusa.com/en/models/q6-e-tron/q6-e-tron/2025/overview/",
-    "officialUrlKo": "https://www.audi.co.kr/kr/web/ko/models/q6-e-tron/q6-e-tron.html"
+    "officialUrlKo": "https://www.audi.co.kr/kr/web/ko/models.html"
   },
   {
     "id": "audi-q4-etron",
@@ -2349,9 +2349,9 @@ const EV_DATA = [
       "Audi's highest-volume electric vehicle across Europe and South Korea",
       "Compact exterior footprint with mid-size SUV interior legroom"
     ],
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/2021_Audi_Q4_e-tron_Sport_35.jpg/960px-2021_Audi_Q4_e-tron_Sport_35.jpg",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/2024_Audi_Q4_e-tron_Vorsprung_45.jpg/960px-2024_Audi_Q4_e-tron_Vorsprung_45.jpg",
     "officialUrl": "https://www.audiusa.com/en/models/q4/q4-e-tron/2025/overview/",
-    "officialUrlKo": "https://www.audi.co.kr/kr/web/ko/models/q4-e-tron/q4-e-tron_2024.html"
+    "officialUrlKo": "https://www.audi.co.kr/kr/web/ko/models.html"
   },
   {
     "id": "porsche-macan-electric",
@@ -2414,7 +2414,7 @@ const EV_DATA = [
     ],
     "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Porsche_Macan_4_IMG_2153.jpg/960px-Porsche_Macan_4_IMG_2153.jpg",
     "officialUrl": "https://www.porsche.com/usa/models/macan/macan-electric-models/",
-    "officialUrlKo": "https://www.porsche.com/korea/ko/models/macan/macan-electric-models/"
+    "officialUrlKo": "https://www.porsche.com/korea/ko/models/macan/macan-electric-models/macan-4-electric/"
   },
   {
     "id": "vw-id4-pro",
@@ -2477,7 +2477,7 @@ const EV_DATA = [
     ],
     "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/2025_Volkswagen_ID4_Pro_Redspot_front.jpg/960px-2025_Volkswagen_ID4_Pro_Redspot_front.jpg",
     "officialUrl": "https://www.vw.com/en/models/id-4.html",
-    "officialUrlKo": "https://www.volkswagen.co.kr/ko/models/id-4.html"
+    "officialUrlKo": "https://www.volkswagen.co.kr/"
   },
   {
     "id": "vw-id5-pro",
@@ -2498,8 +2498,8 @@ const EV_DATA = [
     "rangeCycle": "WLTP",
     "sourceNote": "VW Official / 82kWh (77kWh net) / WLTP 556km / Korea MOTIE 434km",
     "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Volkswagen_ID.5_GTX_1X7A0318.jpg/960px-Volkswagen_ID.5_GTX_1X7A0318.jpg",
-    "officialUrl": "https://www.volkswagen.de/de/modelle/id-5.html",
-    "officialUrlKo": "https://www.volkswagen.co.kr/ko/models/id-5.html",
+    "officialUrl": "https://www.volkswagen.co.uk/en/electric-and-hybrid/electric-cars/id5.html",
+    "officialUrlKo": "https://www.volkswagen.co.kr/",
     "specs": {
       "batteryKwh": 82,
       "rangeKm": 556,
@@ -2561,7 +2561,7 @@ const EV_DATA = [
     "rangeCycle": "WLTP",
     "sourceNote": "VW Germany Official / 86kWh Net (91kWh gross) / WLTP 709km",
     "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Volkswagen_ID.7_DSC_7879_%28cropped%29.jpg/960px-Volkswagen_ID.7_DSC_7879_%28cropped%29.jpg",
-    "officialUrl": "https://www.volkswagen.de/de/modelle/id-7.html",
+    "officialUrl": "https://www.volkswagen.co.uk/en/electric-and-hybrid/electric-cars/id7.html",
     "officialUrlKo": "https://www.volkswagen.co.kr/",
     "specs": {
       "batteryKwh": 86,
@@ -2625,7 +2625,7 @@ const EV_DATA = [
     "sourceNote": "BMW Official / 81.2kWh Net / WLTP 582km / Korea MOTIE 441km",
     "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/2023_BMW_i5_1.jpg/960px-2023_BMW_i5_1.jpg",
     "officialUrl": "https://www.bmwusa.com/vehicles/all-electric/i5/sedan/overview.html",
-    "officialUrlKo": "https://www.bmw.co.kr/ko/all-models/bmw-i/i5/2023/bmw-i5-sedan-overview.html",
+    "officialUrlKo": "https://www.bmw.co.kr/ko/all-models/bmw-i/i5/bmw-i5-overview.html",
     "specs": {
       "batteryKwh": 81.2,
       "rangeKm": 582,
@@ -2686,9 +2686,9 @@ const EV_DATA = [
     "badgeEn": "Cd 0.21 · 756 km WLTP on 800V PPE",
     "rangeCycle": "WLTP",
     "sourceNote": "Audi Official / 100kWh (94.9kWh net) PPE / WLTP 756km",
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Audi_A6_Avant_e-tron_%E2%80%93_f_18042025.jpg/960px-Audi_A6_Avant_e-tron_%E2%80%93_f_18042025.jpg",
-    "officialUrl": "https://www.audi.com/en/innovation/e-mobility/a6-e-tron.html",
-    "officialUrlKo": "https://www.audi.co.kr/",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Audi_A6_e-tron_IMG_3090_%28cropped%29.jpg/960px-Audi_A6_e-tron_IMG_3090_%28cropped%29.jpg",
+    "officialUrl": "https://www.audiusa.com/en/",
+    "officialUrlKo": "https://www.audi.co.kr/kr/web/ko/models.html",
     "specs": {
       "batteryKwh": 100,
       "rangeKm": 756,
@@ -2749,7 +2749,7 @@ const EV_DATA = [
     "badgeEn": "320 kW 18-Min Charge · 678 km WLTP",
     "rangeCycle": "WLTP",
     "sourceNote": "Porsche Official (2025 Refresh) / 105kWh Gross (97kWh Net) / WLTP 678km / Korea 500km",
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/2020_Porsche_Taycan_4S_79kWh_Front.jpg/960px-2020_Porsche_Taycan_4S_79kWh_Front.jpg",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/2024_Porsche_Taycan_GTS_IAA_2025_DSC_1988.jpg/960px-2024_Porsche_Taycan_GTS_IAA_2025_DSC_1988.jpg",
     "officialUrl": "https://www.porsche.com/usa/models/taycan/taycan-models/",
     "officialUrlKo": "https://www.porsche.com/korea/ko/models/taycan/taycan-models/",
     "specs": {
@@ -2853,7 +2853,7 @@ const EV_DATA = [
       "2025/2026 refresh introduces 73.1 kWh pack & SiC inverter for up to 569 km WLTP range",
       "Significant US MSRP price cut ($37,070) and standard battery pre-conditioning"
     ],
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Toyota_bZ4X_Automesse_Ludwigsburg_2022_1X7A5895.jpg/960px-Toyota_bZ4X_Automesse_Ludwigsburg_2022_1X7A5895.jpg",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/2026_Toyota_bZ4X_IMG_8455.jpg/960px-2026_Toyota_bZ4X_IMG_8455.jpg",
     "officialUrl": "https://www.toyota.com/bz4x/",
     "officialUrlKo": "https://www.toyota.com/bz4x/"
   },
@@ -3003,7 +3003,7 @@ const EV_DATA = [
     "sourceNote": "Lexus Official / 71.4kWh e-TNGA / WLTP 440km (RZ 300e 480km)",
     "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Lexus_RZ_300e_%28XEBM10%29_IMG_6622.jpg/960px-Lexus_RZ_300e_%28XEBM10%29_IMG_6622.jpg",
     "officialUrl": "https://www.lexus.com/models/RZ",
-    "officialUrlKo": "https://www.lexus.co.kr/models/RZ-450e/",
+    "officialUrlKo": "https://www.lexus.co.kr/",
     "specs": {
       "batteryKwh": 71.4,
       "rangeKm": 440,
@@ -3064,7 +3064,7 @@ const EV_DATA = [
     "badgeEn": "Standard Symmetrical AWD with X-MODE",
     "rangeCycle": "WLTP",
     "sourceNote": "Subaru Official / 72.8kWh / WLTP 465km / 210mm Ground Clearance",
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Subaru_Solterra_ST-E_Auto_Zuerich_2023_1X7A1257.jpg/960px-Subaru_Solterra_ST-E_Auto_Zuerich_2023_1X7A1257.jpg",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/2026_Subaru_Solterra_Premium%2C_front_left%2C_03-15-2026.jpg/960px-2026_Subaru_Solterra_Premium%2C_front_left%2C_03-15-2026.jpg",
     "officialUrl": "https://www.subaru.com/vehicles/solterra.html",
     "officialUrlKo": "https://www.subaru.com/vehicles/solterra.html",
     "specs": {
