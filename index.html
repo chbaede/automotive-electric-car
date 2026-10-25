@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EV Global Hub | 글로벌 전기차 판매량·가격·성능 비교 대시보드</title>
+  <meta name="description" content="독일 3사, 현대·기아, 테슬라, 중국(BYD·샤오미·지리), 미국 전기차의 4개국 가격, 핵심 성능, 2024~2026 연도/분기별 판매량 순위를 한눈에 비교하세요." />
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'Roboto', 'sans-serif'],
+            mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Pretendard & JetBrains Mono Fonts -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen selection:bg-sky-500 selection:text-white antialiased">
+
+  <!-- Background Ambient Glow -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden -z-10">
+    <div class="absolute -top-40 -left-40 w-96 h-96 bg-sky-500/15 rounded-full blur-3xl"></div>
+    <div class="absolute top-1/3 -right-40 w-[30rem] h-[30rem] bg-indigo-500/10 rounded-full blur-3xl"></div>
+    <div class="absolute -bottom-40 left-1/3 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl"></div>
+  </div>
+
+  <!-- Top Sticky Header -->
+  <header class="sticky top-0 z-30 border-b border-slate-800/80 bg-slate-950/85 backdrop-blur-xl">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-sky-500/20 font-bold text-lg text-white">
+          ⚡
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-lg sm:text-xl font-bold tracking-tight bg-gradient-to-r from-white via-slate-100 to-sky-400 bg-clip-text text-transparent">
+              EV Global Hub
+            </h1>
+            <span class="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-sky-500/15 text-sky-300 border border-sky-500/30">
+              2024 – 2026.Q3 Edition
+            </span>
+          </div>
+          <p class="text-xs text-slate-400 hidden sm:block">
+            전 세계 베스트셀링 & 최신 전기차 4개국 가격 · 성능 · 분기별 판매량 비교
+          </p>
+        </div>
+      </div>
+
+      <!-- Right Controls: Period Selector & Currency Mode -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <div class="flex items-center gap-1.5 bg-slate-900/90 border border-slate-800 rounded-lg px-2.5 py-1.5">
+          <span class="text-xs text-slate-400 hidden md:inline">📅 기준 기간:</span>
+          <select id="globalPeriodSelect" class="bg-transparent text-xs sm:text-sm font-semibold text-sky-400 focus:outline-none cursor-pointer">
+            <option value="2026 Q3" selected>2026년 3분기 (최신)</option>
+            <option value="2026 Q2">2026년 2분기</option>
+            <option value="2026 Q1">2026년 1분기</option>
+            <option value="2025 YEAR">2025년 연간 합계</option>
+            <option value="2025 Q4">2025년 4분기</option>
+            <option value="2025 Q3">2025년 3분기</option>
+            <option value="2025 Q2">2025년 2분기</option>
+            <option value="2025 Q1">2025년 1분기</option>
+            <option value="2024 YEAR">2024년 연간 합계</option>
+            <option value="2024 Q4">2024년 4분기</option>
+            <option value="2024 Q3">2024년 3분기</option>
+            <option value="2024 Q2">2024년 2분기</option>
+            <option value="2024 Q1">2024년 1분기</option>
+            <option value="ALL">2024~2026 누적 전체</option>
+          </select>
+        </div>
+
+        <button id="currencyToggleBtn" class="px-3 py-1.5 rounded-lg text-xs font-medium border border-slate-700 bg-slate-900 hover:bg-slate-800 text-slate-200 transition flex items-center gap-1.5" title="각국 현지 통화 또는 원화/달러 환산 가격으로 전환합니다">
+          <span>💱</span>
+          <span id="currencyToggleLabel">현지 통화 표기</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6 pb-28">
+
+    <!-- KPI Summary Cards -->
+    <section class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4" id="kpiSection">
+      <div class="glass-card p-4 rounded-2xl border border-slate-800/80">
+        <div class="flex items-center justify-between text-xs text-slate-400 mb-1">
+          <span id="kpiSalesTitle">선택 기간 최다 판매 모델</span>
+          <span class="text-sky-400">🏆 판매 1위</span>
+        </div>
+        <div class="text-base sm:text-lg font-bold text-white truncate" id="kpiTopSellerName">-</div>
+        <div class="text-xs text-sky-400 font-mono mt-1" id="kpiTopSellerVal">-</div>
+      </div>
+
+      <div class="glass-card p-4 rounded-2xl border border-slate-800/80">
+        <div class="flex items-center justify-between text-xs text-slate-400 mb-1">
+          <span>최장 1회 충전 주행거리</span>
+          <span class="text-emerald-400">🔋 롱레인지 1위</span>
+        </div>
+        <div class="text-base sm:text-lg font-bold text-white truncate" id="kpiTopRangeName">-</div>
+        <div class="text-xs text-emerald-400 font-mono mt-1" id="kpiTopRangeVal">-</div>
+      </div>
+
+      <div class="glass-card p-4 rounded-2xl border border-slate-800/80">
+        <div class="flex items-center justify-between text-xs text-slate-400 mb-1">
+          <span>최단 제로백 (0→100km/h)</span>
+          <span class="text-rose-400">🚀 가속력 1위</span>
+        </div>
+        <div class="text-base sm:text-lg font-bold text-white truncate" id="kpiTopAccelName">-</div>
+        <div class="text-xs text-rose-400 font-mono mt-1" id="kpiTopAccelVal">-</div>
+      </div>
+
+      <div class="glass-card p-4 rounded-2xl border border-slate-800/80">
+        <div class="flex items-center justify-between text-xs text-slate-400 mb-1">
+          <span>최고 충전 속도 / 전압</span>
+          <span class="text-amber-400">⚡ 초급속 1위</span>
+        </div>
+        <div class="text-base sm:text-lg font-bold text-white truncate" id="kpiTopChargeName">-</div>
+        <div class="text-xs text-amber-400 font-mono mt-1" id="kpiTopChargeVal">-</div>
+      </div>
+    </section>
+
+    <!-- Filter & Search Control Bar -->
+    <section class="glass-card p-4 sm:p-5 rounded-2xl border border-slate-800/90 space-y-4">
+      <!-- Top Row: Region Tabs + Search + Sort -->
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+        <!-- Region Filter Pills -->
+        <div class="flex flex-wrap items-center gap-1.5" id="regionFilterGroup">
+          <button data-region="ALL" class="region-pill active px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition">
+            🌐 전체 (<span id="count-ALL">23</span>)
+          </button>
+          <button data-region="KR" class="region-pill px-3 py-1.5 rounded-xl text-xs sm:text-sm font-medium transition">
+            🇰🇷 한국 · 현대/기아 (<span id="count-KR">6</span>)
+          </button>
+          <button data-region="DE" class="region-pill px-3 py-1.5 rounded-xl text-xs sm:text-sm font-medium transition">
+            🇩🇪 독일 3사+ (<span id="count-DE">8</span>)
+          </button>
+          <button data-region="US" class="region-pill px-3 py-1.5 rounded-xl text-xs sm:text-sm font-medium transition">
+            🇺🇸 미국 · 테슬라/GM/포드 (<span id="count-US">6</span>)
+          </button>
+          <button data-region="CN" class="region-pill px-3 py-1.5 rounded-xl text-xs sm:text-sm font-medium transition">
+            🇨🇳 중국 · BYD/샤오미/지리 (<span id="count-CN">6</span>)
+          </button>
+        </div>
+
+        <!-- Search & Sort Controls -->
+        <div class="flex flex-wrap sm:flex-nowrap items-center gap-2">
+          <div class="relative flex-1 sm:w-56">
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="모델명, 브랜드, 키워드 검색..."
+              class="w-full bg-slate-900/90 border border-slate-700/80 rounded-xl pl-8 pr-3 py-1.5 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-sky-500"
+            />
+            <span class="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs">🔍</span>
+          </div>
+
+          <select id="sortSelect" class="bg-slate-900/90 border border-slate-700/80 rounded-xl px-3 py-1.5 text-xs sm:text-sm text-slate-200 focus:outline-none focus:border-sky-500 cursor-pointer">
+            <option value="sales-desc" selected>📊 선택 기간 판매량 많은 순</option>
+            <option value="range-desc">🔋 주행거리 긴 순 (km)</option>
+            <option value="power-desc">🐎 최고출력 높은 순 (마력)</option>
+            <option value="accel-asc">🚀 제로백 빠른 순 (0→100km/h)</option>
+            <option value="charge-asc">⚡ 10→80% 충전 시간 짧은 순</option>
+            <option value="price-kr-asc">🇰🇷 한국 출시가 낮은 순</option>
+            <option value="price-us-asc">🇺🇸 미국 출시가 낮은 순</option>
+            <option value="price-cn-asc">🇨🇳 중국 출시가 낮은 순</option>
+            <option value="price-eu-asc">🇪🇺 유럽 출시가 낮은 순</option>
+            <option value="year-desc">🆕 최신 출시 연도 순</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Second Row: Brand Chips, Segment, Voltage, Category Toggles -->
+      <div class="pt-3 border-t border-slate-800/80 flex flex-col md:flex-row md:items-center justify-between gap-3">
+        <!-- Brand Multi-Filter Chips -->
+        <div class="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 no-scrollbar" id="brandFilterGroup">
+          <!-- Populated dynamically via JS -->
+        </div>
+
+        <!-- Quick Feature Filters -->
+        <div class="flex flex-wrap items-center gap-2 shrink-0">
+          <select id="segmentFilter" class="bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1 text-xs text-slate-300 focus:outline-none">
+            <option value="ALL">모든 차종 (세단/SUV/트럭)</option>
+            <option value="SUV">SUV / 크로스오버</option>
+            <option value=" 세단">세단 / 해치백</option>
+            <option value="픽업">픽업트럭</option>
+          </select>
+
+          <button id="filter800V" class="px-2.5 py-1 rounded-lg text-xs font-medium border border-slate-800 bg-slate-900 text-slate-400 hover:text-white transition">
+            ⚡ 800V+ 초급속만
+          </button>
+          <button id="filterNewOnly" class="px-2.5 py-1 rounded-lg text-xs font-medium border border-slate-800 bg-slate-900 text-slate-400 hover:text-white transition">
+            🆕 신차·최신형만
+          </button>
+          <button id="filterBestOnly" class="px-2.5 py-1 rounded-lg text-xs font-medium border border-slate-800 bg-slate-900 text-slate-400 hover:text-white transition">
+            🔥 베스트셀러만
+          </button>
+          <button id="resetFiltersBtn" class="px-2.5 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-rose-400 transition">
+            ↺ 초기화
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- View Mode Navigation Tabs -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+      <div class="flex items-center gap-2" id="viewTabs">
+        <button data-view="cards" class="view-tab active px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition">
+          <span>🗂️</span> 차량 카드 & 4개국 가격 비교
+        </button>
+        <button data-view="table" class="view-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition">
+          <span>📋</span> 한눈에 보는 스펙·가격·판매량 표
+        </button>
+        <button data-view="charts" class="view-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition">
+          <span>📈</span> 연도/분기별 판매 추이 & 가성비 차트
+        </button>
+      </div>
+
+      <div class="text-xs text-slate-400 flex items-center gap-2">
+        <span>검색 결과 <strong class="text-white font-mono" id="resultCount">23</strong>대</span>
+        <span class="text-slate-600">|</span>
+        <span>💡 카드의 <strong class="text-sky-400">[+ 비교 담기]</strong>를 눌러 최대 4대까지 1:1 정밀 비교 가능</span>
+      </div>
+    </div>
+
+    <!-- VIEW 1: Vehicle Cards Grid -->
+    <section id="view-cards" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+      <!-- Populated by app.js -->
+    </section>
+
+    <!-- VIEW 2: Comprehensive Table View -->
+    <section id="view-table" class="hidden">
+      <div class="glass-card rounded-2xl border border-slate-800 overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs sm:text-sm">
+            <thead>
+              <tr class="bg-slate-900/95 border-b border-slate-800 text-slate-400 font-semibold whitespace-nowrap">
+                <th class="py-3.5 px-4 sticky left-0 bg-slate-900 z-10">순위 / 모델</th>
+                <th class="py-3.5 px-3">국가 / 브랜드</th>
+                <th class="py-3.5 px-3 text-right text-sky-400" id="tablePeriodHeader">선택기간 판매량</th>
+                <th class="py-3.5 px-3 text-right">🇺🇸 미국 가격</th>
+                <th class="py-3.5 px-3 text-right">🇨🇳 중국 가격</th>
+                <th class="py-3.5 px-3 text-right">🇰🇷 한국 가격</th>
+                <th class="py-3.5 px-3 text-right">🇪🇺 유럽 가격</th>
+                <th class="py-3.5 px-3 text-right">배터리</th>
+                <th class="py-3.5 px-3 text-right">주행거리</th>
+                <th class="py-3.5 px-3 text-right">최고출력</th>
+                <th class="py-3.5 px-3 text-right">제로백</th>
+                <th class="py-3.5 px-3 text-right">초급속(10-80%)</th>
+                <th class="py-3.5 px-3 text-center">비교</th>
+              </tr>
+            </thead>
+            <tbody id="evTableBody" class="divide-y divide-slate-800/70 font-mono text-xs">
+              <!-- Populated by app.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 3: Analytics & Quarterly Sales Charts -->
+    <section id="view-charts" class="hidden space-y-6">
+      <!-- Top Row: Quarterly Leaderboard Bar Chart + Brand Trend Line Chart -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="glass-card p-5 rounded-2xl border border-slate-800">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <span>🏆</span> <span id="chartSalesTitle">2026년 3분기 글로벌 판매 TOP 12 모델</span>
+              </h3>
+              <p class="text-xs text-slate-400 mt-0.5">상단 기간 선택기와 지역 필터에 맞춰 실시간으로 순위가 변경됩니다.</p>
+            </div>
+          </div>
+          <div class="h-80">
+            <canvas id="topModelsBarChart"></canvas>
+          </div>
+        </div>
+
+        <div class="glass-card p-5 rounded-2xl border border-slate-800">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <span>📈</span> 주요 제조사 그룹별 분기 순수전기차(BEV) 판매 추이
+              </h3>
+              <p class="text-xs text-slate-400 mt-0.5">2024 Q1 ~ 2026 Q3 글로벌 분기별 인도량 (단위: 천 대)</p>
+            </div>
+          </div>
+          <div class="h-80">
+            <canvas id="brandTrendLineChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Row: 4-Region Price Comparison Chart & Range vs Price Scatter -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="glass-card p-5 rounded-2xl border border-slate-800">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <span>🌍</span> 주요 모델 4개국(미국·중국·한국·유럽) 출시 가격 비교 (USD 환산)
+              </h3>
+              <p class="text-xs text-slate-400 mt-0.5">동일 모델의 국가별 가격 정책 및 관세·보조금 전 시작가 격차 비교</p>
+            </div>
+          </div>
+          <div class="h-80">
+            <canvas id="regionalPriceBarChart"></canvas>
+          </div>
+        </div>
+
+        <div class="glass-card p-5 rounded-2xl border border-slate-800">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <span>🎯</span> 가격 대비 주행거리(가성비) 포지셔닝 맵
+              </h3>
+              <p class="text-xs text-slate-400 mt-0.5">X축: 글로벌 평균 시작가(USD 환산) / Y축: 1회 충전 주행거리(km)</p>
+            </div>
+          </div>
+          <div class="h-80">
+            <canvas id="priceRangeScatterChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Market Insights & Reference Footnote -->
+    <section class="glass-card p-5 rounded-2xl border border-slate-800/80 text-xs text-slate-400 space-y-2">
+      <div class="font-semibold text-slate-200 flex items-center gap-1.5">
+        <span>ℹ️</span> 데이터 기준 및 글로벌 시장 핵심 요약 (2024 – 2026)
+      </div>
+      <ul class="list-disc list-inside space-y-1 leading-relaxed">
+        <li><strong>지역별 가격 표기 기준:</strong> 미국(USD, MSRP 시작가), 중국(CNY, 현지 공식 시작가), 한국(만 원, 환경부 보조금 적용 전 친환경차 세제혜택 후 가격 기준), 유럽(EUR, 독일 부가세 포함 시작가 기준). 미출시 지역은 <code class="text-slate-300">미출시</code>로 표기됩니다.</li>
+        <li><strong>환율 환산 기준:</strong> 통화 통합 비교 시 <code class="text-slate-300">1 USD = 1,380 KRW = 7.20 CNY = 0.92 EUR</code> 기준으로 계산됩니다.</li>
+        <li><strong>주요 시장 트렌드:</strong> 2025년 연간 기준 <strong>BYD(약 226만 대)</strong>가 테슬라를 제치고 순수전기차(BEV) 제조사 1위에 등극했으며, 단일 모델로는 <strong>테슬라 모델 Y(주니퍼)</strong>와 <strong>모델 3(하이랜드)</strong>가 여전히 세계 1·2위를 유지 중입니다. 한국 현대·기아는 <strong>EV3, 아이오닉 9, EV4, 캐스퍼 일렉트릭</strong> 신차 라인업으로 유럽·북미 점유율을 확대했고, 독일 3사는 800V 차세대 아키텍처(<strong>BMW 노이어 클라쎄 iX3, 벤츠 MMA 전기 CLA, 아우디·포르쉐 PPE Q6/마칸</strong>)로 주행거리 600~800km 시대를 열었습니다.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- Floating Comparison Tray (Bottom Dock) -->
+  <div id="compareDock" class="fixed bottom-0 inset-x-0 z-40 transform translate-y-full transition-transform duration-300">
+    <div class="max-w-5xl mx-auto px-4 pb-4">
+      <div class="bg-slate-900/95 backdrop-blur-xl border border-sky-500/40 rounded-2xl p-3 sm:p-4 shadow-2xl shadow-sky-950/60 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div class="flex items-center gap-2 sm:gap-3 w-full sm:w-auto overflow-x-auto no-scrollbar" id="compareSlotList">
+          <!-- Populated dynamically -->
+        </div>
+        <div class="flex items-center gap-2 shrink-0 w-full sm:w-auto justify-end">
+          <button id="clearCompareBtn" class="px-3 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white border border-slate-700 hover:bg-slate-800 transition">
+            비우기
+          </button>
+          <button id="openCompareModalBtn" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white shadow-lg shadow-sky-500/25 transition">
+            ⚡ 선택 차량 상세 비교하기 (<span id="compareCountBadge">0</span>/4)
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Head-to-Head Comparison Modal -->
+  <div id="compareModal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-6 bg-slate-950/80 backdrop-blur-md">
+    <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-6xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+      <!-- Modal Header -->
+      <div class="px-6 py-4 border-b border-slate-800 flex items-center justify-between">
+        <div>
+          <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
+            <span>⚔️</span> 전기차 1:1 스펙 · 4개국 가격 · 판매량 정밀 비교
+          </h2>
+          <p class="text-xs text-slate-400">각 항목에서 가장 우수한 스펙과 가장 저렴한 가격에 <span class="text-emerald-400 font-semibold">초록색 최고 기록 배지</span>가 표시됩니다.</p>
+        </div>
+        <button id="closeCompareModalBtn" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center text-lg font-bold transition">
+          ✕
+        </button>
+      </div>
+
+      <!-- Modal Content -->
+      <div class="p-4 sm:p-6 overflow-y-auto space-y-6" id="compareModalBody">
+        <!-- Radar Chart + Spec Comparison Table populated by app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="./data.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
+
