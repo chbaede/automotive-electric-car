@@ -3,9 +3,82 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EV Global Hub | 글로벌 순수전기차(BEV) 판매량·가격·성능 비교 대시보드</title>
-  <meta name="description" content="한국(현대·기아), 독일 3사+, 미국(테슬라·GM·포드), 중국(BYD·샤오미·지리), 일본(토요타·혼다·닛산) 순수전기차(BEV)의 4개국 가격, 핵심 성능, 2024~2026 연도/분기별 판매량 순위를 비교하세요." />
   
+  <!-- Primary SEO Meta Tags -->
+  <title>EV Global Hub | 글로벌 순수전기차(BEV) 판매량·4개국 가격·성능 비교 대시보드</title>
+  <meta name="description" content="한국(현대·기아), 독일(BMW·벤츠·아우디·포르쉐), 미국(테슬라·GM·포드·리비안·루시드), 중국(BYD·샤오미·지리·지커), 일본(토요타·혼다·닛산) 34개 핵심 순수전기차(BEV)의 4개국 출시 가격, 주행거리, 2024~2026 연도/분기별 판매량 순위를 한눈에 비교하세요." />
+  <meta name="keywords" content="전기차 비교, 전기차 판매량 순위, 글로벌 전기차, 테슬라 모델Y 주니퍼, 아이오닉9, 기아 EV3, EV4, BYD 아토3, 샤오미 YU7, 벤츠 전기 CLA, GLE EQ, BMW 노이어 클라쎄 iX3, EV comparison, BEV sales ranking" />
+  <meta name="author" content="Changhyeok Bae" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="theme-color" content="#020617" />
+
+  <!-- Canonical & Multilingual Hreflang -->
+  <link rel="canonical" href="https://electric.yocto.co.kr/" />
+  <link rel="alternate" hreflang="ko" href="https://electric.yocto.co.kr/" />
+  <link rel="alternate" hreflang="en" href="https://electric.yocto.co.kr/" />
+  <link rel="alternate" hreflang="x-default" href="https://electric.yocto.co.kr/" />
+
+  <!-- Open Graph / Facebook / KakaoTalk -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://electric.yocto.co.kr/" />
+  <meta property="og:site_name" content="EV Global Hub" />
+  <meta property="og:locale" content="ko_KR" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="og:title" content="EV Global Hub | 글로벌 순수전기차(BEV) 판매량·4개국 가격·성능 비교" />
+  <meta property="og:description" content="테슬라, 현대·기아, 독일 3사, BYD·샤오미, 일본 3사 등 34종 순수전기차의 미국·중국·한국·유럽 출시가와 2024~2026 분기별 판매량을 실시간으로 비교하세요." />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://electric.yocto.co.kr/" />
+  <meta name="twitter:title" content="EV Global Hub | 글로벌 순수전기차(BEV) 가격·성능·판매량 비교" />
+  <meta name="twitter:description" content="전 세계 베스트셀링 & 최신 순수전기차 34종의 4개국 가격·제원·분기별 판매량 대시보드" />
+
+  <!-- Inline SVG Favicon (Zero network overhead) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230284c7'/><text y='.9em' x='50%' text-anchor='middle' font-size='72'>⚡</text></svg>" />
+
+  <!-- Performance Preconnects -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin />
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6854824605420161"
+     crossorigin="anonymous"></script>
+
+  <!-- JSON-LD Structured Data for Google Search (WebApplication + Dataset) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "EV Global Hub",
+        "url": "https://electric.yocto.co.kr/",
+        "applicationCategory": "AutomotiveApplication",
+        "operatingSystem": "Web",
+        "inLanguage": ["ko", "en"],
+        "description": "Global Pure Battery Electric Vehicle (BEV) comparison dashboard featuring 4-region pricing (USA, China, South Korea, Europe), verified technical specifications, and 2024–2026 quarterly sales rankings.",
+        "author": {
+          "@type": "Person",
+          "name": "Changhyeok Bae"
+        }
+      },
+      {
+        "@type": "Dataset",
+        "name": "Global Pure BEV Pricing, Specifications & Quarterly Sales Dataset (2024–2026)",
+        "description": "Verified dataset of 34 global best-selling and latest pure battery electric vehicles across South Korea, Germany, USA, China, and Japan.",
+        "url": "https://electric.yocto.co.kr/",
+        "keywords": ["Electric Vehicles", "BEV", "EV Sales", "EV Price Comparison", "WLTP", "EPA"],
+        "creator": {
+          "@type": "Person",
+          "name": "Changhyeok Bae"
+        }
+      }
+    ]
+  }
+  </script>
+
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -24,7 +97,7 @@
 
   <!-- Pretendard & JetBrains Mono Fonts -->
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
 
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
@@ -35,7 +108,7 @@
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen selection:bg-sky-500 selection:text-white antialiased transition-colors duration-200">
 
   <!-- Background Ambient Glow -->
-  <div class="fixed inset-0 pointer-events-none overflow-hidden -z-10">
+  <div class="fixed inset-0 pointer-events-none overflow-hidden -z-10" aria-hidden="true">
     <div class="absolute -top-40 -left-40 w-96 h-96 bg-sky-500/10 dark:bg-sky-500/15 rounded-full blur-3xl"></div>
     <div class="absolute top-1/3 -right-40 w-[30rem] h-[30rem] bg-indigo-500/10 rounded-full blur-3xl"></div>
     <div class="absolute -bottom-40 left-1/3 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl"></div>
@@ -45,7 +118,7 @@
   <header class="sticky top-0 z-30 border-b border-slate-200 dark:border-slate-800/80 bg-white/85 dark:bg-slate-950/85 backdrop-blur-xl transition-colors">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-sky-500/20 font-bold text-lg text-white shrink-0">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-sky-500/20 font-bold text-lg text-white shrink-0" aria-hidden="true">
           ⚡
         </div>
         <div>
@@ -65,29 +138,23 @@
 
       <!-- Right Controls: Period Selector, Currency, Language, Theme Mode -->
       <div class="flex items-center gap-1.5 sm:gap-2">
-        <!-- Period Selector -->
         <div class="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-800 rounded-lg px-2 sm:px-2.5 py-1.5">
-          <span id="periodLabelText" class="text-xs text-slate-500 dark:text-slate-400 hidden lg:inline">📅 기준 기간:</span>
-          <select id="globalPeriodSelect" class="bg-transparent text-xs sm:text-sm font-semibold text-sky-600 dark:text-sky-400 focus:outline-none cursor-pointer">
-            <!-- Populated dynamically -->
-          </select>
+          <label for="globalPeriodSelect" id="periodLabelText" class="text-xs text-slate-500 dark:text-slate-400 hidden lg:inline">📅 기준 기간:</label>
+          <select id="globalPeriodSelect" aria-label="기준 기간 선택" class="bg-transparent text-xs sm:text-sm font-semibold text-sky-600 dark:text-sky-400 focus:outline-none cursor-pointer"></select>
         </div>
 
-        <!-- Currency Toggle Button -->
-        <button id="currencyToggleBtn" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-medium border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 transition flex items-center gap-1" title="Currency Display Mode">
-          <span>💱</span>
+        <button id="currencyToggleBtn" type="button" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-medium border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 transition flex items-center gap-1" title="통화 표기 전환">
+          <span aria-hidden="true">💱</span>
           <span id="currencyToggleLabel" class="hidden sm:inline">현지 통화</span>
         </button>
 
-        <!-- Language Toggle (KO / EN) -->
-        <button id="langToggleBtn" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 transition flex items-center gap-1" title="한국어 / English 전환">
-          <span>🌐</span>
+        <button id="langToggleBtn" type="button" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 transition flex items-center gap-1" title="한국어 / English 전환">
+          <span aria-hidden="true">🌐</span>
           <span id="langToggleLabel">English</span>
         </button>
 
-        <!-- Normal Mode / Night Mode Toggle -->
-        <button id="themeToggleBtn" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 transition flex items-center gap-1" title="Normal Mode / Night Mode 전환">
-          <span id="themeToggleIcon">🌙</span>
+        <button id="themeToggleBtn" type="button" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 transition flex items-center gap-1" title="Normal Mode / Night Mode 전환">
+          <span id="themeToggleIcon" aria-hidden="true">🌙</span>
           <span id="themeToggleLabel" class="hidden md:inline">Night Mode</span>
         </button>
       </div>
@@ -98,40 +165,37 @@
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5 pb-28">
 
     <!-- KPI Summary Cards (Rendered dynamically via JS) -->
-    <section class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4" id="kpiSection"></section>
+    <section aria-label="핵심 지표 요약" class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4" id="kpiSection"></section>
 
     <!-- Structured 3-Tier Filter & Search Control Panel -->
-    <section class="glass-card p-4 sm:p-5 rounded-2xl border border-slate-200 dark:border-slate-800/90 space-y-3.5">
+    <section aria-label="차량 필터 및 검색" class="glass-card p-4 sm:p-5 rounded-2xl border border-slate-200 dark:border-slate-800/90 space-y-3.5">
       
-      <!-- Tier 1: Country / Region Tabs (Single Line, Clean Labels) + Search + Sort -->
+      <!-- Tier 1: Country / Region Tabs + Search + Sort -->
       <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-3">
-        <!-- Region Filter Pills (Dynamically rendered from REGIONS) -->
-        <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 xl:pb-0" id="regionFilterGroup"></div>
+        <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 xl:pb-0" id="regionFilterGroup" role="tablist" aria-label="국가별 필터"></div>
 
-        <!-- Search & Sort Controls -->
         <div class="flex flex-wrap sm:flex-nowrap items-center gap-2 shrink-0">
           <div class="relative flex-1 sm:w-60">
             <input
-              type="text"
+              type="search"
               id="searchInput"
+              aria-label="전기차 검색"
               placeholder="모델명, 브랜드, 키워드 검색..."
               class="w-full bg-white dark:bg-slate-900/90 border border-slate-300 dark:border-slate-700/80 rounded-xl pl-8 pr-3 py-1.5 text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-sky-500"
             />
-            <span class="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs">🔍</span>
+            <span class="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs" aria-hidden="true">🔍</span>
           </div>
 
-          <select id="sortSelect" class="bg-white dark:bg-slate-900/90 border border-slate-300 dark:border-slate-700/80 rounded-xl px-3 py-1.5 text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 focus:outline-none focus:border-sky-500 cursor-pointer"></select>
+          <select id="sortSelect" aria-label="정렬 기준" class="bg-white dark:bg-slate-900/90 border border-slate-300 dark:border-slate-700/80 rounded-xl px-3 py-1.5 text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 focus:outline-none focus:border-sky-500 cursor-pointer"></select>
         </div>
       </div>
 
-      <!-- Tier 2: Manufacturer Brand Selector (Dedicated Row - No Overlap or Clipping) -->
+      <!-- Tier 2: Manufacturer Brand Selector -->
       <div class="pt-3 border-t border-slate-200/80 dark:border-slate-800/80 flex items-start sm:items-center gap-2.5">
         <span id="brandRowLabel" class="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider shrink-0 pt-1 sm:pt-0">
           브랜드
         </span>
-        <div class="flex flex-wrap items-center gap-1.5 flex-1" id="brandFilterGroup">
-          <!-- Populated dynamically via JS without duplicate country flags -->
-        </div>
+        <div class="flex flex-wrap items-center gap-1.5 flex-1" id="brandFilterGroup"></div>
       </div>
 
       <!-- Tier 3: Segment & Quick Specification Toggles + Result Counter -->
@@ -140,18 +204,18 @@
           <span id="specRowLabel" class="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mr-0.5">
             세부 조건
           </span>
-          <select id="segmentFilter" class="bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg px-2.5 py-1 text-xs font-medium text-slate-700 dark:text-slate-300 focus:outline-none cursor-pointer"></select>
+          <select id="segmentFilter" aria-label="차종 필터" class="bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg px-2.5 py-1 text-xs font-medium text-slate-700 dark:text-slate-300 focus:outline-none cursor-pointer"></select>
 
-          <button id="filter800V" class="px-2.5 py-1 rounded-lg text-xs font-medium border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">
+          <button id="filter800V" type="button" class="px-2.5 py-1 rounded-lg text-xs font-medium border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">
             ⚡ 800V+ 초급속
           </button>
-          <button id="filterNewOnly" class="px-2.5 py-1 rounded-lg text-xs font-medium border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">
+          <button id="filterNewOnly" type="button" class="px-2.5 py-1 rounded-lg text-xs font-medium border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">
             🆕 신차·최신형
           </button>
-          <button id="filterBestOnly" class="px-2.5 py-1 rounded-lg text-xs font-medium border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">
+          <button id="filterBestOnly" type="button" class="px-2.5 py-1 rounded-lg text-xs font-medium border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">
             🔥 베스트셀러
           </button>
-          <button id="resetFiltersBtn" class="px-2.5 py-1 rounded-lg text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-rose-500 dark:hover:text-rose-400 transition">
+          <button id="resetFiltersBtn" type="button" class="px-2.5 py-1 rounded-lg text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-rose-500 dark:hover:text-rose-400 transition">
             ↺ 필터 초기화
           </button>
         </div>
@@ -163,27 +227,27 @@
     </section>
 
     <!-- View Mode Navigation Tabs -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 dark:border-slate-800 pb-3">
+    <nav aria-label="뷰 모드 전환" class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 dark:border-slate-800 pb-3">
       <div class="flex items-center gap-2 overflow-x-auto no-scrollbar" id="viewTabs">
-        <button data-view="cards" class="view-tab active px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition shrink-0">
-          <span>🗂️</span> <span id="tabCardsLabel">차량 카드 & 4개국 가격 비교</span>
+        <button data-view="cards" type="button" class="view-tab active px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition shrink-0">
+          <span aria-hidden="true">🗂️</span> <span id="tabCardsLabel">차량 카드 & 4개국 가격 비교</span>
         </button>
-        <button data-view="table" class="view-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition shrink-0">
-          <span>📋</span> <span id="tabTableLabel">전체 스펙·가격·판매량 일람표</span>
+        <button data-view="table" type="button" class="view-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition shrink-0">
+          <span aria-hidden="true">📋</span> <span id="tabTableLabel">전체 스펙·가격·판매량 일람표</span>
         </button>
-        <button data-view="charts" class="view-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition shrink-0">
-          <span>📈</span> <span id="tabChartsLabel">분기별 판매 추이 & 포지셔닝 차트</span>
+        <button data-view="charts" type="button" class="view-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition shrink-0">
+          <span aria-hidden="true">📈</span> <span id="tabChartsLabel">분기별 판매 추이 & 포지셔닝 차트</span>
         </button>
       </div>
 
       <div class="text-xs text-slate-500 dark:text-slate-400 hidden md:block" id="compareHintText"></div>
-    </div>
+    </nav>
 
     <!-- VIEW 1: Vehicle Cards Grid -->
-    <section id="view-cards" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"></section>
+    <section id="view-cards" aria-label="전기차 비교 카드 목록" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"></section>
 
     <!-- VIEW 2: Comprehensive Table View -->
-    <section id="view-table" class="hidden">
+    <section id="view-table" aria-label="전기차 전체 비교표" class="hidden">
       <div class="glass-card rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
         <div class="overflow-x-auto">
           <table class="w-full text-left border-collapse text-xs sm:text-sm">
@@ -197,13 +261,13 @@
     </section>
 
     <!-- VIEW 3: Analytics & Quarterly Sales Charts -->
-    <section id="view-charts" class="hidden space-y-6">
+    <section id="view-charts" aria-label="분기별 판매량 및 가격 분석 차트" class="hidden space-y-6">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div class="glass-card p-5 rounded-2xl border border-slate-200 dark:border-slate-800">
           <div class="mb-4">
-            <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <span>🏆</span> <span id="chartSalesTitle"></span>
-            </h3>
+            <h2 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span aria-hidden="true">🏆</span> <span id="chartSalesTitle"></span>
+            </h2>
             <p id="chartSalesSub" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5"></p>
           </div>
           <div class="h-80"><canvas id="topModelsBarChart"></canvas></div>
@@ -211,9 +275,9 @@
 
         <div class="glass-card p-5 rounded-2xl border border-slate-200 dark:border-slate-800">
           <div class="mb-4">
-            <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <span>📈</span> <span id="chartBrandTitle"></span>
-            </h3>
+            <h2 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span aria-hidden="true">📈</span> <span id="chartBrandTitle"></span>
+            </h2>
             <p id="chartBrandSub" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5"></p>
           </div>
           <div class="h-80"><canvas id="brandTrendLineChart"></canvas></div>
@@ -223,9 +287,9 @@
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div class="glass-card p-5 rounded-2xl border border-slate-200 dark:border-slate-800">
           <div class="mb-4">
-            <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <span>🌍</span> <span id="chartPriceTitle"></span>
-            </h3>
+            <h2 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span aria-hidden="true">🌍</span> <span id="chartPriceTitle"></span>
+            </h2>
             <p id="chartPriceSub" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5"></p>
           </div>
           <div class="h-80"><canvas id="regionalPriceBarChart"></canvas></div>
@@ -233,9 +297,9 @@
 
         <div class="glass-card p-5 rounded-2xl border border-slate-200 dark:border-slate-800">
           <div class="mb-4">
-            <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <span>🎯</span> <span id="chartScatterTitle"></span>
-            </h3>
+            <h2 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span aria-hidden="true">🎯</span> <span id="chartScatterTitle"></span>
+            </h2>
             <p id="chartScatterSub" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5"></p>
           </div>
           <div class="h-80"><canvas id="priceRangeScatterChart"></canvas></div>
@@ -243,8 +307,31 @@
       </div>
     </section>
 
-    <!-- Data Verification & Sources Footnote -->
-    <section id="footnoteSection" class="glass-card p-5 rounded-2xl border border-slate-200 dark:border-slate-800/80 text-xs text-slate-600 dark:text-slate-400 space-y-2"></section>
+    <!-- Non-intrusive Google AdSense Banner (Placed cleanly below main content before footnotes) -->
+    <aside aria-label="스폰서 광고" class="glass-card px-4 py-3 rounded-2xl border border-slate-200/80 dark:border-slate-800/70 overflow-hidden">
+      <div class="text-[10px] font-mono uppercase tracking-widest text-slate-400 dark:text-slate-600 mb-1.5 text-center">
+        Sponsored
+      </div>
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-6854824605420161"
+           data-ad-slot="9426228178"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </aside>
+
+    <!-- Data Verification & Sources Footnote + Noscript SEO Fallback -->
+    <footer id="footnoteSection" class="glass-card p-5 rounded-2xl border border-slate-200 dark:border-slate-800/80 text-xs text-slate-600 dark:text-slate-400 space-y-2"></footer>
+
+    <noscript>
+      <section class="p-4 rounded-xl border border-slate-300 dark:border-slate-800 text-xs text-slate-500">
+        <h2>글로벌 순수전기차(BEV) 비교 목록 (EV Global Hub)</h2>
+        <p>본 페이지에서는 테슬라 모델 Y 주니퍼, 모델 3 하이랜드, 사이버트럭, 현대 아이오닉 9, 더 뉴 아이오닉 5, 캐스퍼 일렉트릭(인스터), 기아 EV3, EV4, EV6, EV9, BMW 노이어 클라쎄 iX3, i4, iX1, 메르세데스-벤츠 전기 CLA, GLC EQ, GLE EQ, 아우디 Q6 e-트론, Q4 e-트론, 포르쉐 마칸 일렉트릭, 폭스바겐 ID.4, BYD 시걸, 아토 3, 씰, 샤오미 SU7, YU7, 지리 싱위안, 지커 7X, 토요타 bZ4X, 혼다 프롤로그, 닛산 아리야의 한국·미국·중국·유럽 가격과 성능 및 분기별 판매량을 비교할 수 있습니다.</p>
+      </section>
+    </noscript>
 
   </main>
 
@@ -254,8 +341,8 @@
       <div class="bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-sky-500/40 rounded-2xl p-3 sm:p-4 shadow-2xl shadow-sky-950/30 dark:shadow-sky-950/60 flex flex-col sm:flex-row items-center justify-between gap-3">
         <div class="flex items-center gap-2 sm:gap-3 w-full sm:w-auto overflow-x-auto no-scrollbar" id="compareSlotList"></div>
         <div class="flex items-center gap-2 shrink-0 w-full sm:w-auto justify-end">
-          <button id="clearCompareBtn" class="px-3 py-2 rounded-xl text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition"></button>
-          <button id="openCompareModalBtn" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white shadow-lg shadow-sky-500/25 transition">
+          <button id="clearCompareBtn" type="button" class="px-3 py-2 rounded-xl text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition"></button>
+          <button id="openCompareModalBtn" type="button" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white shadow-lg shadow-sky-500/25 transition">
             <span id="openCompareBtnText"></span> (<span id="compareCountBadge">0</span>/4)
           </button>
         </div>
@@ -264,14 +351,14 @@
   </div>
 
   <!-- Head-to-Head Comparison Modal -->
-  <div id="compareModal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-6 bg-slate-950/70 backdrop-blur-md">
+  <div id="compareModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-6 bg-slate-950/70 backdrop-blur-md">
     <div class="bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-3xl max-w-6xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
       <div class="px-6 py-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
         <div>
           <h2 id="modalTitle" class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2"></h2>
           <p id="modalSub" class="text-xs text-slate-500 dark:text-slate-400"></p>
         </div>
-        <button id="closeCompareModalBtn" class="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center text-lg font-bold transition">
+        <button id="closeCompareModalBtn" type="button" aria-label="비교 창 닫기" class="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center text-lg font-bold transition">
           ✕
         </button>
       </div>
