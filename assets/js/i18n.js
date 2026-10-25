@@ -5,12 +5,12 @@
 const I18N = {
   ko: {
     meta: {
-      title: "전기차 비교 2026 | 글로벌 순수전기차 가격·주행거리·판매량 순위 - EV Global Hub",
+      title: "전기차 비교 2026 | 글로벌 48종 순수전기차 가격·주행거리·판매량 순위 - EV Global Hub",
       description:
-        "테슬라 모델 Y, 아이오닉 9, 기아 EV3, BYD, 샤오미 YU7, BMW iX3, 벤츠 CLA, 토요타 bZ4X 등 34종 순수전기차(BEV)의 한국·미국·중국·유럽 가격, 주행거리, 충전 속도, 2024~2026 분기별 판매량을 한눈에 비교하세요."
+        "테슬라 모델 Y, 아이오닉 9, 아이오닉 6, 기아 EV3·EV5, 제네시스 GV60, 폭스바겐 ID.4·ID.5·ID.7, BMW iX3·i5, 벤츠 CLA, 포르쉐 마칸·타이칸, BYD, 샤오미 YU7, 토요타 bZ4X, 렉서스 RZ 등 48종 순수전기차(BEV)의 4개국 가격, 제원, 공식 홈페이지, 분기별 판매량을 비교하세요."
     },
     heroTitle: "글로벌 전기차 가격 · 성능 · 판매량 비교",
-    heroSub: "한국·독일·미국·중국·일본 34종 순수전기차(BEV)의 4개국 출시가, 제원, 2024~2026 분기별 판매량",
+    heroSub: "한국·독일·미국·중국·일본 48종 순수전기차(BEV)의 4개국 출시가, 실차 사진, 공식 홈페이지, 2024~2026 분기별 판매량",
     periodLabel: "기준 기간",
     periods: {
       "2026 Q3": "2026년 3분기 (최신)",
@@ -30,8 +30,9 @@ const I18N = {
     },
     periodShort: { ALL: "24~26 누적", "2024 YEAR": "2024 연간", "2025 YEAR": "2025 연간" },
     currencyLabels: { local: "현지 통화", krw: "원화 환산", usd: "달러 환산" },
+    currencyShortLabels: { local: "현지", krw: "원화", usd: "USD" },
     currencyNote: { local: "현지 통화 기준", krw: "원화(KRW) 환산", usd: "달러(USD) 환산" },
-    langToggle: "English",
+    langToggle: "EN",
     themeLabels: { dark: "Night Mode", light: "Normal Mode" },
     brandRowLabel: "브랜드",
     allBrandsChip: "전체 브랜드",
@@ -52,14 +53,14 @@ const I18N = {
     },
     segments: { ALL: "모든 차종 (SUV/세단/트럭)", SUV: "SUV / 크로스오버", SEDAN: "세단 / 해치백", TRUCK: "픽업트럭" },
     excludeCNChip: "🚫 중국 제외 (KR·DE·US·JP)",
-    multiRegionHint: "복수 국가 선택 가능",
+    multiRegionHint: "여러 국가 버튼을 동시에 클릭해 복수 선택할 수 있습니다",
     filter800V: "⚡ 800V+ 초급속",
     filterNewOnly: "🆕 신차·최신형",
     filterBestOnly: "🔥 베스트셀러",
     resetBtn: "↺ 필터 초기화",
-    tabCards: "차량 카드 & 4개국 가격 비교",
-    tabTable: "전체 스펙·가격·판매량 일람표",
-    tabCharts: "분기별 판매 추이 & 포지셔닝 차트",
+    tabCards: "차량 카드 & 4개국 가격",
+    tabTable: "전체 스펙·가격 일람표",
+    tabCharts: "판매 추이 & 분석 차트",
     resultCountHtml: count => `총 <strong class="text-slate-900 dark:text-white font-mono">${count}</strong>개 순수전기차(BEV)`,
     compareHintHtml: `💡 카드의 <strong class="text-sky-600 dark:text-sky-400">[+ 비교 담기]</strong>로 최대 4대까지 1:1 대조`,
     emptyTitle: "선택한 필터 조건에 맞는 순수전기차가 없습니다.",
@@ -93,13 +94,15 @@ const I18N = {
     specRangeBattery: "🔋 주행거리 · 배터리",
     specPowerAccel: "🐎 최고출력 · 제로백",
     specFastCharge: "⚡ 10→80% 급속충전",
+    officialSiteBtn: "🌐 공식 홈페이지 ↗",
+    officialSiteShort: "공식홈 ↗",
     btnCompareSelected: "✓ 비교함 담김",
     btnCompareAdd: "+ 비교 담기",
     btnTableSelected: "✓ 선택됨",
     btnTableAdd: "+ 담기",
     tableHeaders: [
       "순위 / 모델", "국가 · 브랜드", "판매량", "🇺🇸 미국 가격", "🇨🇳 중국 가격",
-      "🇰🇷 한국 가격", "🇪🇺 유럽 가격", "배터리", "주행거리", "최고출력", "제로백", "초급속(10-80%)", "비교"
+      "🇰🇷 한국 가격", "🇪🇺 유럽 가격", "배터리", "주행거리", "최고출력", "제로백", "초급속(10-80%)", "공식홈 / 비교"
     ],
     chartLoading: "차트를 불러오는 중...",
     chartSalesTitle: p => `${p} 글로벌 판매 TOP 12 순수전기차`,
@@ -133,6 +136,7 @@ const I18N = {
       charge: "🔌 초급속 충전 (10→80%)",
       driveSpeed: "⚙️ 구동방식 · 최고속도",
       weight: "⚖️ 공차중량",
+      officialSite: "🌐 공식 홈페이지",
       source: "📌 제원 출처"
     },
     alertMax4: "최대 4대까지 동시에 비교할 수 있습니다. 기존 차량을 하나 제외한 뒤 추가해 주세요.",
@@ -143,7 +147,7 @@ const I18N = {
       <h2 class="font-semibold text-slate-800 dark:text-slate-200">ℹ️ 데이터 기준 및 출처</h2>
       <ul class="list-disc list-inside space-y-1 leading-relaxed">
         <li><strong>순수전기차(BEV)만 수록:</strong> 하이브리드(HEV·PHEV·EREV)는 차량 목록과 제조사 판매량 집계에서 모두 제외했습니다.</li>
-        <li><strong>제원:</strong> 각 제조사 공식 제원표 기준이며, 카드마다 주행거리 인증 기준(<code>WLTP</code> / <code>EPA</code> / <code>CLTC</code>)과 출처를 표기했습니다. 인증 기준이 다르면 주행거리를 직접 비교하기 어렵습니다 (CLTC &gt; WLTP &gt; EPA 순으로 수치가 높게 나오는 경향).</li>
+        <li><strong>제원 및 공식 홈페이지:</strong> 각 제조사 공식 제원표 기준이며, 카드마다 주행거리 인증 기준(<code>WLTP</code> / <code>EPA</code> / <code>CLTC</code>), 실차 이미지(Wikimedia Commons 라이선스), 제조사 공식 홈페이지 바로가기 링크를 제공합니다.</li>
         <li><strong>판매량:</strong> 모델별 분기 판매량은 제조사 실적 발표와 시장조사 보도를 바탕으로 한 <strong>추정치</strong>이며, 최근 분기는 잠정치입니다. 구매·투자 판단 전에는 공식 자료를 확인하세요.</li>
         <li><strong>가격·환율:</strong> 미국(USD, 보조금 전 MSRP), 중국(CNY, 공식 시작가), 한국(만 원, 세제혜택 후·보조금 전), 유럽(EUR, 독일 부가세 포함). 환산 기준 <code>1 USD = 1,380 KRW = 7.20 CNY = 0.92 EUR</code>.</li>
         <li>최종 업데이트: <time datetime="2026-10-25">2026년 10월 25일</time></li>
@@ -153,12 +157,12 @@ const I18N = {
 
   en: {
     meta: {
-      title: "EV Comparison 2026 | Global Electric Car Prices, Range & Sales Rankings - EV Global Hub",
+      title: "EV Comparison 2026 | 48 Global Pure Electric Car Prices, Range & Sales - EV Global Hub",
       description:
-        "Compare 34 pure electric vehicles (BEVs) including Tesla Model Y, Hyundai IONIQ 9, Kia EV3, BYD, Xiaomi YU7, BMW iX3, Mercedes CLA and Toyota bZ4X: prices in the US, China, Korea and Europe, range, charging speed and 2024–2026 quarterly sales."
+        "Compare 48 pure electric vehicles (BEVs) including Tesla Model Y, Hyundai IONIQ 9 & 6, Kia EV3 & EV5, Genesis GV60, VW ID.4, ID.5 & ID.7, BMW iX3 & i5, Porsche Macan & Taycan, BYD, Xiaomi YU7, Toyota bZ4X and Lexus RZ across 4 regions."
     },
     heroTitle: "Global EV Price, Spec & Sales Comparison",
-    heroSub: "4-region prices, specs and 2024–2026 quarterly sales of 34 pure BEVs from Korea, Germany, the US, China and Japan",
+    heroSub: "4-region prices, photos, official links and 2024–2026 quarterly sales of 48 pure BEVs from Korea, Germany, the US, China and Japan",
     periodLabel: "Period",
     periods: {
       "2026 Q3": "2026 Q3 (Latest)",
@@ -178,8 +182,9 @@ const I18N = {
     },
     periodShort: { ALL: "24–26 Total", "2024 YEAR": "2024 FY", "2025 YEAR": "2025 FY" },
     currencyLabels: { local: "Local Currency", krw: "In KRW (₩)", usd: "In USD ($)" },
+    currencyShortLabels: { local: "Local", krw: "KRW", usd: "USD" },
     currencyNote: { local: "Local currencies", krw: "Converted to KRW", usd: "Converted to USD" },
-    langToggle: "한국어",
+    langToggle: "KO",
     themeLabels: { dark: "Night Mode", light: "Normal Mode" },
     brandRowLabel: "Brand",
     allBrandsChip: "All Brands",
@@ -200,14 +205,14 @@ const I18N = {
     },
     segments: { ALL: "All Segments (SUV/Sedan/Truck)", SUV: "SUV / Crossover", SEDAN: "Sedan / Hatchback", TRUCK: "Pickup Truck" },
     excludeCNChip: "🚫 Exclude China (KR·DE·US·JP)",
-    multiRegionHint: "Multi-select enabled",
+    multiRegionHint: "Click multiple countries to compare any combination",
     filter800V: "⚡ 800V+ Ultra-Fast",
     filterNewOnly: "🆕 New Releases",
     filterBestOnly: "🔥 Best-Sellers",
     resetBtn: "↺ Reset Filters",
-    tabCards: "Vehicle Cards & 4-Region Prices",
-    tabTable: "Full Specs, Price & Sales Table",
-    tabCharts: "Quarterly Trends & Value Charts",
+    tabCards: "Vehicle Cards & Prices",
+    tabTable: "Full Specs & Sales Table",
+    tabCharts: "Sales Trends & Charts",
     resultCountHtml: count => `Showing <strong class="text-slate-900 dark:text-white font-mono">${count}</strong> pure BEVs`,
     compareHintHtml: `💡 Click <strong class="text-sky-600 dark:text-sky-400">[+ Compare]</strong> on up to 4 cards for side-by-side comparison`,
     emptyTitle: "No pure electric vehicles match your filters.",
@@ -241,13 +246,15 @@ const I18N = {
     specRangeBattery: "🔋 Range · Battery",
     specPowerAccel: "🐎 Power · 0–100 km/h",
     specFastCharge: "⚡ 10→80% Fast Charge",
+    officialSiteBtn: "🌐 Official Site ↗",
+    officialSiteShort: "Official ↗",
     btnCompareSelected: "✓ In Compare",
     btnCompareAdd: "+ Compare",
     btnTableSelected: "✓ Added",
     btnTableAdd: "+ Add",
     tableHeaders: [
       "Rank / Model", "Origin · Brand", "Sales", "🇺🇸 USA Price", "🇨🇳 China Price",
-      "🇰🇷 Korea Price", "🇪🇺 Europe Price", "Battery", "Range", "Power", "0–100", "10–80% Charge", "Compare"
+      "🇰🇷 Korea Price", "🇪🇺 Europe Price", "Battery", "Range", "Power", "0–100", "10–80% Charge", "Official / Compare"
     ],
     chartLoading: "Loading charts...",
     chartSalesTitle: p => `${p} Top 12 Best-Selling BEVs`,
@@ -281,6 +288,7 @@ const I18N = {
       charge: "🔌 Fast Charge (10→80%)",
       driveSpeed: "⚙️ Drivetrain · Top Speed",
       weight: "⚖️ Curb Weight",
+      officialSite: "🌐 Official Website",
       source: "📌 Spec Source"
     },
     alertMax4: "You can compare up to 4 vehicles at once. Please remove one first.",
@@ -307,7 +315,7 @@ const I18N = {
       <h2 class="font-semibold text-slate-800 dark:text-slate-200">ℹ️ Data Notes & Sources</h2>
       <ul class="list-disc list-inside space-y-1 leading-relaxed">
         <li><strong>Pure BEVs only:</strong> HEVs, PHEVs and EREVs are excluded from both the vehicle list and automaker sales totals.</li>
-        <li><strong>Specs:</strong> Based on official manufacturer specifications. Each card states its range cycle (<code>WLTP</code> / <code>EPA</code> / <code>CLTC</code>) and source; ranges from different cycles are not directly comparable.</li>
+        <li><strong>Specs & Official Links:</strong> Based on official manufacturer specifications. Each card states its range cycle (<code>WLTP</code> / <code>EPA</code> / <code>CLTC</code>), shows a real vehicle photo (Wikimedia Commons), and links directly to the automaker's official website.</li>
         <li><strong>Sales:</strong> Per-model quarterly sales are <strong>estimates</strong> derived from manufacturer reports and market research coverage; the latest quarters are preliminary. Check official sources before making purchase or investment decisions.</li>
         <li><strong>Prices & FX:</strong> USA (USD MSRP before incentives), China (CNY official starting price), South Korea (KRW after tax benefit, before subsidy), Europe (EUR, German price incl. VAT). Conversion: <code>1 USD = 1,380 KRW = 7.20 CNY = 0.92 EUR</code>.</li>
         <li>Last updated: <time datetime="2026-10-25">October 25, 2026</time></li>
@@ -315,4 +323,3 @@ const I18N = {
     `
   }
 };
-

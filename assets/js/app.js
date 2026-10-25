@@ -41,6 +41,18 @@
   };
   const QUICK_FILTERS = { "800v": "only800V", new: "onlyNew", best: "onlyBestSeller" };
 
+  // Inline SVG silhouette fallback if a vehicle photo fails to load
+  const FALLBACK_PATHS = {
+    SUV: "M55 128 L82 84 C90 72 104 66 125 66 L235 66 C255 66 272 75 284 90 L318 98 C332 102 342 112 344 128 Z",
+    SEDAN: "M50 128 L88 90 C102 76 120 72 145 72 L225 72 C248 72 268 82 285 96 L325 104 C338 108 345 116 346 128 Z",
+    TRUCK: "M48 128 L68 78 L195 78 L212 100 L338 100 L344 128 Z"
+  };
+  window.__evFallbackSvg = (seg = "SUV") => {
+    const body = FALLBACK_PATHS[seg] || FALLBACK_PATHS.SUV;
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 180"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0f172a"/><stop offset="100%" stop-color="#1e293b"/></linearGradient></defs><rect width="400" height="180" fill="url(#g)"/><path d="${body}" fill="rgba(56,189,248,0.22)" stroke="#38bdf8" stroke-width="3" stroke-linejoin="round"/><circle cx="115" cy="130" r="20" fill="#0f172a" stroke="#94a3b8" stroke-width="4"/><circle cx="285" cy="130" r="20" fill="#0f172a" stroke="#94a3b8" stroke-width="4"/></svg>`;
+    return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+  };
+
   const EV_BY_ID = new Map(EV_DATA.map(ev => [ev.id, ev]));
   const $ = id => document.getElementById(id);
 
@@ -65,7 +77,7 @@
     onlyBestSeller: false,
     currencyMode: CURRENCY_ORDER.includes(prefs.currencyMode) ? prefs.currencyMode : "local",
     activeView: "cards",
-    compareIds: ["tesla-model-y-juniper", "hyundai-ioniq-9", "bmw-ix3-neue-klasse", "toyota-bz4x"]
+    compareIds: ["tesla-model-y-juniper", "hyundai-ioniq-9", "bmw-ix3-neue-klasse", "vw-id5-pro"]
   };
 
   const charts = {};
@@ -99,6 +111,7 @@
   const segmentLabel = ev => (isKo() ? ev.segment : ev.segmentEn || ev.segment);
   const badgeLabel = ev => (isKo() ? ev.badge : ev.badgeEn || ev.badge);
   const highlights = ev => (isKo() ? ev.highlights : ev.highlightsEn || ev.highlights);
+  const officialLink = ev => (isKo() ? ev.officialUrlKo || ev.officialUrl : ev.officialUrl || ev.officialUrlKo);
   const regionLabel = code => (isKo() ? REGIONS[code].labelKo : REGIONS[code].labelEn);
   const periodLabel = (p = state.period) => t().periodShort[p] || p;
   const fmt = n => n.toLocaleString("en-US");
@@ -277,6 +290,9 @@
     $("themeToggleIcon").textContent = dark ? "🌙" : "☀️";
     $("themeToggleLabel").textContent = d.themeLabels[state.theme];
     $("currencyToggleLabel").textContent = d.currencyLabels[state.currencyMode];
+    if ($("currencyToggleShortLabel")) {
+      $("currencyToggleShortLabel").textContent = d.currencyShortLabels[state.currencyMode];
+    }
     document.querySelector('meta[name="theme-color"]').setAttribute("content", dark ? "#020617" : "#f8fafc");
 
     Object.entries(QUICK_FILTERS).forEach(([key, prop]) => {
@@ -302,17 +318,17 @@
 
     const allBtnHtml = `
       <button type="button" data-action="region" data-region="ALL" aria-pressed="${allActive}"
-        class="region-pill ${allActive ? "active" : ""} px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-1.5 shrink-0">
+        class="region-pill ${allActive ? "active" : ""} px-2.5 sm:px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-1 sm:gap-1.5 shrink-0">
         <span aria-hidden="true">${REGIONS.ALL.flag}</span><span>${regionLabel("ALL")}</span>
-        <span class="opacity-75 font-mono text-xs">(${EV_DATA.length})</span>
+        <span class="opacity-75 font-mono text-[11px] sm:text-xs">(${EV_DATA.length})</span>
       </button>`;
 
     const noCnBtnHtml = `
       <button type="button" data-action="region-preset" data-preset="NO_CN" aria-pressed="${noCnActive}"
-        class="region-pill ${noCnActive ? "active" : ""} px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-1 shrink-0"
+        class="region-pill ${noCnActive ? "active" : ""} px-2.5 sm:px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-1 shrink-0"
         title="${d.multiRegionHint}">
         <span>${d.excludeCNChip}</span>
-        <span class="opacity-75 font-mono text-xs">(${noCnCount})</span>
+        <span class="opacity-75 font-mono text-[11px] sm:text-xs">(${noCnCount})</span>
       </button>`;
 
     const countryBtnsHtml = ALL_ORIGIN_CODES.map(code => {
@@ -321,10 +337,10 @@
       const active = state.selectedRegions.has(code);
       return `
         <button type="button" data-action="region" data-region="${code}" aria-pressed="${active}"
-          class="region-pill ${active ? "active" : ""} px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-1.5 shrink-0"
+          class="region-pill ${active ? "active" : ""} px-2.5 sm:px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-1 sm:gap-1.5 shrink-0"
           title="${d.multiRegionHint}">
           <span aria-hidden="true">${meta.flag}</span><span>${regionLabel(code)}</span>
-          <span class="opacity-75 font-mono text-xs">(${count})</span>
+          <span class="opacity-75 font-mono text-[11px] sm:text-xs">(${count})</span>
         </button>`;
     }).join("");
 
@@ -381,12 +397,12 @@
 
     $("kpiSection").innerHTML = cards
       .map(c => `
-        <div class="glass-card p-4 rounded-2xl border border-slate-200 dark:border-slate-800/80">
-          <div class="flex items-center justify-between gap-2 text-xs text-slate-500 dark:text-slate-400 mb-1">
+        <div class="glass-card p-3 sm:p-4 rounded-2xl border border-slate-200 dark:border-slate-800/80">
+          <div class="flex items-center justify-between gap-1.5 text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 mb-1">
             <span class="truncate">${c.title}</span><span class="${c.color} font-semibold shrink-0">${c.badge}</span>
           </div>
-          <div class="text-base sm:text-lg font-bold text-slate-900 dark:text-white truncate">${brandLabel(c.ev)} ${c.ev.name}</div>
-          <div class="text-xs ${c.color} font-mono mt-1 truncate">${c.val}</div>
+          <div class="text-sm sm:text-lg font-bold text-slate-900 dark:text-white truncate">${brandLabel(c.ev)} ${c.ev.name}</div>
+          <div class="text-[11px] sm:text-xs ${c.color} font-mono mt-0.5 sm:mt-1 truncate">${c.val}</div>
         </div>`)
       .join("");
   }
@@ -421,6 +437,8 @@
     const selected = state.compareIds.includes(ev.id);
     const rangePct = Math.min(100, Math.round((ev.specs.rangeKm / 800) * 100));
     const powerPct = Math.min(100, Math.round((ev.specs.powerHp / 850) * 100));
+    const url = officialLink(ev);
+    const imgSrc = ev.imageUrl || window.__evFallbackSvg(ev.segmentCode);
 
     let qoqBadge = "";
     if (qoq === "NEW") {
@@ -431,89 +449,125 @@
     }
 
     return `
-      <article class="ev-card cv-auto glass-card rounded-2xl border ${selected ? "border-sky-500/80 ring-1 ring-sky-500/40" : "border-slate-200 dark:border-slate-800/90"} p-5 flex flex-col justify-between group">
+      <article class="ev-card cv-auto glass-card rounded-2xl border ${selected ? "border-sky-500/80 ring-1 ring-sky-500/40" : "border-slate-200 dark:border-slate-800/90"} overflow-hidden flex flex-col justify-between group">
         <div>
-          <div class="flex items-center justify-between gap-2 mb-3">
-            <div class="flex items-center gap-1.5 flex-wrap">
-              <span class="w-6 h-6 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 font-mono text-xs font-bold text-sky-600 dark:text-sky-400 flex items-center justify-center">${index + 1}</span>
-              <span class="px-2 py-0.5 rounded-md text-[11px] font-semibold border ${origin.badgeClass}">${origin.flag} ${brandLabel(ev)}</span>
-              <span class="text-[11px] text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-900 px-2 py-0.5 rounded-md border border-slate-200 dark:border-slate-800">${segmentLabel(ev)}</span>
-            </div>
-            <div class="flex items-center gap-1 shrink-0">
-              ${ev.specs.architectureV >= 800 ? `<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/30">${ev.specs.architectureV}V</span>` : ""}
-              ${ev.isNew ? `<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-sky-500/15 text-sky-700 dark:text-sky-300 border border-sky-500/30">NEW</span>` : ""}
-            </div>
-          </div>
+          <!-- Vehicle Photo Banner -->
+          <div class="relative h-44 sm:h-48 w-full bg-slate-200 dark:bg-slate-900 overflow-hidden">
+            <img
+              src="${imgSrc}"
+              alt="${brandLabel(ev)} ${ev.name}"
+              loading="lazy"
+              decoding="async"
+              referrerpolicy="no-referrer"
+              onerror="this.onerror=null;this.src=window.__evFallbackSvg('${ev.segmentCode}')"
+              class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-slate-950/35 pointer-events-none"></div>
 
-          <div class="mb-3">
-            <div class="flex items-baseline justify-between gap-2">
-              <h3 class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-sky-600 dark:group-hover:text-sky-300 transition">${ev.name}</h3>
-              <span class="text-[11px] text-slate-500 dark:text-slate-400 font-mono shrink-0">${ev.releaseYear}${d.modelYearSuffix}</span>
-            </div>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">${subName(ev)}</p>
-            <div class="mt-1.5 inline-block px-2 py-0.5 rounded-md bg-sky-50 dark:bg-slate-900/90 border border-sky-200 dark:border-slate-800 text-[11px] text-sky-700 dark:text-sky-300 font-medium">✨ ${badgeLabel(ev)}</div>
-          </div>
-
-          <div class="bg-slate-100/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800/80 rounded-xl p-3 mb-3 flex items-center justify-between gap-2">
-            <div>
-              <div class="text-[11px] text-slate-500 dark:text-slate-400">${d.globalSalesLabel(periodLabel())}</div>
-              <div class="flex items-baseline gap-1.5 mt-0.5 flex-wrap">
-                <span class="text-base font-bold font-mono text-slate-900 dark:text-white">${sales > 0 ? `${fmt(sales)}${d.unitsSuffix}` : d.preRelease}</span>
-                ${qoqBadge}
+            <!-- Top Overlay: Rank + Country/Brand + 800V/NEW Badges -->
+            <div class="absolute top-3 inset-x-3 flex items-center justify-between gap-2">
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="w-6 h-6 rounded-lg bg-slate-950/80 backdrop-blur-md border border-white/20 font-mono text-xs font-bold text-sky-400 flex items-center justify-center shadow">${index + 1}</span>
+                <span class="px-2 py-0.5 rounded-md text-[11px] font-semibold bg-slate-950/75 backdrop-blur-md text-white border border-white/20 shadow">${origin.flag} ${brandLabel(ev)}</span>
+              </div>
+              <div class="flex items-center gap-1 shrink-0">
+                ${ev.specs.architectureV >= 800 ? `<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-500/90 text-slate-950 shadow">${ev.specs.architectureV}V</span>` : ""}
+                ${ev.isNew ? `<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-sky-500/90 text-white shadow">NEW</span>` : ""}
               </div>
             </div>
-            <div class="w-24 shrink-0">
-              <div class="text-[10px] text-slate-500 text-right mb-0.5">${d.recent7Q}</div>
-              ${sparkline(ev)}
-            </div>
-          </div>
 
-          <div class="mb-3.5">
-            <div class="text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1.5 flex items-center justify-between">
-              <span>${d.price4RegionTitle}</span><span class="text-[10px] text-slate-500 font-normal">${d.currencyNote[state.currencyMode]}</span>
-            </div>
-            <div class="grid grid-cols-2 gap-1.5 text-xs font-mono">
-              ${priceCell(d.marketKR, ev.prices.kr, "kr", "text-emerald-700 dark:text-emerald-300 font-semibold")}
-              ${priceCell(d.marketUS, ev.prices.us, "us", "text-slate-800 dark:text-slate-200")}
-              ${priceCell(d.marketCN, ev.prices.cn, "cn", "text-rose-600 dark:text-rose-300")}
-              ${priceCell(d.marketEU, ev.prices.eu, "eu", "text-slate-800 dark:text-slate-200")}
-            </div>
-          </div>
-
-          <div class="space-y-2 mb-3.5 text-xs">
-            <div>
-              <div class="flex justify-between gap-2 text-[11px] mb-0.5">
-                <span class="text-slate-500 dark:text-slate-400">${d.specRangeBattery}</span>
-                <span class="font-mono text-slate-900 dark:text-white font-semibold">${ev.specs.rangeKm} km <span class="text-[10px] text-emerald-600 dark:text-emerald-400 font-normal">[${ev.rangeCycle}]</span> <span class="text-slate-500 dark:text-slate-400 font-normal">· ${ev.specs.batteryKwh} kWh</span></span>
+            <!-- Bottom Overlay: Segment + Release Year + Official Site Quick Link -->
+            <div class="absolute bottom-2.5 inset-x-3 flex items-end justify-between gap-2">
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="text-[11px] text-slate-100 bg-slate-950/70 backdrop-blur-md px-2 py-0.5 rounded-md border border-white/15">${segmentLabel(ev)}</span>
+                <span class="text-[11px] text-slate-200 font-mono bg-slate-950/60 backdrop-blur-md px-1.5 py-0.5 rounded">${ev.releaseYear}${d.modelYearSuffix}</span>
               </div>
-              <div class="w-full h-1.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full" style="width:${rangePct}%"></div></div>
-            </div>
-            <div>
-              <div class="flex justify-between gap-2 text-[11px] mb-0.5">
-                <span class="text-slate-500 dark:text-slate-400">${d.specPowerAccel}</span>
-                <span class="font-mono text-slate-900 dark:text-white font-semibold">${ev.specs.powerHp} hp <span class="text-slate-500 dark:text-slate-400 font-normal">(${ev.specs.zeroToHundred}s · ${ev.specs.drivetrain})</span></span>
-              </div>
-              <div class="w-full h-1.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-sky-500 to-indigo-400 rounded-full" style="width:${powerPct}%"></div></div>
-            </div>
-            <div class="flex items-center justify-between pt-1 text-[11px] text-slate-600 dark:text-slate-300 border-t border-slate-200 dark:border-slate-800/60">
-              <span>${d.specFastCharge}</span>
-              <span class="font-mono text-amber-600 dark:text-amber-300 font-semibold">${ev.specs.chargeTimeMin} min (max ${ev.specs.chargingKw} kW)</span>
+              ${url ? `
+                <a href="${url}" target="_blank" rel="noopener noreferrer"
+                  class="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-white/90 hover:bg-white text-slate-900 shadow-md transition flex items-center gap-1 shrink-0"
+                  title="${d.officialSiteBtn}">
+                  <span>${d.officialSiteShort}</span>
+                </a>` : ""}
             </div>
           </div>
 
-          <ul class="space-y-1 text-[11px] text-slate-600 dark:text-slate-400 mb-4">
-            ${highlights(ev).map(h => `<li class="flex items-start gap-1.5"><span class="text-sky-500 dark:text-sky-400 mt-0.5" aria-hidden="true">•</span><span class="leading-snug">${h}</span></li>`).join("")}
-          </ul>
+          <!-- Card Body -->
+          <div class="p-4 sm:p-5 pb-0">
+            <div class="mb-3">
+              <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white group-hover:text-sky-600 dark:group-hover:text-sky-300 transition leading-snug">${ev.name}</h3>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">${subName(ev)}</p>
+              <div class="mt-1.5 inline-block px-2 py-0.5 rounded-md bg-sky-50 dark:bg-slate-900/90 border border-sky-200 dark:border-slate-800 text-[11px] text-sky-700 dark:text-sky-300 font-medium">✨ ${badgeLabel(ev)}</div>
+            </div>
+
+            <div class="bg-slate-100/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800/80 rounded-xl p-2.5 sm:p-3 mb-3 flex items-center justify-between gap-2">
+              <div class="min-w-0">
+                <div class="text-[11px] text-slate-500 dark:text-slate-400 truncate">${d.globalSalesLabel(periodLabel())}</div>
+                <div class="flex items-baseline gap-1.5 mt-0.5 flex-wrap">
+                  <span class="text-sm sm:text-base font-bold font-mono text-slate-900 dark:text-white">${sales > 0 ? `${fmt(sales)}${d.unitsSuffix}` : d.preRelease}</span>
+                  ${qoqBadge}
+                </div>
+              </div>
+              <div class="w-20 sm:w-24 shrink-0">
+                <div class="text-[10px] text-slate-500 text-right mb-0.5">${d.recent7Q}</div>
+                ${sparkline(ev)}
+              </div>
+            </div>
+
+            <div class="mb-3.5">
+              <div class="text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1.5 flex items-center justify-between">
+                <span>${d.price4RegionTitle}</span><span class="text-[10px] text-slate-500 font-normal">${d.currencyNote[state.currencyMode]}</span>
+              </div>
+              <div class="grid grid-cols-2 gap-1.5 text-xs font-mono">
+                ${priceCell(d.marketKR, ev.prices.kr, "kr", "text-emerald-700 dark:text-emerald-300 font-semibold")}
+                ${priceCell(d.marketUS, ev.prices.us, "us", "text-slate-800 dark:text-slate-200")}
+                ${priceCell(d.marketCN, ev.prices.cn, "cn", "text-rose-600 dark:text-rose-300")}
+                ${priceCell(d.marketEU, ev.prices.eu, "eu", "text-slate-800 dark:text-slate-200")}
+              </div>
+            </div>
+
+            <div class="space-y-2 mb-3.5 text-xs">
+              <div>
+                <div class="flex justify-between gap-2 text-[11px] mb-0.5">
+                  <span class="text-slate-500 dark:text-slate-400">${d.specRangeBattery}</span>
+                  <span class="font-mono text-slate-900 dark:text-white font-semibold">${ev.specs.rangeKm} km <span class="text-[10px] text-emerald-600 dark:text-emerald-400 font-normal">[${ev.rangeCycle}]</span> <span class="text-slate-500 dark:text-slate-400 font-normal">· ${ev.specs.batteryKwh} kWh</span></span>
+                </div>
+                <div class="w-full h-1.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full" style="width:${rangePct}%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between gap-2 text-[11px] mb-0.5">
+                  <span class="text-slate-500 dark:text-slate-400">${d.specPowerAccel}</span>
+                  <span class="font-mono text-slate-900 dark:text-white font-semibold">${ev.specs.powerHp} hp <span class="text-slate-500 dark:text-slate-400 font-normal">(${ev.specs.zeroToHundred}s · ${ev.specs.drivetrain})</span></span>
+                </div>
+                <div class="w-full h-1.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-sky-500 to-indigo-400 rounded-full" style="width:${powerPct}%"></div></div>
+              </div>
+              <div class="flex items-center justify-between pt-1 text-[11px] text-slate-600 dark:text-slate-300 border-t border-slate-200 dark:border-slate-800/60">
+                <span>${d.specFastCharge}</span>
+                <span class="font-mono text-amber-600 dark:text-amber-300 font-semibold">${ev.specs.chargeTimeMin} min (max ${ev.specs.chargingKw} kW)</span>
+              </div>
+            </div>
+
+            <ul class="space-y-1 text-[11px] text-slate-600 dark:text-slate-400 mb-4">
+              ${highlights(ev).map(h => `<li class="flex items-start gap-1.5"><span class="text-sky-500 dark:text-sky-400 mt-0.5" aria-hidden="true">•</span><span class="leading-snug">${h}</span></li>`).join("")}
+            </ul>
+          </div>
         </div>
 
-        <div class="pt-3 border-t border-slate-200 dark:border-slate-800/80 flex items-center justify-between gap-2">
-          <span class="text-[10px] text-slate-500 truncate" title="${ev.sourceNote}">📌 ${ev.sourceNote}</span>
-          <button type="button" data-action="compare" data-id="${ev.id}" aria-pressed="${selected}"
-            class="px-3 py-1.5 rounded-xl text-xs font-semibold transition shrink-0 ${selected
-              ? "bg-sky-500 text-white shadow-md shadow-sky-500/25"
-              : "bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-300 dark:border-slate-700"}">
-            ${selected ? d.btnCompareSelected : d.btnCompareAdd}
-          </button>
+        <!-- Card Footer: Source + Official Homepage + Compare Button -->
+        <div class="px-4 sm:px-5 py-3 border-t border-slate-200 dark:border-slate-800/80 flex items-center justify-between gap-2 bg-slate-50/50 dark:bg-slate-900/40">
+          <span class="text-[10px] text-slate-500 truncate flex-1" title="${ev.sourceNote}">📌 ${ev.sourceNote}</span>
+          <div class="flex items-center gap-1.5 shrink-0">
+            ${url ? `
+              <a href="${url}" target="_blank" rel="noopener noreferrer"
+                class="px-2.5 py-1.5 rounded-xl text-xs font-medium bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 transition">
+                ${d.officialSiteBtn}
+              </a>` : ""}
+            <button type="button" data-action="compare" data-id="${ev.id}" aria-pressed="${selected}"
+              class="px-3 py-1.5 rounded-xl text-xs font-semibold transition ${selected
+                ? "bg-sky-500 text-white shadow-md shadow-sky-500/25"
+                : "bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-300 dark:border-slate-700"}">
+              ${selected ? d.btnCompareSelected : d.btnCompareAdd}
+            </button>
+          </div>
         </div>
       </article>`;
   }
@@ -539,7 +593,7 @@
     $("tableHeadRow").innerHTML = headers
       .map((h, i) => {
         const cls =
-          i === 0 ? "px-4 sticky left-0 bg-slate-100 dark:bg-slate-900 z-10"
+          i === 0 ? "px-3 sm:px-4 sticky left-0 bg-slate-100 dark:bg-slate-900 z-10"
           : i === 1 ? "px-3"
           : i === 2 ? "px-3 text-right text-sky-600 dark:text-sky-400"
           : i === last ? "px-3 text-center"
@@ -553,30 +607,41 @@
         const origin = REGIONS[ev.origin];
         const sales = salesFor(ev);
         const selected = state.compareIds.includes(ev.id);
+        const url = officialLink(ev);
+        const imgSrc = ev.imageUrl || window.__evFallbackSvg(ev.segmentCode);
         return `
           <tr class="hover:bg-slate-100/70 dark:hover:bg-slate-900/70 transition whitespace-nowrap">
-            <th scope="row" class="py-3 px-4 sticky left-0 bg-white/95 dark:bg-slate-950/95 z-10 font-sans text-left font-normal">
-              <div class="flex items-center gap-2">
-                <span class="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 text-sky-600 dark:text-sky-400 font-mono text-[11px] font-bold flex items-center justify-center">${idx + 1}</span>
-                <div><div class="font-bold text-slate-900 dark:text-white">${ev.name}</div><div class="text-[11px] text-slate-500 dark:text-slate-400">${subName(ev)}</div></div>
+            <th scope="row" class="py-2.5 px-3 sm:px-4 sticky left-0 bg-white/95 dark:bg-slate-950/95 z-10 font-sans text-left font-normal">
+              <div class="flex items-center gap-2.5">
+                <span class="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 text-sky-600 dark:text-sky-400 font-mono text-[11px] font-bold flex items-center justify-center shrink-0">${idx + 1}</span>
+                <img src="${imgSrc}" alt="${ev.name}" loading="lazy" decoding="async" referrerpolicy="no-referrer"
+                  onerror="this.onerror=null;this.src=window.__evFallbackSvg('${ev.segmentCode}')"
+                  class="w-11 h-7 rounded object-cover border border-slate-200 dark:border-slate-700 hidden sm:block shrink-0" />
+                <div>
+                  <div class="font-bold text-slate-900 dark:text-white">${ev.name}</div>
+                  <div class="text-[11px] text-slate-500 dark:text-slate-400">${subName(ev)}</div>
+                </div>
               </div>
             </th>
-            <td class="py-3 px-3 font-sans"><span class="px-2 py-0.5 rounded text-[11px] border ${origin.badgeClass}">${origin.flag} ${brandLabel(ev)}</span></td>
-            <td class="py-3 px-3 text-right font-bold text-sky-600 dark:text-sky-300">${sales > 0 ? `${fmt(sales)}${d.unitsSuffix}` : "-"}</td>
-            <td class="py-3 px-3 text-right">${formatPrice(ev.prices.us, "us")}</td>
-            <td class="py-3 px-3 text-right text-rose-600 dark:text-rose-300">${formatPrice(ev.prices.cn, "cn")}</td>
-            <td class="py-3 px-3 text-right text-emerald-700 dark:text-emerald-300 font-semibold">${formatPrice(ev.prices.kr, "kr")}</td>
-            <td class="py-3 px-3 text-right">${formatPrice(ev.prices.eu, "eu")}</td>
-            <td class="py-3 px-3 text-right">${ev.specs.batteryKwh} kWh</td>
-            <td class="py-3 px-3 text-right font-semibold text-slate-900 dark:text-white">${ev.specs.rangeKm} km <span class="text-[10px] text-slate-400">(${ev.rangeCycle})</span></td>
-            <td class="py-3 px-3 text-right">${ev.specs.powerHp} hp</td>
-            <td class="py-3 px-3 text-right">${ev.specs.zeroToHundred}s</td>
-            <td class="py-3 px-3 text-right text-amber-600 dark:text-amber-300">${ev.specs.chargeTimeMin} min (${ev.specs.architectureV}V)</td>
-            <td class="py-3 px-3 text-center font-sans">
-              <button type="button" data-action="compare" data-id="${ev.id}" aria-pressed="${selected}"
-                class="px-2 py-1 rounded text-[11px] font-semibold ${selected ? "bg-sky-500 text-white" : "bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700"}">
-                ${selected ? d.btnTableSelected : d.btnTableAdd}
-              </button>
+            <td class="py-2.5 px-3 font-sans"><span class="px-2 py-0.5 rounded text-[11px] border ${origin.badgeClass}">${origin.flag} ${brandLabel(ev)}</span></td>
+            <td class="py-2.5 px-3 text-right font-bold text-sky-600 dark:text-sky-300">${sales > 0 ? `${fmt(sales)}${d.unitsSuffix}` : "-"}</td>
+            <td class="py-2.5 px-3 text-right">${formatPrice(ev.prices.us, "us")}</td>
+            <td class="py-2.5 px-3 text-right text-rose-600 dark:text-rose-300">${formatPrice(ev.prices.cn, "cn")}</td>
+            <td class="py-2.5 px-3 text-right text-emerald-700 dark:text-emerald-300 font-semibold">${formatPrice(ev.prices.kr, "kr")}</td>
+            <td class="py-2.5 px-3 text-right">${formatPrice(ev.prices.eu, "eu")}</td>
+            <td class="py-2.5 px-3 text-right">${ev.specs.batteryKwh} kWh</td>
+            <td class="py-2.5 px-3 text-right font-semibold text-slate-900 dark:text-white">${ev.specs.rangeKm} km <span class="text-[10px] text-slate-400">(${ev.rangeCycle})</span></td>
+            <td class="py-2.5 px-3 text-right">${ev.specs.powerHp} hp</td>
+            <td class="py-2.5 px-3 text-right">${ev.specs.zeroToHundred}s</td>
+            <td class="py-2.5 px-3 text-right text-amber-600 dark:text-amber-300">${ev.specs.chargeTimeMin} min (${ev.specs.architectureV}V)</td>
+            <td class="py-2.5 px-3 text-center font-sans">
+              <div class="inline-flex items-center gap-1.5">
+                ${url ? `<a href="${url}" target="_blank" rel="noopener noreferrer" class="px-2 py-1 rounded text-[11px] font-medium bg-slate-100 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 border border-slate-200 dark:border-slate-700">${d.officialSiteShort}</a>` : ""}
+                <button type="button" data-action="compare" data-id="${ev.id}" aria-pressed="${selected}"
+                  class="px-2 py-1 rounded text-[11px] font-semibold ${selected ? "bg-sky-500 text-white" : "bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700"}">
+                  ${selected ? d.btnTableSelected : d.btnTableAdd}
+                </button>
+              </div>
             </td>
           </tr>`;
       })
@@ -748,7 +813,7 @@
       .map(id => EV_BY_ID.get(id))
       .filter(Boolean)
       .map(ev => `
-        <div class="flex items-center gap-2 bg-slate-100 dark:bg-slate-800/90 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-1.5 text-xs shrink-0">
+        <div class="flex items-center gap-1.5 sm:gap-2 bg-slate-100 dark:bg-slate-800/90 border border-slate-300 dark:border-slate-700 rounded-xl px-2.5 sm:px-3 py-1 sm:py-1.5 text-xs shrink-0">
           <span aria-hidden="true">${REGIONS[ev.origin].flag}</span>
           <span class="font-semibold text-slate-900 dark:text-white">${brandLabel(ev)} ${ev.name}</span>
           <button type="button" data-action="compare" data-id="${ev.id}" aria-label="${t().removeCompare}" class="text-slate-400 hover:text-rose-500 font-bold ml-1">✕</button>
@@ -779,8 +844,8 @@
 
     const win = `<span class="ml-1 px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-500/40">WIN</span>`;
     const bestOf = (fn, pick) => pick(...models.map(fn));
-    const rowLabel = text => `<th scope="row" class="py-3 px-4 font-sans font-normal text-left text-slate-500 dark:text-slate-400">${text}</th>`;
-    const row = (label, cellFn) => `<tr>${rowLabel(label)}${models.map(m => `<td class="py-3 px-4">${cellFn(m)}</td>`).join("")}</tr>`;
+    const rowLabel = text => `<th scope="row" class="py-3 px-3 sm:px-4 font-sans font-normal text-left text-slate-500 dark:text-slate-400">${text}</th>`;
+    const row = (label, cellFn) => `<tr>${rowLabel(label)}${models.map(m => `<td class="py-3 px-3 sm:px-4">${cellFn(m)}</td>`).join("")}</tr>`;
     const winRow = (label, valueFn, pick, renderFn) => {
       const best = bestOf(valueFn, pick);
       return row(label, m => `${renderFn(m)}${valueFn(m) === best && valueFn(m) > 0 ? win : ""}`);
@@ -792,13 +857,19 @@
         <table class="w-full text-left border-collapse text-xs sm:text-sm">
           <thead>
             <tr class="border-b border-slate-200 dark:border-slate-800">
-              <th scope="col" class="py-3 px-4 text-slate-500 dark:text-slate-400 w-44">${r.metric}</th>
-              ${models.map(m => `
-                <th scope="col" class="py-3 px-4 min-w-[180px]">
-                  <div class="text-xs text-slate-500 dark:text-slate-400 mb-1">${REGIONS[m.origin].flag} ${brandLabel(m)} · ${segmentLabel(m)}</div>
-                  <div class="text-base font-bold text-slate-900 dark:text-white">${m.name}</div>
-                  <div class="text-xs text-sky-600 dark:text-sky-400 font-normal mt-0.5">${subName(m)}</div>
-                </th>`).join("")}
+              <th scope="col" class="py-3 px-3 sm:px-4 text-slate-500 dark:text-slate-400 w-36 sm:w-44">${r.metric}</th>
+              ${models.map(m => {
+                const imgSrc = m.imageUrl || window.__evFallbackSvg(m.segmentCode);
+                return `
+                  <th scope="col" class="py-3 px-3 sm:px-4 min-w-[170px] sm:min-w-[190px] align-top">
+                    <img src="${imgSrc}" alt="${m.name}" loading="lazy" decoding="async" referrerpolicy="no-referrer"
+                      onerror="this.onerror=null;this.src=window.__evFallbackSvg('${m.segmentCode}')"
+                      class="w-full h-24 sm:h-28 object-cover rounded-xl mb-2 border border-slate-200 dark:border-slate-800" />
+                    <div class="text-xs text-slate-500 dark:text-slate-400 mb-0.5">${REGIONS[m.origin].flag} ${brandLabel(m)} · ${segmentLabel(m)}</div>
+                    <div class="text-sm sm:text-base font-bold text-slate-900 dark:text-white">${m.name}</div>
+                    <div class="text-xs text-sky-600 dark:text-sky-400 font-normal mt-0.5">${subName(m)}</div>
+                  </th>`;
+              }).join("")}
             </tr>
           </thead>
           <tbody class="divide-y divide-slate-200 dark:divide-slate-800/70 font-mono text-xs">
@@ -814,6 +885,10 @@
             ${winRow(r.charge, m => m.specs.chargeTimeMin, Math.min, m => `<span class="text-amber-600 dark:text-amber-300 font-semibold">${m.specs.chargeTimeMin} min (${m.specs.chargingKw} kW / ${m.specs.architectureV}V)</span>`)}
             ${row(r.driveSpeed, m => `${m.specs.drivetrain} · ${m.specs.topSpeedKmh} km/h`)}
             ${row(r.weight, m => `${fmt(m.specs.weightKg)} kg`)}
+            ${row(r.officialSite, m => {
+              const u = officialLink(m);
+              return u ? `<a href="${u}" target="_blank" rel="noopener noreferrer" class="font-sans text-xs font-semibold text-sky-600 dark:text-sky-400 hover:underline">${d.officialSiteBtn}</a>` : "-";
+            })}
             ${row(r.source, m => `<span class="font-sans text-[11px] text-slate-500">${m.sourceNote}</span>`)}
           </tbody>
         </table>
@@ -990,4 +1065,3 @@
   initEvents();
   renderAll();
 })();
-
