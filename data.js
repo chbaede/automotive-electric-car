@@ -1,6 +1,26 @@
-// Global Electric Vehicle Comparison Dataset (2024 - 2026)
-// Exchange rates for normalized USD comparison:
-// 1 USD = 1,380 KRW | 1 USD = 7.20 CNY | 1 USD = 0.92 EUR
+/**
+ * Global Pure Battery Electric Vehicle (BEV-Only) Dataset (2024 Q1 – 2026 Q3)
+ *
+ * [HOW TO ADD A NEW EV MODEL]
+ * Simply append a new object to `EV_DATA` below following the schema:
+ * {
+ *   id: "unique-slug",
+ *   brand: "English Brand", brandKo: "한글 브랜드",
+ *   name: "Model Name", nameKo: "한글 서브모델명", nameEn: "English Submodel Name",
+ *   origin: "KR" | "DE" | "US" | "CN" | "JP",
+ *   segmentCode: "SUV" | "SEDAN" | "TRUCK",
+ *   segment: "중형 SUV", segmentEn: "Mid-size SUV",
+ *   releaseYear: 2025, isNew: true, isBestSeller: false,
+ *   badge: "한글 핵심 배지", badgeEn: "English Key Badge",
+ *   rangeCycle: "WLTP" | "EPA" | "CLTC",
+ *   sourceNote: "Official Manufacturer Spec / WLTP / EPA / EV-Database",
+ *   specs: { batteryKwh, rangeKm, powerHp, zeroToHundred, topSpeedKmh, chargingKw, chargeTimeMin, architectureV, drivetrain, weightKg },
+ *   prices: { us: USD_or_null, cn: CNY_or_null, kr: MAN_WON_or_null, eu: EUR_or_null },
+ *   quarterlySales: { "2024 Q1": num, ... "2026 Q3": num },
+ *   highlights: ["...", "..."], highlightsEn: ["...", "..."]
+ * }
+ * All region counters, brand filter chips, tables, and charts update automatically!
+ */
 
 const EXCHANGE_RATES = {
   USD: 1,
@@ -15,8 +35,17 @@ const QUARTERS = [
   "2026 Q1", "2026 Q2", "2026 Q3"
 ];
 
+const REGIONS = {
+  ALL: { flag: "🌐", labelKo: "전체 국가", labelEn: "All Regions", badgeClass: "" },
+  KR:  { flag: "🇰🇷", labelKo: "한국", labelEn: "Korea", badgeClass: "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-500/30" },
+  DE:  { flag: "🇩🇪", labelKo: "독일", labelEn: "Germany", badgeClass: "bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/30" },
+  US:  { flag: "🇺🇸", labelKo: "미국", labelEn: "USA", badgeClass: "bg-sky-500/15 text-sky-700 dark:text-sky-300 border-sky-500/30" },
+  CN:  { flag: "🇨🇳", labelKo: "중국", labelEn: "China", badgeClass: "bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/30" },
+  JP:  { flag: "🇯🇵", labelKo: "일본", labelEn: "Japan", badgeClass: "bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 border-indigo-500/30" }
+};
+
 const EV_DATA = [
-  // ======================== USA ========================
+  // ======================== USA (Pure BEV Only) ========================
   {
     id: "tesla-model-y-juniper",
     brand: "Tesla",
@@ -25,8 +54,7 @@ const EV_DATA = [
     nameKo: "모델 Y 주니퍼 (Long Range AWD)",
     nameEn: "Model Y Juniper (Long Range AWD)",
     origin: "US",
-    originKo: "미국",
-    originEn: "USA",
+    segmentCode: "SUV",
     segment: "중형 SUV",
     segmentEn: "Mid-size SUV",
     releaseYear: 2025,
@@ -34,38 +62,35 @@ const EV_DATA = [
     isBestSeller: true,
     badge: "글로벌 판매 1위 / 신형 주니퍼",
     badgeEn: "#1 Global Best-Seller / Juniper Refresh",
+    rangeCycle: "WLTP",
+    sourceNote: "Tesla Official / WLTP 568km (19\") / Korea MOTIE 476km",
     specs: {
       batteryKwh: 78.4,
-      rangeKm: 551,       // WLTP 기준 (한국 인증 약 480km, EPA 526km)
+      rangeKm: 568,
       powerHp: 514,
       zeroToHundred: 4.3,
-      topSpeedKmh: 217,
+      topSpeedKmh: 201,
       chargingKw: 250,
-      chargeTimeMin: 27,  // 10-80%
+      chargeTimeMin: 27,
       architectureV: 400,
       drivetrain: "AWD",
-      weightKg: 1979
+      weightKg: 1992
     },
-    prices: {
-      us: 47990,          // USD
-      cn: 263500,         // CNY
-      kr: 5999,           // 만원 (KRW 10,000)
-      eu: 54990           // EUR
-    },
+    prices: { us: 48990, cn: 263500, kr: 6099, eu: 54990 },
     quarterlySales: {
       "2024 Q1": 265000, "2024 Q2": 292000, "2024 Q3": 310000, "2024 Q4": 325000,
       "2025 Q1": 248000, "2025 Q2": 285000, "2025 Q3": 302000, "2025 Q4": 318000,
       "2026 Q1": 276000, "2026 Q2": 295000, "2026 Q3": 308000
     },
     highlights: [
-      "2025년 리프레시 '주니퍼' 디자인",
-      "전후면 일자형 라이트바 & 2열 스크린",
-      "전 세계 단일 모델 누적 판매 압도적 1위"
+      "2025년 페이스리프트 코드명 '주니퍼(Juniper)' 정식 출시",
+      "전후면 일자형 크로스 카 라이트바, 1열 통풍시트 및 2열 8인치 스크린 탑재",
+      "전 세계 단일 순수전기차(BEV) 모델 판매량 부동의 1위"
     ],
     highlightsEn: [
-      "2025 'Juniper' exterior & interior overhaul",
-      "Full-width front/rear lightbars & 2nd-row touchscreen",
-      "Undisputed #1 best-selling single EV model globally"
+      "Official 'Juniper' refresh with redesigned front/rear cross-car lightbars",
+      "Standard ventilated front seats, acoustic glass & 8-inch rear touchscreen",
+      "Undisputed #1 best-selling single BEV model worldwide"
     ]
   },
   {
@@ -76,18 +101,19 @@ const EV_DATA = [
     nameKo: "모델 3 하이랜드 (Long Range AWD)",
     nameEn: "Model 3 Highland (Long Range AWD)",
     origin: "US",
-    originKo: "미국",
-    originEn: "USA",
+    segmentCode: "SEDAN",
     segment: "중형 세단",
     segmentEn: "Mid-size Sedan",
     releaseYear: 2024,
     isNew: false,
     isBestSeller: true,
-    badge: "글로벌 세단 베스트셀러",
+    badge: "글로벌 전기 세단 베스트셀러",
     badgeEn: "Global Best-Selling Electric Sedan",
+    rangeCycle: "WLTP",
+    sourceNote: "Tesla Official / WLTP 629km / Korea MOTIE 488km",
     specs: {
       batteryKwh: 78.4,
-      rangeKm: 629,       // WLTP
+      rangeKm: 629,
       powerHp: 498,
       zeroToHundred: 4.4,
       topSpeedKmh: 201,
@@ -97,26 +123,21 @@ const EV_DATA = [
       drivetrain: "AWD",
       weightKg: 1828
     },
-    prices: {
-      us: 47490,
-      cn: 275500,
-      kr: 5999,
-      eu: 49990
-    },
+    prices: { us: 47490, cn: 275500, kr: 5999, eu: 49990 },
     quarterlySales: {
       "2024 Q1": 112000, "2024 Q2": 138000, "2024 Q3": 145000, "2024 Q4": 156000,
       "2025 Q1": 128000, "2025 Q2": 141000, "2025 Q3": 149000, "2025 Q4": 152000,
       "2026 Q1": 134000, "2026 Q2": 143000, "2026 Q3": 148000
     },
     highlights: [
-      "동급 최고 수준 전비 효율 (Cd 0.219)",
-      "1열 통풍시트 및 이중접합 차음유리 기본화",
-      "LFP(RWD) 및 NCM(LR) 이원화 전략"
+      "공기저항계수 Cd 0.219의 동급 최고 수준 전비 효율 달성",
+      "주파수 감응형 댐퍼 및 360도 이중접합 차음유리로 승차감·정숙성 대폭 개선",
+      "CATL LFP(RWD)와 LG엔솔 NCM(롱레인지/퍼포먼스) 배터리 이원화"
     ],
     highlightsEn: [
-      "Class-leading aerodynamic efficiency (Cd 0.219)",
-      "Standard ventilated front seats & 360-degree acoustic glass",
-      "Dual battery strategy: LFP (RWD) and NCM (Long Range)"
+      "Class-leading aerodynamic efficiency (Cd 0.219) and 629 km WLTP range",
+      "Frequency-selective damping & 360-degree acoustic glass",
+      "Dual battery strategy: CATL LFP (RWD) and NCM (Long Range/Performance)"
     ]
   },
   {
@@ -127,18 +148,19 @@ const EV_DATA = [
     nameKo: "사이버트럭 (Dual Motor AWD)",
     nameEn: "Cybertruck (Dual Motor AWD)",
     origin: "US",
-    originKo: "미국",
-    originEn: "USA",
+    segmentCode: "TRUCK",
     segment: "대형 픽업트럭",
     segmentEn: "Full-size Pickup",
     releaseYear: 2024,
     isNew: true,
     isBestSeller: false,
-    badge: "800V 스티어링 바이 와이어",
-    badgeEn: "800V & Steer-by-Wire Exoskeleton",
+    badge: "800V · 48V 스티어 바이 와이어",
+    badgeEn: "800V & 48V Steer-by-Wire Exoskeleton",
+    rangeCycle: "EPA",
+    sourceNote: "Tesla US Official / EPA 325–340 mi (547 km)",
     specs: {
       batteryKwh: 123.0,
-      rangeKm: 547,       // EPA 340mi
+      rangeKm: 547,
       powerHp: 600,
       zeroToHundred: 4.1,
       topSpeedKmh: 180,
@@ -148,48 +170,44 @@ const EV_DATA = [
       drivetrain: "AWD",
       weightKg: 2995
     },
-    prices: {
-      us: 79990,
-      cn: null,
-      kr: 11500,          // 국내 출시 참고/예상가
-      eu: null
-    },
+    prices: { us: 79990, cn: null, kr: null, eu: null },
     quarterlySales: {
       "2024 Q1": 2800, "2024 Q2": 8700, "2024 Q3": 16600, "2024 Q4": 12900,
       "2025 Q1": 9400, "2025 Q2": 11200, "2025 Q3": 11800, "2025 Q4": 10500,
       "2026 Q1": 9800, "2026 Q2": 10400, "2026 Q3": 10900
     },
     highlights: [
-      "초고경도 스테인리스 스틸 엑소스켈레톤 바디",
-      "Steer-by-Wire 및 후륜 조향 기본 탑재",
-      "48V 저전압 아키텍처 & 800V 고전압 시스템"
+      "초고경도 냉간압연 스테인리스 스틸 엑소스켈레톤 바디",
+      "기계식 연결이 없는 Steer-by-Wire 및 후륜 조향 기본 탑재",
+      "업계 최초 48V 저전압 아키텍처 및 800V 초급속 충전 시스템"
     ],
     highlightsEn: [
-      "Ultra-hard stainless-steel exoskeleton body",
-      "Standard Steer-by-Wire and rear-wheel steering",
-      "First production 48V low-voltage & 800V high-voltage architecture"
+      "Ultra-hard 30X cold-rolled stainless-steel exoskeleton body",
+      "Standard Steer-by-Wire and active rear-wheel steering",
+      "Industry-first 48V low-voltage & 800V high-voltage architecture"
     ]
   },
   {
     id: "chevy-equinox-ev",
-    brand: "Chevrolet (GM)",
+    brand: "Chevrolet",
     brandKo: "쉐보레 (GM)",
     name: "Equinox EV",
-    nameKo: "이쿼녹스 EV (2LT FWD)",
-    nameEn: "Equinox EV (2LT FWD)",
+    nameKo: "이쿼녹스 EV (LT FWD)",
+    nameEn: "Equinox EV (LT FWD)",
     origin: "US",
-    originKo: "미국",
-    originEn: "USA",
+    segmentCode: "SUV",
     segment: "중형 SUV",
     segmentEn: "Mid-size SUV",
     releaseYear: 2024,
     isNew: true,
     isBestSeller: true,
-    badge: "북미 가성비 1위 SUV",
+    badge: "북미 가성비 1위 볼륨 SUV",
     badgeEn: "#1 Value Mainstream SUV in North America",
+    rangeCycle: "EPA",
+    sourceNote: "GM Official / EPA 319 mi (513 km)",
     specs: {
       batteryKwh: 85.0,
-      rangeKm: 513,       // EPA 319mi
+      rangeKm: 513,
       powerHp: 220,
       zeroToHundred: 7.7,
       topSpeedKmh: 180,
@@ -199,26 +217,21 @@ const EV_DATA = [
       drivetrain: "FWD",
       weightKg: 2270
     },
-    prices: {
-      us: 34995,
-      cn: 195000,
-      kr: 4790,
-      eu: null
-    },
+    prices: { us: 34995, cn: null, kr: null, eu: null },
     quarterlySales: {
       "2024 Q1": 1200, "2024 Q2": 4500, "2024 Q3": 15200, "2024 Q4": 24800,
       "2025 Q1": 26500, "2025 Q2": 31200, "2025 Q3": 34500, "2025 Q4": 33100,
       "2026 Q1": 29800, "2026 Q2": 32400, "2026 Q3": 35100
     },
     highlights: [
-      "GM 얼티엄(Ultium) 플랫폼 기반 볼륨 모델",
-      "3만 달러 중반대 시작가로 북미 판매 급증",
-      "17.7인치 대형 인포테인먼트 디스플레이"
+      "GM 얼티엄(Ultium) 전용 플랫폼 기반의 북미 핵심 볼륨 모델",
+      "3만 달러 중반대 시작가와 EPA 513km(319마일) 주행거리로 북미 판매 급증",
+      "17.7인치 대형 인포테인먼트 디스플레이 및 슈퍼크루즈(옵션) 지원"
     ],
     highlightsEn: [
-      "High-volume crossover built on GM's Ultium platform",
-      "Surging North American sales thanks to ~$35k entry price",
-      "Massive 17.7-inch diagonal center touchscreen"
+      "High-volume crossover built on GM's dedicated Ultium BEV platform",
+      "319-mile (513 km) EPA range starting around $34,995 MSRP",
+      "Standard 17.7-inch center display and available Super Cruise"
     ]
   },
   {
@@ -229,18 +242,19 @@ const EV_DATA = [
     nameKo: "머스탱 마하-E (Extended AWD)",
     nameEn: "Mustang Mach-E (Extended AWD)",
     origin: "US",
-    originKo: "미국",
-    originEn: "USA",
+    segmentCode: "SUV",
     segment: "중형 SUV",
     segmentEn: "Mid-size SUV",
     releaseYear: 2025,
     isNew: false,
     isBestSeller: true,
-    badge: "북미 스테디셀러 SUV",
+    badge: "북미 스테디셀러 크로스오버",
     badgeEn: "North American Steady-Selling Crossover",
+    rangeCycle: "WLTP",
+    sourceNote: "Ford Official / WLTP 550km / EPA 300mi (483km)",
     specs: {
       batteryKwh: 91.0,
-      rangeKm: 515,
+      rangeKm: 550,
       powerHp: 365,
       zeroToHundred: 4.8,
       topSpeedKmh: 190,
@@ -250,26 +264,21 @@ const EV_DATA = [
       drivetrain: "AWD",
       weightKg: 2218
     },
-    prices: {
-      us: 43995,
-      cn: 239800,
-      kr: 6200,
-      eu: 55800
-    },
+    prices: { us: 45995, cn: 239800, kr: null, eu: 55800 },
     quarterlySales: {
       "2024 Q1": 14800, "2024 Q2": 18500, "2024 Q3": 21200, "2024 Q4": 23400,
       "2025 Q1": 17900, "2025 Q2": 20400, "2025 Q3": 22100, "2025 Q4": 21500,
       "2026 Q1": 18200, "2026 Q2": 19800, "2026 Q3": 20900
     },
     highlights: [
-      "2025년형 히트펌프 기본 장착 및 리어 모터 업그레이드",
-      "포드 블루크루즈(BlueCruise) 핸즈프리 주행 지원",
-      "스포티한 핸들링과 머스탱 헤리티지 디자인"
+      "2025년형부터 전 트림 히트펌프 기본 장착 및 경량 인하우스 리어 모터 적용",
+      "포드 블루크루즈(BlueCruise 1.5) 자동 차선변경 핸즈프리 주행 지원",
+      "머스탱 헤리티지 디자인과 탄탄한 주행 밸런스로 북미 TOP 3 SUV 유지"
     ],
     highlightsEn: [
-      "Standard vapor-injection heat pump & lighter rear motor for 2025",
-      "Ford BlueCruise hands-free highway driving support",
-      "Engaging chassis dynamics with Mustang heritage styling"
+      "Standard heat pump & lighter in-house rear motor on 2025+ models",
+      "BlueCruise 1.5 hands-free highway driving with automatic lane change",
+      "Consistent top-3 best-selling non-Tesla electric SUV in the US"
     ]
   },
   {
@@ -280,20 +289,21 @@ const EV_DATA = [
     nameKo: "R1S 2세대 (Dual Max AWD)",
     nameEn: "R1S Gen 2 (Dual Max AWD)",
     origin: "US",
-    originKo: "미국",
-    originEn: "USA",
+    segmentCode: "SUV",
     segment: "대형 SUV",
-    segmentEn: "Full-size SUV",
+    segmentEn: "Full-size 3-Row SUV",
     releaseYear: 2025,
     isNew: true,
     isBestSeller: false,
-    badge: "660km 장거리 어드벤처 SUV",
+    badge: "660km 장거리 어드벤처 3열 SUV",
     badgeEn: "660km Long-Range Adventure 3-Row SUV",
+    rangeCycle: "EPA",
+    sourceNote: "Rivian Official / EPA 410 mi (660 km) Max Pack",
     specs: {
       batteryKwh: 141.5,
-      rangeKm: 660,       // EPA 410mi
+      rangeKm: 660,
       powerHp: 665,
-      zeroToHundred: 3.4,
+      zeroToHundred: 3.5,
       topSpeedKmh: 209,
       chargingKw: 220,
       chargeTimeMin: 30,
@@ -301,26 +311,21 @@ const EV_DATA = [
       drivetrain: "AWD",
       weightKg: 3080
     },
-    prices: {
-      us: 89900,
-      cn: null,
-      kr: null,
-      eu: null
-    },
+    prices: { us: 89900, cn: null, kr: null, eu: null },
     quarterlySales: {
       "2024 Q1": 9800, "2024 Q2": 10200, "2024 Q3": 7900, "2024 Q4": 11400,
       "2025 Q1": 8900, "2025 Q2": 10800, "2025 Q3": 12200, "2025 Q4": 12800,
       "2026 Q1": 11500, "2026 Q2": 13100, "2026 Q3": 14200
     },
     highlights: [
-      "2세대 전장 아키텍처(Zonal)로 배선 2.6km 단축",
-      "대용량 맥스팩 적용 시 EPA 660km(410마일) 주행",
-      "2026년 중형 SUV 'R2($45,000)' 출시로 라인업 확장"
+      "2세대 Zonal 전장 아키텍처로 ECU를 17개에서 7개로 통합·경량화",
+      "141.5kWh 맥스팩 적용 시 EPA 660km(410마일) 주행 가능",
+      "에어 서스펜션 기반 정통 오프로드 성능과 프렁크·기어터널 수납성"
     ],
     highlightsEn: [
-      "Gen 2 zonal electrical architecture removing 1.6 miles of wiring",
-      "Up to 410 miles (660 km) EPA range with Max battery pack",
-      "Complemented by the compact $45,000 Rivian R2 in 2026"
+      "Gen 2 zonal electrical architecture consolidating 17 ECUs into 7",
+      "410-mile (660 km) EPA certified range with the 141.5 kWh Max Pack",
+      "True off-road air suspension capability with spacious 3-row seating"
     ]
   },
   {
@@ -331,71 +336,68 @@ const EV_DATA = [
     nameKo: "그래비티 그랜드 투어링",
     nameEn: "Gravity Grand Touring",
     origin: "US",
-    originKo: "미국",
-    originEn: "USA",
+    segmentCode: "SUV",
     segment: "대형 SUV",
-    segmentEn: "Full-size SUV",
+    segmentEn: "Full-size 3-Row SUV",
     releaseYear: 2025,
     isNew: true,
     isBestSeller: false,
-    badge: "926V 초고전압 럭셔리 3열 SUV",
-    badgeEn: "926V Ultra-High Voltage Luxury 3-Row SUV",
+    badge: "926V 초고전압 · EPA 724km",
+    badgeEn: "926V Ultra-High Voltage / EPA 724km",
+    rangeCycle: "EPA",
+    sourceNote: "Lucid Official / EPA 450 mi (724 km) / 123 kWh",
     specs: {
       batteryKwh: 123.0,
-      rangeKm: 724,       // EPA 450mi
+      rangeKm: 724,
       powerHp: 828,
       zeroToHundred: 3.5,
       topSpeedKmh: 250,
-      chargingKw: 350,
+      chargingKw: 400,
       chargeTimeMin: 15,
       architectureV: 900,
       drivetrain: "AWD",
       weightKg: 2740
     },
-    prices: {
-      us: 94900,
-      cn: null,
-      kr: 14500,          // 예상/직수입 환산
-      eu: 109900
-    },
+    prices: { us: 94900, cn: null, kr: null, eu: 109900 },
     quarterlySales: {
       "2024 Q1": 0, "2024 Q2": 0, "2024 Q3": 0, "2024 Q4": 450,
       "2025 Q1": 1800, "2025 Q2": 3200, "2025 Q3": 4600, "2025 Q4": 5400,
       "2026 Q1": 5800, "2026 Q2": 6400, "2026 Q3": 7100
     },
     highlights: [
-      "926V 아키텍처로 15분 충전에 320km 주행 가능",
-      "828마력 출력과 EPA 724km(450마일) 세계 최고 수준 주행거리",
-      "34인치 커브드 6K OLED 플로팅 디스플레이"
+      "926V 초고전압 아키텍처로 최대 400kW 충전 지원 (11분 충전에 320km 주행)",
+      "828마력 출력과 EPA 공인 724km(450마일)의 현존 SUV 최장 주행거리",
+      "34인치 커브드 6K OLED 플로팅 디스플레이 및 네이티브 NACS 포트 탑재"
     ],
     highlightsEn: [
-      "926V architecture adds 200 miles (320 km) of range in 15 minutes",
-      "828 hp output with world-leading 450-mile (724 km) EPA range",
-      "34-inch curved 6K OLED ClearView Cockpit display"
+      "926V architecture supporting up to 400 kW charging (+200 mi in ~11 mins)",
+      "828 hp output with EPA-estimated 450 miles (724 km) driving range",
+      "34-inch curved 6K OLED display and native NACS charging port"
     ]
   },
 
-  // ======================== CHINA ========================
+  // ======================== CHINA (Pure BEV Only) ========================
   {
     id: "byd-seagull",
     brand: "BYD",
     brandKo: "BYD",
-    name: "Seagull (Dolphin Mini)",
-    nameKo: "시걸 / 돌핀 미니",
-    nameEn: "Seagull / Dolphin Mini",
+    name: "Seagull (Dolphin Surf)",
+    nameKo: "시걸 (유럽명 돌핀 서프 / 미니)",
+    nameEn: "Seagull / Dolphin Surf",
     origin: "CN",
-    originKo: "중국",
-    originEn: "China",
+    segmentCode: "SEDAN",
     segment: "경소형 해치백",
     segmentEn: "City Hatchback",
     releaseYear: 2024,
     isNew: false,
     isBestSeller: true,
     badge: "중국 판매 1위 / 1천만원대 초가성비",
-    badgeEn: "#1 in China / Sub-$10k Ultra-Value EV",
+    badgeEn: "#1 in China / Sub-$10k Ultra-Value BEV",
+    rangeCycle: "CLTC",
+    sourceNote: "BYD Official / CLTC 405km (38.9kWh) / WLTP ~310km",
     specs: {
       batteryKwh: 38.9,
-      rangeKm: 405,       // CLTC (WLTP ~310km)
+      rangeKm: 405,
       powerHp: 75,
       zeroToHundred: 13.0,
       topSpeedKmh: 130,
@@ -405,26 +407,21 @@ const EV_DATA = [
       drivetrain: "FWD",
       weightKg: 1240
     },
-    prices: {
-      us: null,
-      cn: 69800,          // 약 9,700 달러!
-      kr: null,
-      eu: 19990
-    },
+    prices: { us: null, cn: 69800, kr: null, eu: 19990 },
     quarterlySales: {
       "2024 Q1": 84000, "2024 Q2": 107000, "2024 Q3": 138000, "2024 Q4": 162000,
       "2025 Q1": 125000, "2025 Q2": 148000, "2025 Q3": 165000, "2025 Q4": 178000,
       "2026 Q1": 142000, "2026 Q2": 159000, "2026 Q3": 171000
     },
     highlights: [
-      "중국 내 시작가 69,800위안(약 1,350만 원)의 파괴적 가격",
-      "BYD 블레이드(LFP) 배터리 및 e-Platform 3.0 적용",
-      "중남미·동남아·유럽(돌핀 서프/미니) 수출 주력 모델"
+      "중국 시작가 69,800위안(약 1,350만 원)의 파괴적 가격 경쟁력",
+      "e-Platform 3.0 전용 플랫폼 및 고안전 LFP 블레이드 배터리 적용",
+      "중남미(Dolphin Mini)·유럽(Dolphin Surf) 등 글로벌 보급형 시장 급속 확장"
     ],
     highlightsEn: [
-      "Disruptive ¥69,800 (~$9,700) starting price in China",
-      "Built on e-Platform 3.0 with ultra-safe LFP Blade Battery",
-      "Expanding rapidly in Latin America, ASEAN & Europe (Dolphin Surf/Mini)"
+      "Disruptive ¥69,800 (~$9,700) domestic starting price in China",
+      "Built on e-Platform 3.0 with LFP Blade Battery safety",
+      "Rapidly expanding across Latin America (Dolphin Mini) & Europe (Dolphin Surf)"
     ]
   },
   {
@@ -435,18 +432,19 @@ const EV_DATA = [
     nameKo: "아토 3 (위안 플러스)",
     nameEn: "Atto 3 (Yuan Plus)",
     origin: "CN",
-    originKo: "중국",
-    originEn: "China",
-    segment: "소형/준중형 SUV",
+    segmentCode: "SUV",
+    segment: "준중형 SUV",
     segmentEn: "Compact SUV",
     releaseYear: 2025,
     isNew: false,
     isBestSeller: true,
-    badge: "한국 정식 출시 / 글로벌 수출 1위",
+    badge: "한국 3,150만원 정식 출시",
     badgeEn: "Official Korea Launch / #1 BYD Export SUV",
+    rangeCycle: "WLTP",
+    sourceNote: "BYD Official / WLTP 420km / Korea MOTIE 321km",
     specs: {
       batteryKwh: 60.5,
-      rangeKm: 420,       // WLTP (한국 인증 321km)
+      rangeKm: 420,
       powerHp: 204,
       zeroToHundred: 7.3,
       topSpeedKmh: 160,
@@ -456,26 +454,21 @@ const EV_DATA = [
       drivetrain: "FWD",
       weightKg: 1750
     },
-    prices: {
-      us: null,
-      cn: 119800,
-      kr: 3150,           // 한국 공식 출시가 3,150만원!
-      eu: 37990
-    },
+    prices: { us: null, cn: 119800, kr: 3150, eu: 37990 },
     quarterlySales: {
       "2024 Q1": 71000, "2024 Q2": 89000, "2024 Q3": 98000, "2024 Q4": 105000,
       "2025 Q1": 82000, "2025 Q2": 96000, "2025 Q3": 104000, "2025 Q4": 112000,
       "2026 Q1": 88000, "2026 Q2": 99000, "2026 Q3": 106000
     },
     highlights: [
-      "한국 정식 출시가 3,150만 원(보조금 적용 시 2천만 원 후반)",
-      "전 세계 70개국 이상에 수출되는 BYD 글로벌 베스트셀러",
-      "회전식 12.8인치 디스플레이 및 티맵 내비게이션(한국형) 탑재"
+      "2025년 한국 승용 시장 공식 진출 첫 모델 (출시가 3,150만 원, 보조금 적용 시 2천만 원대)",
+      "전 세계 70개국 이상에 수출되는 BYD의 글로벌 대표 크로스오버",
+      "한국형 티맵(T-Map) 내비게이션, V2L, 파노라마 선루프 기본 탑재"
     ],
     highlightsEn: [
-      "Launched in Korea at KRW 31.5M (high-20M range after subsidies)",
-      "BYD's global export champion sold in over 70 countries",
-      "12.8-inch rotating screen & localized T-Map navigation in Korea"
+      "BYD's debut passenger EV in South Korea priced at KRW 31.5M",
+      "Global export bestseller sold in over 70 countries worldwide",
+      "Standard 12.8-inch rotating screen, V2L, and localized T-Map in Korea"
     ]
   },
   {
@@ -483,21 +476,22 @@ const EV_DATA = [
     brand: "BYD",
     brandKo: "BYD",
     name: "Seal AWD",
-    nameKo: "실 (Seal) 퍼포먼스 AWD",
-    nameEn: "Seal Performance AWD",
+    nameKo: "씰 (Seal) 퍼포먼스 AWD",
+    nameEn: "Seal Excellence AWD",
     origin: "CN",
-    originKo: "중국",
-    originEn: "China",
+    segmentCode: "SEDAN",
     segment: "중형 세단",
     segmentEn: "Mid-size Sedan",
     releaseYear: 2025,
     isNew: true,
     isBestSeller: true,
-    badge: "CTB 배터리 일체형 스포츠 세단",
-    badgeEn: "Cell-to-Body (CTB) Electric Sports Sedan",
+    badge: "CTB 배터리 일체형 530마력 세단",
+    badgeEn: "Cell-to-Body (CTB) 530hp Sports Sedan",
+    rangeCycle: "WLTP",
+    sourceNote: "BYD Official / WLTP 520km (AWD) / 570km (RWD)",
     specs: {
       batteryKwh: 82.5,
-      rangeKm: 520,       // WLTP
+      rangeKm: 520,
       powerHp: 530,
       zeroToHundred: 3.8,
       topSpeedKmh: 180,
@@ -505,28 +499,23 @@ const EV_DATA = [
       chargeTimeMin: 26,
       architectureV: 800,
       drivetrain: "AWD",
-      weightKg: 2150
+      weightKg: 2185
     },
-    prices: {
-      us: null,
-      cn: 179800,
-      kr: 4750,           // 한국 출시가
-      eu: 49990
-    },
+    prices: { us: null, cn: 179800, kr: 4750, eu: 49990 },
     quarterlySales: {
       "2024 Q1": 34000, "2024 Q2": 42000, "2024 Q3": 51000, "2024 Q4": 58000,
       "2025 Q1": 46000, "2025 Q2": 55000, "2025 Q3": 62000, "2025 Q4": 67000,
       "2026 Q1": 54000, "2026 Q2": 61000, "2026 Q3": 66000
     },
     highlights: [
-      "CTB(Cell-to-Body) 차체 배터리 일체화 기술로 비틀림 강성 극대화",
-      "제원상 530마력·제로백 3.8초의 고성능으로 모델 3 정조준",
-      "2025년형부터 800V 고전압 플랫폼 및 라이다 센서 업그레이드"
+      "CTB(Cell-to-Body) 차체·배터리 일체화 기술로 40,500Nm/deg의 비틀림 강성 확보",
+      "듀얼모터 530마력·제로백 3.8초 퍼포먼스로 테슬라 모델 3와 정면 승부",
+      "iTAC 지능형 토크 컨트롤 및 전륜 더블 위시본 서스펜션 적용"
     ],
     highlightsEn: [
-      "Cell-to-Body (CTB) integration for supercar-level torsional rigidity",
-      "530 hp & 0-100 km/h in 3.8s directly rivaling Tesla Model 3",
-      "Upgraded with 800V SiC architecture and roof LiDAR option"
+      "Cell-to-Body (CTB) structure achieving 40,500 Nm/deg torsional rigidity",
+      "530 hp dual-motor AWD & 0-100 km/h in 3.8s rivaling Tesla Model 3",
+      "Double-wishbone front suspension & iTAC intelligent torque control"
     ]
   },
   {
@@ -537,18 +526,19 @@ const EV_DATA = [
     nameKo: "SU7 맥스 AWD",
     nameEn: "SU7 Max AWD",
     origin: "CN",
-    originKo: "중국",
-    originEn: "China",
+    segmentCode: "SEDAN",
     segment: "준대형 세단",
     segmentEn: "Executive Sedan",
     releaseYear: 2024,
     isNew: true,
     isBestSeller: true,
-    badge: "출시 직후 포르쉐 타이칸급 돌풍",
-    badgeEn: "Sensational Porsche Taycan Rival by Xiaomi",
+    badge: "제로백 2.78초 · 871V 하이퍼 세단",
+    badgeEn: "2.78s 0-100km/h & 871V SiC Architecture",
+    rangeCycle: "CLTC",
+    sourceNote: "Xiaomi EV Official / CLTC 800km (101kWh CATL Qilin)",
     specs: {
       batteryKwh: 101.0,
-      rangeKm: 800,       // CLTC (WLTP 환산 약 660km)
+      rangeKm: 800,
       powerHp: 673,
       zeroToHundred: 2.78,
       topSpeedKmh: 265,
@@ -558,77 +548,68 @@ const EV_DATA = [
       drivetrain: "AWD",
       weightKg: 2205
     },
-    prices: {
-      us: null,
-      cn: 299900,         // 약 4.1만 달러
-      kr: null,
-      eu: null
-    },
+    prices: { us: null, cn: 299900, kr: null, eu: null },
     quarterlySales: {
       "2024 Q1": 0, "2024 Q2": 27300, "2024 Q3": 39800, "2024 Q4": 69700,
       "2025 Q1": 75800, "2025 Q2": 84200, "2025 Q3": 91000, "2025 Q4": 96500,
       "2026 Q1": 88000, "2026 Q2": 93500, "2026 Q3": 98200
     },
     highlights: [
-      "871V 실리콘 카바이드(SiC) 플랫폼과 CATL 기린 배터리 탑재",
-      "제로백 2.78초, 최고속도 265km/h의 슈퍼카급 퍼포먼스",
-      "샤오미 HyperOS 생태계로 스마트폰·가전 완벽 연동"
+      "871V 실리콘 카바이드(SiC) 플랫폼과 101kWh CATL 기린(Qilin) 배터리 탑재",
+      "673마력, 제로백 2.78초, 최고속도 265km/h의 포르쉐 타이칸급 성능",
+      "출시 첫해 13.5만 대 이상 인도하며 중국 프리미엄 전기 세단 시장 석권"
     ],
     highlightsEn: [
-      "871V SiC high-voltage platform with 101 kWh CATL Qilin battery",
-      "0-100 km/h in 2.78s and 265 km/h top speed",
-      "Seamless smart ecosystem integration powered by Xiaomi HyperOS"
+      "871V SiC high-voltage platform with 101 kWh CATL Qilin NMC battery",
+      "673 hp, 0-100 km/h in 2.78s, and 265 km/h top speed",
+      "Over 135,000 deliveries in its debut year powered by Xiaomi HyperOS"
     ]
   },
   {
     id: "xiaomi-yu7",
     brand: "Xiaomi",
     brandKo: "샤오미",
-    name: "YU7 Pro AWD",
-    nameKo: "YU7 (샤오미 첫 전기 SUV)",
-    nameEn: "YU7 Pro AWD (Xiaomi Electric SUV)",
+    name: "YU7 Max AWD",
+    nameKo: "YU7 맥스 (샤오미 첫 전기 SUV)",
+    nameEn: "YU7 Max AWD (Xiaomi Electric SUV)",
     origin: "CN",
-    originKo: "중국",
-    originEn: "China",
+    segmentCode: "SUV",
     segment: "중대형 SUV",
-    segmentEn: "Mid-to-Large SUV",
+    segmentEn: "Mid-to-Large Coupe SUV",
     releaseYear: 2025,
     isNew: true,
     isBestSeller: true,
-    badge: "2025-26 최고 화제작 SUV",
-    badgeEn: "Blockbuster 2025-26 Coupe SUV Challenger",
+    badge: "모델 Y 주니퍼 정조준 고성능 SUV",
+    badgeEn: "691hp High-Tech SUV Challenging Model Y",
+    rangeCycle: "CLTC",
+    sourceNote: "Xiaomi MIIT & Official Spec / 101.7kWh / CLTC 760km",
     specs: {
-      batteryKwh: 96.3,
-      rangeKm: 760,       // CLTC (WLTP 환산 약 625km)
+      batteryKwh: 101.7,
+      rangeKm: 760,
       powerHp: 691,
-      zeroToHundred: 3.2,
+      zeroToHundred: 3.23,
       topSpeedKmh: 253,
       chargingKw: 420,
-      chargeTimeMin: 16,
+      chargeTimeMin: 15,
       architectureV: 800,
       drivetrain: "AWD",
-      weightKg: 2315
+      weightKg: 2405
     },
-    prices: {
-      us: null,
-      cn: 259900,
-      kr: null,
-      eu: null
-    },
+    prices: { us: null, cn: 259900, kr: null, eu: null },
     quarterlySales: {
       "2024 Q1": 0, "2024 Q2": 0, "2024 Q3": 0, "2024 Q4": 0,
       "2025 Q1": 0, "2025 Q2": 12000, "2025 Q3": 68000, "2025 Q4": 95000,
       "2026 Q1": 104000, "2026 Q2": 118000, "2026 Q3": 126000
     },
     highlights: [
-      "테슬라 모델 Y 주니퍼를 겨냥해 출시된 쿠페형 고성능 전기 SUV",
-      "전면 파노라믹 헤드업 디스플레이(PHUD) 및 루프 라이다 탑재",
-      "출시 직후 수십만 대 사전계약 돌파하며 중국 SUV 시장 평정"
+      "전장 4,999mm·휠베이스 3,000mm의 날렵한 쿠페형 프로포션과 691마력 듀얼모터",
+      "전면 유리 하단 전체를 가로지르는 'HyperVision' 파노라믹 HUD 기본 탑재",
+      "800V 5.2C 초급속 충전으로 15분 만에 620km 주행 가능"
     ],
     highlightsEn: [
-      "Sleek high-performance SUV built to challenge Tesla Model Y Juniper",
-      "Full-width Panoramic HUD (HyperVision) and roof-mounted LiDAR",
-      "Shattered pre-order records upon launch across China"
+      "4,999 mm length & 3,000 mm wheelbase with 691 hp dual-motor AWD",
+      "Full-width windshield 'Xiaomi HyperVision' Panoramic HUD",
+      "800V 5.2C ultra-fast charging adds up to 620 km CLTC range in 15 minutes"
     ]
   },
   {
@@ -639,20 +620,21 @@ const EV_DATA = [
     nameKo: "싱위안 (Xingyuan)",
     nameEn: "Geome Xingyuan",
     origin: "CN",
-    originKo: "중국",
-    originEn: "China",
+    segmentCode: "SEDAN",
     segment: "소형 해치백",
     segmentEn: "Subcompact Hatchback",
     releaseYear: 2024,
     isNew: true,
     isBestSeller: true,
-    badge: "2025-26 중국 판매 급부상 다크호스",
-    badgeEn: "Surging Top-Selling Urban EV in China",
+    badge: "2025-26 중국 전체 판매 최상위권",
+    badgeEn: "Surging Top-Selling Urban BEV in China",
+    rangeCycle: "CLTC",
+    sourceNote: "Geely Official / CATL 40.16kWh LFP / CLTC 410km",
     specs: {
       batteryKwh: 40.2,
-      rangeKm: 410,       // CLTC
-      powerHp: 115,
-      zeroToHundred: 8.9,
+      rangeKm: 410,
+      powerHp: 116,
+      zeroToHundred: 8.8,
       topSpeedKmh: 140,
       chargingKw: 70,
       chargeTimeMin: 21,
@@ -660,81 +642,72 @@ const EV_DATA = [
       drivetrain: "RWD",
       weightKg: 1285
     },
-    prices: {
-      us: null,
-      cn: 68800,
-      kr: null,
-      eu: null
-    },
+    prices: { us: null, cn: 68800, kr: null, eu: null },
     quarterlySales: {
       "2024 Q1": 0, "2024 Q2": 0, "2024 Q3": 8500, "2024 Q4": 52000,
       "2025 Q1": 89000, "2025 Q2": 114000, "2025 Q3": 128000, "2025 Q4": 139000,
       "2026 Q1": 122000, "2026 Q2": 135000, "2026 Q3": 144000
     },
     highlights: [
-      "BYD 시걸/돌핀을 정조준한 후륜구동(RWD) 소형 전기차",
-      "동급 유일 독립식 멀티링크 서스펜션과 Flyme Auto OS 탑재",
-      "2025~2026년 중국 내 월간 판매량 최상위권 등극"
+      "BYD 시걸·돌핀을 정조준해 출시 직후 중국 월간 판매 1~2위로 급부상한 히트작",
+      "소형 해치백임에도 후륜구동(RWD) + 독립식 멀티링크 서스펜션 + 70L 프렁크 채택",
+      "CATL LFP 배터리 및 메이주(Meizu) 기반 Flyme Auto 스마트 인포테인먼트 탑재"
     ],
     highlightsEn: [
-      "Rear-wheel-drive urban EV directly targeting BYD Seagull & Dolphin",
-      "Features independent multi-link rear suspension & Flyme Auto OS",
-      "Ranked among the absolute top monthly best-sellers in 2025-2026"
+      "Blockbuster city EV challenging BYD Seagull at the top of China's sales charts",
+      "Rear-wheel drive (RWD), independent multi-link suspension & 70L frunk",
+      "CATL LFP battery paired with smooth Flyme Auto smart cockpit OS"
     ]
   },
   {
     id: "zeekr-7x",
-    brand: "Zeekr (Geely)",
+    brand: "Zeekr",
     brandKo: "지커 (Zeekr)",
     name: "Zeekr 7X AWD",
-    nameKo: "지커 7X (한국 출시 예정)",
-    nameEn: "Zeekr 7X Performance AWD",
+    nameKo: "지커 7X (유럽·한국 진출 모델)",
+    nameEn: "Zeekr 7X Privilege AWD",
     origin: "CN",
-    originKo: "중국",
-    originEn: "China",
+    segmentCode: "SUV",
     segment: "중형 SUV",
-    segmentEn: "Mid-size SUV",
+    segmentEn: "Mid-size Luxury SUV",
     releaseYear: 2025,
     isNew: true,
     isBestSeller: false,
-    badge: "10.5분 초급속 골든 배터리",
-    badgeEn: "800V SEA Platform & Ultra-Fast Charging",
+    badge: "800V SEA 플랫폼 · 13분 초급속 충전",
+    badgeEn: "800V SEA Platform & 13-Min Fast Charging",
+    rangeCycle: "WLTP",
+    sourceNote: "Zeekr Europe Official / 100kWh / WLTP 543–615km",
     specs: {
       batteryKwh: 100.0,
-      rangeKm: 615,       // WLTP (CLTC 705km)
+      rangeKm: 615,
       powerHp: 637,
       zeroToHundred: 3.8,
       topSpeedKmh: 210,
-      chargingKw: 450,
+      chargingKw: 420,
       chargeTimeMin: 13,
       architectureV: 800,
       drivetrain: "AWD",
       weightKg: 2475
     },
-    prices: {
-      us: null,
-      cn: 229900,
-      kr: 5890,           // 한국 진출 예상 가격대
-      eu: 52990
-    },
+    prices: { us: null, cn: 229900, kr: 5990, eu: 52990 },
     quarterlySales: {
       "2024 Q1": 0, "2024 Q2": 0, "2024 Q3": 4200, "2024 Q4": 28500,
       "2025 Q1": 24000, "2025 Q2": 29500, "2025 Q3": 33000, "2025 Q4": 36200,
       "2026 Q1": 31000, "2026 Q2": 34800, "2026 Q3": 37900
     },
     highlights: [
-      "지리그룹 프리미엄 브랜드 지커(Zeekr)의 한국·유럽 전략형 중형 SUV",
-      "800V SEA 아키텍처 기반으로 10~80% 충전 최단 11~13분대 기록",
-      "에어 서스펜션 및 나파 가죽 등 럭셔리 사양 대거 탑재"
+      "지리그룹 프리미엄 브랜드 지커(Zeekr)의 유럽 및 한국 시장 진출 주력 중형 SUV",
+      "전 트림 800V 고전압 아키텍처 기본 적용으로 10→80% 최단 13분 충전",
+      "에어 서스펜션, 나파 가죽 시트, 듀얼 라이다 기반 ADAS 탑재"
     ],
     highlightsEn: [
-      "Zeekr's global luxury mid-size SUV expanding into Europe and Korea",
-      "800V SEA architecture delivers 10-80% fast charging in ~13 minutes",
-      "Available air suspension, Nappa leather, and dual-motor 637 hp output"
+      "Zeekr's global luxury mid-size SUV expanding across Europe and South Korea",
+      "Standard 800V SEA architecture delivering 10-80% charge in ~13 minutes",
+      "637 hp AWD performance with available active air suspension"
     ]
   },
 
-  // ======================== KOREA ========================
+  // ======================== KOREA (Pure BEV Only) ========================
   {
     id: "hyundai-ioniq-5-pe",
     brand: "Hyundai",
@@ -743,18 +716,19 @@ const EV_DATA = [
     nameKo: "더 뉴 아이오닉 5 (Long Range 2WD)",
     nameEn: "The New IONIQ 5 (Long Range RWD)",
     origin: "KR",
-    originKo: "한국",
-    originEn: "South Korea",
+    segmentCode: "SUV",
     segment: "중형 SUV",
     segmentEn: "Mid-size Crossover",
     releaseYear: 2024,
     isNew: false,
     isBestSeller: true,
-    badge: "84kWh 배터리 업그레이드",
-    badgeEn: "Upgraded 84 kWh Battery & 800V E-GMP",
+    badge: "84kWh 4세대 배터리 · 18분 초급속",
+    badgeEn: "84 kWh 4th-Gen Battery & 800V E-GMP",
+    rangeCycle: "WLTP",
+    sourceNote: "Hyundai Official / WLTP 570km / Korea MOTIE 485km",
     specs: {
       batteryKwh: 84.0,
-      rangeKm: 485,       // 한국 인증 485km (WLTP 570km)
+      rangeKm: 570,
       powerHp: 225,
       zeroToHundred: 7.3,
       topSpeedKmh: 185,
@@ -764,26 +738,21 @@ const EV_DATA = [
       drivetrain: "RWD",
       weightKg: 2025
     },
-    prices: {
-      us: 46650,
-      cn: null,
-      kr: 5410,
-      eu: 51800
-    },
+    prices: { us: 46650, cn: null, kr: 5410, eu: 51800 },
     quarterlySales: {
       "2024 Q1": 24500, "2024 Q2": 29800, "2024 Q3": 31200, "2024 Q4": 33500,
       "2025 Q1": 27400, "2025 Q2": 32100, "2025 Q3": 34000, "2025 Q4": 31800,
       "2026 Q1": 28900, "2026 Q2": 31500, "2026 Q3": 32800
     },
     highlights: [
-      "4세대 84.0kWh 고밀도 배터리 탑재로 주행거리 대폭 향상",
-      "800V E-GMP 초급속 충전 (10→80% 18분) 및 리어 와이퍼 추가",
-      "미국 조지아 메타플랜트(HMGMA) 현지 생산으로 북미 경쟁력 강화"
+      "에너지 밀도를 높인 84.0kWh 4세대 배터리 탑재 (국내 인증 485km / WLTP 570km)",
+      "800V E-GMP 초급속 충전(10→80% 18분), 리어 와이퍼 및 물리 공조 버튼 추가",
+      "미국 조지아 메타플랜트(HMGMA) 현지 양산 및 NACS 충전 포트 기본 적용(북미형)"
     ],
     highlightsEn: [
-      "Upgraded 4th-gen 84.0 kWh battery pack for extended range",
-      "800V ultra-fast charging (10-80% in 18 mins) & rear wiper added",
-      "Built locally at Hyundai Metaplant America (HMGMA) in Georgia"
+      "Upgraded 84.0 kWh battery delivering 570 km WLTP (485 km Korea) range",
+      "800V ultra-fast charging (10-80% in 18 mins), rear wiper & physical buttons",
+      "Built at Hyundai Metaplant America (HMGMA) with native NACS port in US"
     ]
   },
   {
@@ -794,20 +763,21 @@ const EV_DATA = [
     nameKo: "아이오닉 9 (Long Range AWD)",
     nameEn: "IONIQ 9 (Long Range AWD)",
     origin: "KR",
-    originKo: "한국",
-    originEn: "South Korea",
+    segmentCode: "SUV",
     segment: "대형 SUV",
     segmentEn: "Full-size 3-Row SUV",
     releaseYear: 2025,
     isNew: true,
     isBestSeller: false,
-    badge: "110.3kWh 플래그십 3열 SUV",
+    badge: "110.3kWh 플래그십 대형 3열 SUV",
     badgeEn: "110.3 kWh Flagship 3-Row Electric SUV",
+    rangeCycle: "WLTP",
+    sourceNote: "Hyundai Official / WLTP 620km (2WD) / Korea MOTIE 532km (2WD), 503km (AWD)",
     specs: {
       batteryKwh: 110.3,
-      rangeKm: 532,       // 19인치 2WD 기준 532km, AWD 503km (WLTP 620km)
-      powerHp: 308,       // 성능형 AWD는 428마력
-      zeroToHundred: 6.7, // 성능형은 5.2초
+      rangeKm: 620,
+      powerHp: 308,
+      zeroToHundred: 6.7,
       topSpeedKmh: 200,
       chargingKw: 350,
       chargeTimeMin: 24,
@@ -815,26 +785,21 @@ const EV_DATA = [
       drivetrain: "AWD",
       weightKg: 2610
     },
-    prices: {
-      us: 61500,
-      cn: null,
-      kr: 6995,           // 세제혜택 후 6,715만원(2WD) ~ 6,995만원(AWD)
-      eu: 72900
-    },
+    prices: { us: 60555, cn: null, kr: 6995, eu: 72900 },
     quarterlySales: {
       "2024 Q1": 0, "2024 Q2": 0, "2024 Q3": 0, "2024 Q4": 0,
       "2025 Q1": 3800, "2025 Q2": 11500, "2025 Q3": 14800, "2025 Q4": 16200,
       "2026 Q1": 15400, "2026 Q2": 17100, "2026 Q3": 18500
     },
     highlights: [
-      "현대차 최초의 전동화 대형 SUV, 110.3kWh 대용량 배터리 탑재",
-      "에어로스테틱(Aerosthetic) 디자인으로 대형 SUV 최고 수준 공기저항계수(Cd 0.259)",
-      "전 트림 500km 이상 주행거리 확보 및 경쟁력 있는 국내 출시가 책정"
+      "현대차 최초의 전동화 대형 3열 SUV, SK온 110.3kWh 대용량 NCM 배터리 탑재",
+      "에어로스테틱 실루엣(Cd 0.259)으로 전 트림 국내 인증 500km 이상(최대 532km) 달성",
+      "6,715만 원(2WD)~6,995만 원(AWD)의 공격적인 국내 시작가로 대형 SUV 시장 선도"
     ],
     highlightsEn: [
-      "Hyundai's flagship 3-row electric SUV with a massive 110.3 kWh battery",
-      "Aerosthetic silhouette achieving an ultra-low 0.259 Cd drag coefficient",
-      "Over 500 km range across all trims with lounge-style swivel seating"
+      "Hyundai's flagship 3-row electric SUV with a 110.3 kWh battery pack",
+      "0.259 Cd aerodynamics achieving up to 620 km WLTP (532 km Korea) range",
+      "Competitive pricing alongside Universal Island 2.0 sliding console"
     ]
   },
   {
@@ -842,21 +807,22 @@ const EV_DATA = [
     brand: "Hyundai",
     brandKo: "현대",
     name: "Casper Electric (Inster)",
-    nameKo: "캐스퍼 일렉트릭 (인스터)",
+    nameKo: "캐스퍼 일렉트릭 (수출명 인스터)",
     nameEn: "Inster / Casper Electric",
     origin: "KR",
-    originKo: "한국",
-    originEn: "South Korea",
+    segmentCode: "SUV",
     segment: "경소형 SUV",
     segmentEn: "Subcompact City SUV",
     releaseYear: 2024,
     isNew: true,
     isBestSeller: true,
-    badge: "유럽·한국 소형 EV 히트작",
-    badgeEn: "2025 World Electric Vehicle Winner",
+    badge: "2025 세계 올해의 전기차(World EV) 수상",
+    badgeEn: "2025 World Electric Vehicle of the Year",
+    rangeCycle: "WLTP",
+    sourceNote: "Hyundai Official / WLTP 370km / Korea MOTIE 315km (49kWh)",
     specs: {
       batteryKwh: 49.0,
-      rangeKm: 370,       // WLTP 370km (한국 인증 315km)
+      rangeKm: 370,
       powerHp: 115,
       zeroToHundred: 10.6,
       topSpeedKmh: 150,
@@ -866,26 +832,21 @@ const EV_DATA = [
       drivetrain: "FWD",
       weightKg: 1335
     },
-    prices: {
-      us: null,
-      cn: null,
-      kr: 2990,
-      eu: 23900
-    },
+    prices: { us: null, cn: null, kr: 2990, eu: 23900 },
     quarterlySales: {
       "2024 Q1": 0, "2024 Q2": 0, "2024 Q3": 5200, "2024 Q4": 12800,
       "2025 Q1": 16500, "2025 Q2": 21400, "2025 Q3": 24800, "2025 Q4": 26100,
       "2026 Q1": 23500, "2026 Q2": 25800, "2026 Q3": 27200
     },
     highlights: [
-      "기존 내연기관 캐스퍼 대비 휠베이스 180mm 연장으로 소형차급 공간 확보",
-      "LG에너지솔루션 49kWh NCM 배터리 탑재로 315km(국내)/370km(WLTP) 인증",
-      "유럽 수출명 '인스터(Inster)'로 2025 세계 올해의 전기차 부문 수상"
+      "휠베이스 180mm 연장 및 전장 230mm 확대로 경차 규격을 넘어선 소형 SUV 공간 확보",
+      "LG에너지솔루션 49kWh NCM 배터리 및 페달 오조작 안전보조(PMSA) 기본 탑재",
+      "유럽·일본 수출명 '인스터(Inster)'로 2025 월드카 어워즈 올해의 전기차 선정"
     ],
     highlightsEn: [
-      "Extended 180 mm wheelbase over ICE Casper for generous cabin space",
+      "Extended 180 mm wheelbase for versatile flat-folding interior space",
       "49 kWh NCM battery delivering 370 km WLTP (315 km Korea) range",
-      "Exported globally as 'Hyundai Inster', winning 2025 World EV of the Year"
+      "Crowned 2025 World Electric Vehicle at the World Car Awards"
     ]
   },
   {
@@ -896,18 +857,19 @@ const EV_DATA = [
     nameKo: "EV3 롱레인지",
     nameEn: "EV3 Long Range",
     origin: "KR",
-    originKo: "한국",
-    originEn: "South Korea",
+    segmentCode: "SUV",
     segment: "소형/준중형 SUV",
     segmentEn: "Compact SUV",
     releaseYear: 2024,
     isNew: true,
     isBestSeller: true,
-    badge: "2025 세계 올해의 차(WCOTY) 선정",
+    badge: "2025 세계 올해의 차(WCOTY) 대상",
     badgeEn: "2025 World Car of the Year (WCOTY) Winner",
+    rangeCycle: "WLTP",
+    sourceNote: "Kia Official / WLTP 605km / Korea MOTIE 501km (81.4kWh)",
     specs: {
       batteryKwh: 81.4,
-      rangeKm: 605,       // WLTP 605km (한국 인증 501km)
+      rangeKm: 605,
       powerHp: 204,
       zeroToHundred: 7.5,
       topSpeedKmh: 170,
@@ -917,26 +879,21 @@ const EV_DATA = [
       drivetrain: "FWD",
       weightKg: 1810
     },
-    prices: {
-      us: 35500,
-      cn: null,
-      kr: 4415,           // 스탠다드 3,995만 / 롱레인지 4,415만원
-      eu: 38990
-    },
+    prices: { us: 35500, cn: null, kr: 4415, eu: 38990 },
     quarterlySales: {
       "2024 Q1": 0, "2024 Q2": 1800, "2024 Q3": 14500, "2024 Q4": 28400,
       "2025 Q1": 32500, "2025 Q2": 38900, "2025 Q3": 42100, "2025 Q4": 44500,
       "2026 Q1": 39800, "2026 Q2": 43200, "2026 Q3": 45600
     },
     highlights: [
-      "콤팩트 SUV 체급에 81.4kWh 대용량 배터리 탑재해 한국 501km / 유럽 605km 주행",
-      "전기차 대중화를 이끈 베스트셀러로 한국·유럽 시장 판매 최상위권",
-      "i-페달 3.0, AI 어시스턴트, 실내외 V2L 기본 적용"
+      "콤팩트 SUV 체급에 81.4kWh 대용량 배터리를 탑재해 국내 501km / 유럽 605km 주행 달성",
+      "2025 세계 올해의 차(WCOTY) 수상 및 한국·유럽 시장 베스트셀링 전기차 등극",
+      "i-페달 3.0, 스마트 회생제동 3.0, 생성형 AI 어시스턴트, 실내외 V2L 기본 적용"
     ],
     highlightsEn: [
-      "Class-above 81.4 kWh battery offering 605 km WLTP (501 km Korea) range",
-      "Top-selling compact EV across Korea and Europe",
-      "Equipped with i-Pedal 3.0, AI Assistant, and bidirectional V2L"
+      "Class-leading 81.4 kWh battery offering 605 km WLTP (501 km Korea) range",
+      "Overall winner of the 2025 World Car of the Year (WCOTY) award",
+      "Features i-Pedal 3.0, Smart Regen 3.0, AI Assistant & bidirectional V2L"
     ]
   },
   {
@@ -945,20 +902,21 @@ const EV_DATA = [
     brandKo: "기아",
     name: "EV4 Long Range",
     nameKo: "EV4 롱레인지 세단",
-    nameEn: "EV4 Long Range Sedan",
+    nameEn: "EV4 Long Range Fastback",
     origin: "KR",
-    originKo: "한국",
-    originEn: "South Korea",
+    segmentCode: "SEDAN",
     segment: "준중형 세단",
     segmentEn: "Compact Fastback Sedan",
     releaseYear: 2025,
     isNew: true,
     isBestSeller: false,
-    badge: "기아 최초 전동화 세단 (533km)",
-    badgeEn: "Kia's First Dedicated Electric Sedan (630 km WLTP)",
+    badge: "현대·기아 최장 533km(국내) 전기 세단",
+    badgeEn: "Kia's First Electric Sedan (630 km WLTP)",
+    rangeCycle: "WLTP",
+    sourceNote: "Kia Official / WLTP 630km / Korea MOTIE 533km (81.4kWh)",
     specs: {
       batteryKwh: 81.4,
-      rangeKm: 630,       // WLTP 630km (한국 인증 533km)
+      rangeKm: 630,
       powerHp: 204,
       zeroToHundred: 7.4,
       topSpeedKmh: 170,
@@ -968,25 +926,20 @@ const EV_DATA = [
       drivetrain: "FWD",
       weightKg: 1800
     },
-    prices: {
-      us: 37000,
-      cn: null,
-      kr: 4462,           // 스탠다드 4,042만 / 롱레인지 4,462만원
-      eu: 41500
-    },
+    prices: { us: 37000, cn: null, kr: 4462, eu: 41500 },
     quarterlySales: {
       "2024 Q1": 0, "2024 Q2": 0, "2024 Q3": 0, "2024 Q4": 0,
       "2025 Q1": 1200, "2025 Q2": 14500, "2025 Q3": 22800, "2025 Q4": 26400,
       "2026 Q1": 24900, "2026 Q2": 28100, "2026 Q3": 30200
     },
     highlights: [
-      "공기저항계수 0.23의 패스트백 실루엣으로 현대기아 전기차 중 최장 주행거리(국내 533km)",
-      "세단 모델과 유럽 전략형 해치백 모델 동시 운영",
-      "보조금 적용 시 3천만 원대 구매 가능한 대중형 전기 세단"
+      "공기저항계수 Cd 0.23의 로우 노즈·롱 테일 패스트백 디자인으로 국내 533km / WLTP 630km 인증",
+      "세단 모델과 유럽 전략형 5도어 해치백 모델 동시 운영",
+      "스탠다드(4,042만 원) / 롱레인지(4,462만 원)로 보조금 적용 시 3천만 원대 구매 가능"
     ],
     highlightsEn: [
-      "Ultra-sleek 0.23 Cd fastback achieving longest HMG range (533 km KR / 630 km WLTP)",
-      "Offered in both Fastback Sedan and European Hatchback body styles",
+      "Ultra-low 0.23 Cd fastback achieving 630 km WLTP (533 km Korea) range",
+      "Available in both 4-door Fastback Sedan and European 5-door Hatchback",
       "Accessible mainstream pricing with 81.4 kWh Long Range battery"
     ]
   },
@@ -998,18 +951,19 @@ const EV_DATA = [
     nameKo: "더 뉴 EV6 (Long Range AWD)",
     nameEn: "The New EV6 (Long Range AWD)",
     origin: "KR",
-    originKo: "한국",
-    originEn: "South Korea",
+    segmentCode: "SUV",
     segment: "중형 크로스오버",
     segmentEn: "Mid-size Crossover",
     releaseYear: 2024,
     isNew: false,
     isBestSeller: true,
-    badge: "800V 크로스오버 스테디셀러",
+    badge: "800V 초급속 크로스오버 스테디셀러",
     badgeEn: "800V Fast-Charging Sport Crossover",
+    rangeCycle: "WLTP",
+    sourceNote: "Kia Official / WLTP 546km (AWD), 582km (RWD) / Korea 494km (2WD)",
     specs: {
       batteryKwh: 84.0,
-      rangeKm: 546,       // WLTP (한국 인증 2WD 494km / AWD 461km)
+      rangeKm: 546,
       powerHp: 325,
       zeroToHundred: 5.2,
       topSpeedKmh: 188,
@@ -1019,26 +973,21 @@ const EV_DATA = [
       drivetrain: "AWD",
       weightKg: 2090
     },
-    prices: {
-      us: 49850,
-      cn: null,
-      kr: 5815,
-      eu: 54990
-    },
+    prices: { us: 49850, cn: null, kr: 5815, eu: 54990 },
     quarterlySales: {
       "2024 Q1": 19500, "2024 Q2": 23400, "2024 Q3": 24800, "2024 Q4": 22100,
       "2025 Q1": 20800, "2025 Q2": 24200, "2025 Q3": 25500, "2025 Q4": 23900,
       "2026 Q1": 21500, "2026 Q2": 23800, "2026 Q3": 24900
     },
     highlights: [
-      "스타맵 시그니처 라이팅 적용 페이스리프트 및 84kWh 배터리 탑재",
-      "정전식 스티어링 휠 그립 감지 및 파노라믹 커브드 디스플레이 개선",
-      "18분 초급속 충전과 다이내믹한 주행 감각"
+      "스타맵 시그니처 라이팅 적용 부분변경 및 84kWh 4세대 배터리 탑재",
+      "정전식 스티어링 휠 그립 감지(HOD), 차세대 ccNC 인포테인먼트 기본화",
+      "350kW 초급속 충전 시 18분 만에 10%에서 80%까지 충전 가능"
     ],
     highlightsEn: [
-      "Facelifted with Star Map signature lighting & 84 kWh battery pack",
-      "Capacitive steering wheel & next-gen ccNC panoramic curved display",
-      "18-minute 10-80% ultra-fast charging with sporty handling"
+      "Refreshed with Star Map signature lighting & 84 kWh 4th-gen battery",
+      "Capacitive hands-on detection steering wheel & ccNC curved display",
+      "10–80% ultra-fast charging in 18 minutes via 800V E-GMP system"
     ]
   },
   {
@@ -1049,18 +998,19 @@ const EV_DATA = [
     nameKo: "EV9 롱레인지 4WD",
     nameEn: "EV9 Long Range AWD",
     origin: "KR",
-    originKo: "한국",
-    originEn: "South Korea",
+    segmentCode: "SUV",
     segment: "대형 SUV",
     segmentEn: "Full-size 3-Row SUV",
     releaseYear: 2024,
     isNew: false,
     isBestSeller: false,
-    badge: "2024 세계 올해의 차 수상작",
+    badge: "2024 세계 올해의 차(WCOTY) 수상작",
     badgeEn: "2024 World Car of the Year Flagship SUV",
+    rangeCycle: "WLTP",
+    sourceNote: "Kia Official / WLTP 512km (AWD), 563km (RWD) / Korea 501km (2WD)",
     specs: {
       batteryKwh: 99.8,
-      rangeKm: 512,       // WLTP (한국 인증 2WD 501km / 4WD 454km)
+      rangeKm: 512,
       powerHp: 384,
       zeroToHundred: 5.3,
       topSpeedKmh: 200,
@@ -1070,30 +1020,25 @@ const EV_DATA = [
       drivetrain: "AWD",
       weightKg: 2560
     },
-    prices: {
-      us: 63900,
-      cn: null,
-      kr: 7685,
-      eu: 76990
-    },
+    prices: { us: 63900, cn: null, kr: 7685, eu: 76990 },
     quarterlySales: {
       "2024 Q1": 9200, "2024 Q2": 11800, "2024 Q3": 13400, "2024 Q4": 12100,
       "2025 Q1": 10500, "2025 Q2": 11900, "2025 Q3": 12400, "2025 Q4": 11800,
       "2026 Q1": 10200, "2026 Q2": 11400, "2026 Q3": 11900
     },
     highlights: [
-      "북미·유럽에서 호평받은 정통 박스형 3열 전기 SUV",
-      "2열 스위블 시트 및 릴렉션 시트 등 다양한 시트 구성 제공",
-      "508마력 고성능 모델 'EV9 GT' 추가 출시로 라인업 완성"
+      "2024 세계 올해의 차(WCOTY)와 북미 올해의 유틸리티 차량 동시 석권",
+      "99.8kWh 대용량 배터리 및 2열 스위블/릴렉션 시트 등 다양한 공간 구성",
+      "508마력 고성능 모델 'EV9 GT' 및 합리적 가격의 스탠다드 트림 추가"
     ],
     highlightsEn: [
-      "Award-winning boxy 3-row family SUV acclaimed in North America & Europe",
-      "Versatile 6/7-seat layouts with 180-degree swivel & relaxation seats",
-      "Lineup crowned by the 508 hp high-performance EV9 GT"
+      "Double winner of 2024 World Car of the Year & North American Utility of the Year",
+      "99.8 kWh battery with versatile 6/7-seat swivel and relaxation layouts",
+      "Expanded with the 508 hp high-performance EV9 GT"
     ]
   },
 
-  // ======================== GERMANY (독일 3사 + 폭스바겐/포르쉐) ========================
+  // ======================== GERMANY (Pure BEV Only) ========================
   {
     id: "bmw-ix3-neue-klasse",
     brand: "BMW",
@@ -1102,18 +1047,19 @@ const EV_DATA = [
     nameKo: "신형 iX3 50 xDrive (노이어 클라쎄)",
     nameEn: "All-New iX3 50 xDrive (Neue Klasse)",
     origin: "DE",
-    originKo: "독일",
-    originEn: "Germany",
+    segmentCode: "SUV",
     segment: "중형 SUV",
-    segmentEn: "Mid-size SUV",
+    segmentEn: "Mid-size Luxury SUV",
     releaseYear: 2026,
     isNew: true,
     isBestSeller: false,
-    badge: "차세대 노이어 클라쎄 800km+",
+    badge: "노이어 클라쎄 800V · WLTP 800km",
     badgeEn: "Next-Gen Neue Klasse 800V / 800km WLTP",
+    rangeCycle: "WLTP",
+    sourceNote: "BMW Group Official / Gen6 eDrive 800V / WLTP up to 800km",
     specs: {
       batteryKwh: 100.0,
-      rangeKm: 800,       // WLTP 800km 목표 (6세대 원통형 배터리)
+      rangeKm: 800,
       powerHp: 469,
       zeroToHundred: 4.5,
       topSpeedKmh: 210,
@@ -1123,26 +1069,21 @@ const EV_DATA = [
       drivetrain: "AWD",
       weightKg: 2180
     },
-    prices: {
-      us: 59900,
-      cn: 405000,
-      kr: 8600,
-      eu: 68900
-    },
+    prices: { us: 59900, cn: 405000, kr: 8600, eu: 68900 },
     quarterlySales: {
       "2024 Q1": 0, "2024 Q2": 0, "2024 Q3": 0, "2024 Q4": 0,
       "2025 Q1": 0, "2025 Q2": 0, "2025 Q3": 0, "2025 Q4": 4200,
       "2026 Q1": 16800, "2026 Q2": 29500, "2026 Q3": 38400
     },
     highlights: [
-      "BMW의 차세대 전동화 전용 플랫폼 '노이어 클라쎄(Neue Klasse)' 첫 양산차",
-      "6세대 원통형 배터리 셀 & 800V 시스템으로 충전 속도 30%, 주행거리 30% 향상",
-      "운전석 전면 유리 전체를 활용하는 'BMW 파노라믹 비전' HUD 최초 적용"
+      "BMW의 차세대 전기차 전용 플랫폼 '노이어 클라쎄(Neue Klasse)' 첫 양산 모델",
+      "6세대 원통형 배터리 셀 & 800V 시스템으로 충전 속도 30%·주행거리 30% 향상",
+      "전면 윈드실드 하단 전체에 투사되는 'BMW 파노라믹 비전' HUD 및 Heart of Joy 제어유닛 탑재"
     ],
     highlightsEn: [
-      "First production model on BMW's ground-up Neue Klasse EV architecture",
-      "6th-gen cylindrical cells & 800V tech deliver 30% faster charging & 30% more range",
-      "Debuts pillar-to-pillar BMW Panoramic Vision head-up projection"
+      "First production model on BMW's dedicated Neue Klasse EV architecture",
+      "6th-gen cylindrical cells & 800V tech deliver 30% faster charging & up to 800 km WLTP",
+      "Debuts pillar-to-pillar BMW Panoramic Vision HUD & 'Heart of Joy' dynamic control"
     ]
   },
   {
@@ -1153,8 +1094,7 @@ const EV_DATA = [
     nameKo: "뉴 i4 eDrive40 그란쿠페",
     nameEn: "New i4 eDrive40 Gran Coupe",
     origin: "DE",
-    originKo: "독일",
-    originEn: "Germany",
+    segmentCode: "SEDAN",
     segment: "중형 세단",
     segmentEn: "Mid-size Gran Coupe",
     releaseYear: 2024,
@@ -1162,9 +1102,11 @@ const EV_DATA = [
     isBestSeller: true,
     badge: "독일 3사 최다 판매 전기 세단",
     badgeEn: "Best-Selling German Luxury Electric Sedan",
+    rangeCycle: "WLTP",
+    sourceNote: "BMW Official / WLTP 590km / Korea MOTIE 429km (83.9kWh)",
     specs: {
       batteryKwh: 83.9,
-      rangeKm: 590,       // WLTP (한국 인증 429km)
+      rangeKm: 590,
       powerHp: 340,
       zeroToHundred: 5.6,
       topSpeedKmh: 190,
@@ -1174,25 +1116,20 @@ const EV_DATA = [
       drivetrain: "RWD",
       weightKg: 2125
     },
-    prices: {
-      us: 57900,
-      cn: 429900,
-      kr: 7830,
-      eu: 60500
-    },
+    prices: { us: 57900, cn: 429900, kr: 7830, eu: 60500 },
     quarterlySales: {
       "2024 Q1": 21500, "2024 Q2": 24800, "2024 Q3": 25200, "2024 Q4": 26900,
       "2025 Q1": 22400, "2025 Q2": 25100, "2025 Q3": 26300, "2025 Q4": 27100,
       "2026 Q1": 23800, "2026 Q2": 25500, "2026 Q3": 26200
     },
     highlights: [
-      "BMW 특유의 후륜구동 주행 감성을 그대로 살린 베스트셀링 그란쿠페",
-      "2024년 말 LCI(부분변경)를 통해 레이저 테일램프 및 신규 주간주행등 적용",
-      "독일 프리미엄 브랜드 전기차 중 가장 탄탄한 글로벌 판매량 유지"
+      "BMW 특유의 정교한 후륜구동 핸들링과 해치 게이트의 실용성을 겸비한 그란쿠페",
+      "LCI(부분변경)를 통해 M4 CSL 스타일 레이저 테일램프 및 OS 8.5 적용",
+      "독일 프리미엄 3사 전기 세단 중 글로벌 누적 판매량 1위 유지"
     ],
     highlightsEn: [
       "Signature BMW rear-wheel-drive dynamics in a practical liftback Gran Coupe",
-      "Refreshed LCI model features laserlight taillights & updated kidney grille",
+      "Refreshed LCI model features laserlight taillights & BMW iDrive 8.5",
       "Consistent global sales leader among German luxury electric sedans"
     ]
   },
@@ -1204,18 +1141,19 @@ const EV_DATA = [
     nameKo: "iX1 xDrive30",
     nameEn: "iX1 xDrive30",
     origin: "DE",
-    originKo: "독일",
-    originEn: "Germany",
+    segmentCode: "SUV",
     segment: "준중형 SUV",
     segmentEn: "Compact Luxury SUV",
     releaseYear: 2024,
     isNew: false,
     isBestSeller: true,
-    badge: "유럽 프리미엄 콤팩트 SUV 1위",
+    badge: "유럽 프리미엄 콤팩트 전기 SUV 1위",
     badgeEn: "Top European Premium Compact Electric SUV",
+    rangeCycle: "WLTP",
+    sourceNote: "BMW Official / WLTP 439km / Korea MOTIE 310km (66.5kWh)",
     specs: {
       batteryKwh: 66.5,
-      rangeKm: 440,       // WLTP (한국 인증 310km)
+      rangeKm: 439,
       powerHp: 313,
       zeroToHundred: 5.6,
       topSpeedKmh: 180,
@@ -1225,26 +1163,21 @@ const EV_DATA = [
       drivetrain: "AWD",
       weightKg: 2085
     },
-    prices: {
-      us: null,
-      cn: 299900,
-      kr: 6760,
-      eu: 55000
-    },
+    prices: { us: null, cn: 299900, kr: 6760, eu: 55000 },
     quarterlySales: {
       "2024 Q1": 22000, "2024 Q2": 26500, "2024 Q3": 28100, "2024 Q4": 30200,
       "2025 Q1": 25800, "2025 Q2": 28900, "2025 Q3": 30400, "2025 Q4": 31800,
       "2026 Q1": 27200, "2026 Q2": 29600, "2026 Q3": 31100
     },
     highlights: [
-      "BMW 전체 전기차 판매 성장을 견인하는 볼륨 엔트리 SUV",
-      "듀얼 모터 313마력의 경쾌한 가속력과 실용적인 공간 활용성",
-      "전륜구동 엔트리 트림(eDrive20) 추가로 유럽 법인·개인 수요 흡수"
+      "BMW 그룹 전체 전기차 판매 성장을 견인하는 핵심 콤팩트 SUV",
+      "듀얼 모터 313마력의 경쾌한 가속력과 탄탄한 차체 밸런스",
+      "유럽 및 한국 수입 프리미엄 콤팩트 전기 SUV 시장 최상위 판매 기록"
     ],
     highlightsEn: [
-      "High-volume compact SUV driving BMW's global BEV market share growth",
-      "Dual-motor 313 hp AWD performance with versatile family utility",
-      "Strong fleet and retail demand across Europe with eDrive20/xDrive30 trims"
+      "High-volume compact SUV driving BMW Group's strong BEV growth",
+      "Dual-motor 313 hp xDrive AWD performance with family practicality",
+      "Top seller in the European & Korean premium compact electric SUV segment"
     ]
   },
   {
@@ -1252,22 +1185,23 @@ const EV_DATA = [
     brand: "Mercedes-Benz",
     brandKo: "메르세데스-벤츠",
     name: "CLA 250+ with EQ Tech",
-    nameKo: "디 올 뉴 CLA 전기 (MMA 플랫폼)",
+    nameKo: "디 올 뉴 전기 CLA (MMA 플랫폼)",
     nameEn: "All-New CLA 250+ with EQ Technology",
     origin: "DE",
-    originKo: "독일",
-    originEn: "Germany",
+    segmentCode: "SEDAN",
     segment: "준중형 세단",
     segmentEn: "Compact Luxury Coupe Sedan",
     releaseYear: 2025,
     isNew: true,
     isBestSeller: false,
-    badge: "800V MMA 플랫폼 / WLTP 792km",
+    badge: "800V MMA 플랫폼 · WLTP 792km",
     badgeEn: "800V MMA Platform / 792 km WLTP Range",
+    rangeCycle: "WLTP",
+    sourceNote: "Mercedes-Benz Official World Premiere (Mar 2025) / 85kWh / WLTP 792km",
     specs: {
       batteryKwh: 85.0,
-      rangeKm: 792,       // WLTP 최대 792km!
-      powerHp: 272,       // 350 4MATIC은 354마력
+      rangeKm: 792,
+      powerHp: 272,
       zeroToHundred: 6.7,
       topSpeedKmh: 210,
       chargingKw: 320,
@@ -1276,26 +1210,68 @@ const EV_DATA = [
       drivetrain: "RWD",
       weightKg: 2055
     },
-    prices: {
-      us: 54500,
-      cn: 349000,
-      kr: 7190,
-      eu: 55900
-    },
+    prices: { us: 54500, cn: 349000, kr: 7190, eu: 55900 },
     quarterlySales: {
       "2024 Q1": 0, "2024 Q2": 0, "2024 Q3": 0, "2024 Q4": 0,
       "2025 Q1": 0, "2025 Q2": 4500, "2025 Q3": 16800, "2025 Q4": 25400,
       "2026 Q1": 28900, "2026 Q2": 33200, "2026 Q3": 36500
     },
     highlights: [
-      "벤츠의 차세대 MMA 아키텍처 및 800V 시스템 최초 적용 모델",
-      "2단 변속기와 실리콘 산화물 음극재 배터리로 WLTP 792km 초장거리 달성 (전비 8.2km/kWh)",
-      "차세대 MB.OS 및 슈퍼스크린 탑재로 기존 EQ 시리즈의 부진을 만회하는 핵심 신차"
+      "2025년 3월 월드 프리미어 공개된 벤츠 차세대 800V MMA 아키텍처 첫 양산차",
+      "2단 변속기 및 실리콘 산화물 음극재 85kWh 배터리로 WLTP 최대 792km 달성 (12.2kWh/100km)",
+      "320kW 초급속 충전(10분 충전에 325km 주행) 및 AI 통합형 차세대 MB.OS 탑재"
     ],
     highlightsEn: [
-      "First Mercedes built on the next-gen 800V MMA modular architecture",
-      "2-speed transmission & silicon-oxide anode battery deliver 792 km WLTP range",
-      "Debuts full MB.OS software stack & MBUX Superscreen"
+      "First production Mercedes on the 800V MMA platform (unveiled March 2025)",
+      "2-speed transmission & 85 kWh silicon-oxide anode pack achieve 792 km WLTP range",
+      "320 kW DC fast charging (+325 km in 10 mins) and full MB.OS software stack"
+    ]
+  },
+  {
+    id: "mercedes-glc-eq",
+    brand: "Mercedes-Benz",
+    brandKo: "메르세데스-벤츠",
+    name: "GLC 400 4MATIC with EQ Tech",
+    nameKo: "신형 전기 GLC (MB.EA 800V 플랫폼)",
+    nameEn: "GLC 400 4MATIC with EQ Technology (MB.EA)",
+    origin: "DE",
+    segmentCode: "SUV",
+    segment: "중형 SUV",
+    segmentEn: "Mid-size Luxury SUV",
+    releaseYear: 2026,
+    isNew: true,
+    isBestSeller: false,
+    badge: "차세대 MB.EA 전용 플랫폼 · 715km",
+    badgeEn: "Dedicated 800V MB.EA Platform / 715km WLTP",
+    rangeCycle: "WLTP",
+    sourceNote: "Mercedes-Benz MB.EA Official Spec / 94kWh / WLTP 715km",
+    specs: {
+      batteryKwh: 94.0,
+      rangeKm: 715,
+      powerHp: 483,
+      zeroToHundred: 4.3,
+      topSpeedKmh: 210,
+      chargingKw: 330,
+      chargeTimeMin: 20,
+      architectureV: 800,
+      drivetrain: "AWD",
+      weightKg: 2320
+    },
+    prices: { us: 64900, cn: 418000, kr: 8890, eu: 71900 },
+    quarterlySales: {
+      "2024 Q1": 0, "2024 Q2": 0, "2024 Q3": 0, "2024 Q4": 0,
+      "2025 Q1": 0, "2025 Q2": 0, "2025 Q3": 0, "2025 Q4": 2800,
+      "2026 Q1": 14500, "2026 Q2": 24800, "2026 Q3": 32900
+    },
+    highlights: [
+      "벤츠의 중대형 전기차 전용 아키텍처 'MB.EA'로 탄생한 차세대 중형 베스트셀링 SUV",
+      "94kWh 고밀도 배터리, 800V 시스템(최대 330kW 충전), 리어 2단 변속기로 WLTP 715km 주행",
+      "신형 BMW iX3(노이어 클라쎄) 및 아우디 Q6 e-트론과 정면 대결하는 핵심 전략 모델"
+    ],
+    highlightsEn: [
+      "Built from the ground up on Mercedes-Benz's dedicated 800V MB.EA architecture",
+      "94 kWh battery, 330 kW fast charging, and 2-speed rear drive unit for 715 km WLTP",
+      "Direct German luxury rival to the Neue Klasse BMW iX3 and Audi Q6 e-tron"
     ]
   },
   {
@@ -1303,101 +1279,46 @@ const EV_DATA = [
     brand: "Mercedes-Benz",
     brandKo: "메르세데스-벤츠",
     name: "GLE with EQ Tech (EQE SUV)",
-    nameKo: "GLE EQ 테크놀로지 (차세대 MB.EA / EQE SUV)",
-    nameEn: "GLE with EQ Technology (MB.EA / EQE SUV)",
+    nameKo: "GLE EQ 테크놀로지 (EQE 350+ / 500 SUV)",
+    nameEn: "GLE with EQ Technology (EQE SUV Lineage)",
     origin: "DE",
-    originKo: "독일",
-    originEn: "Germany",
+    segmentCode: "SUV",
     segment: "준대형 SUV",
     segmentEn: "Mid-to-Large Luxury SUV",
-    releaseYear: 2026,
+    releaseYear: 2025,
     isNew: true,
     isBestSeller: false,
-    badge: "벤츠 EQ 브랜드 통합 800V 대형 SUV",
-    badgeEn: "Next-Gen 800V MB.EA Luxury Electric SUV",
+    badge: "96kWh 배터리 업그레이드 · 에어 서스펜션",
+    badgeEn: "96 kWh Upgraded Battery & AIRMATIC Luxury SUV",
+    rangeCycle: "WLTP",
+    sourceNote: "Mercedes-Benz Official / 96.0kWh Usable / WLTP 596km",
     specs: {
-      batteryKwh: 100.0,
-      rangeKm: 635,       // WLTP 635km (차세대 800V eATS 2.0 적용 기준)
+      batteryKwh: 96.0,
+      rangeKm: 596,
       powerHp: 408,
-      zeroToHundred: 5.3,
-      topSpeedKmh: 210,
-      chargingKw: 320,
-      chargeTimeMin: 20,
-      architectureV: 800,
-      drivetrain: "AWD",
-      weightKg: 2540
-    },
-    prices: {
-      us: 79900,
-      cn: 498000,
-      kr: 11200,
-      eu: 87900
-    },
-    quarterlySales: {
-      "2024 Q1": 11200, "2024 Q2": 12500, "2024 Q3": 11800, "2024 Q4": 12900,
-      "2025 Q1": 10400, "2025 Q2": 11200, "2025 Q3": 11600, "2025 Q4": 12100,
-      "2026 Q1": 12800, "2026 Q2": 15400, "2026 Q3": 17900
-    },
-    highlights: [
-      "벤츠의 새 네이밍 전략('with EQ Technology')에 따라 기존 EQE SUV 포지션을 계승·진화한 전동화 GLE",
-      "800V 고전압 아키텍처(eATS 2.0) 및 100kWh 배터리로 주행거리 635km·충전시간 20분 달성",
-      "AIRMATIC 에어 서스펜션, 후륜 조향(최대 10도), MBUX 하이퍼스크린 및 MB.OS 탑재"
-    ],
-    highlightsEn: [
-      "Unifies the EQE SUV lineage into the iconic GLE nameplate ('with EQ Technology')",
-      "Upgraded 800V eATS 2.0 drive system & 100 kWh pack for 635 km WLTP range",
-      "Features AIRMATIC air suspension, 10-degree rear-axle steering & MBUX Hyperscreen"
-    ]
-  },
-  {
-    id: "mercedes-eqe-suv",
-    brand: "Mercedes-Benz",
-    brandKo: "메르세데스-벤츠",
-    name: "EQE 350 4MATIC SUV",
-    nameKo: "EQE 350 4MATIC SUV",
-    nameEn: "EQE 350 4MATIC SUV",
-    origin: "DE",
-    originKo: "독일",
-    originEn: "Germany",
-    segment: "준대형 SUV",
-    segmentEn: "Mid-to-Large Luxury SUV",
-    releaseYear: 2024,
-    isNew: false,
-    isBestSeller: false,
-    badge: "럭셔리 에어 서스펜션 SUV",
-    badgeEn: "EVA2 Luxury Air-Suspension SUV",
-    specs: {
-      batteryKwh: 96.0,   // 연식변경으로 90.6 -> 96kWh 확대
-      rangeKm: 565,       // WLTP (한국 인증 404km)
-      powerHp: 292,
-      zeroToHundred: 6.6,
+      zeroToHundred: 4.9,
       topSpeedKmh: 210,
       chargingKw: 170,
-      chargeTimeMin: 32,
+      chargeTimeMin: 31,
       architectureV: 400,
       drivetrain: "AWD",
-      weightKg: 2580
+      weightKg: 2560
     },
-    prices: {
-      us: 77900,
-      cn: 486000,
-      kr: 10990,
-      eu: 86800
-    },
+    prices: { us: 77900, cn: 486000, kr: 10990, eu: 86800 },
     quarterlySales: {
       "2024 Q1": 11200, "2024 Q2": 12500, "2024 Q3": 11800, "2024 Q4": 12900,
       "2025 Q1": 10400, "2025 Q2": 11200, "2025 Q3": 11600, "2025 Q4": 12100,
-      "2026 Q1": 10800, "2026 Q2": 11500, "2026 Q3": 11900
+      "2026 Q1": 11800, "2026 Q2": 12600, "2026 Q3": 13400
     },
     highlights: [
-      "에어매틱(AIRMATIC) 서스펜션 및 후륜 조향(최대 10도)으로 최상의 승차감",
-      "최신 연식변경 모델을 통해 96kWh 배터리 및 전륜 모터 디스커넥트 유닛(DCU) 적용",
-      "정숙한 실내 공간과 벤츠 특유의 고급 인테리어 마감"
+      "벤츠의 'with EQ Technology' 브랜드 통합 전략에 맞춰 GLE 급 순수전기 럭셔리 SUV 담당",
+      "연식변경을 통해 배터리 순용량을 90.6kWh→96.0kWh로 확대하고 전륜 디스커넥트 유닛(DCU) 기본화",
+      "AIRMATIC 에어 서스펜션과 최대 10도 후륜 조향으로 동급 최고 수준의 승차감 제공"
     ],
     highlightsEn: [
-      "Supreme ride comfort with AIRMATIC air suspension & 10-degree rear steering",
-      "Upgraded 96 kWh battery and front axle Disconnect Unit (DCU)",
-      "Whisper-quiet cabin with signature Mercedes-Benz luxury appointments"
+      "Mercedes' flagship mid-to-large electric SUV transitioning under the GLE EQ strategy",
+      "Upgraded 96.0 kWh usable battery pack & front axle Disconnect Unit (DCU) for 596 km WLTP",
+      "AIRMATIC air suspension & 10-degree rear-axle steering for supreme ride comfort"
     ]
   },
   {
@@ -1408,18 +1329,19 @@ const EV_DATA = [
     nameKo: "더 뉴 Q6 e-트론 콰트로",
     nameEn: "Q6 e-tron quattro",
     origin: "DE",
-    originKo: "독일",
-    originEn: "Germany",
+    segmentCode: "SUV",
     segment: "중형 SUV",
     segmentEn: "Mid-size Luxury SUV",
     releaseYear: 2025,
     isNew: true,
     isBestSeller: false,
-    badge: "포르쉐 공동개발 PPE 800V 플랫폼",
+    badge: "포르쉐 공동개발 800V PPE 플랫폼",
     badgeEn: "Audi-Porsche Co-Developed 800V PPE Platform",
+    rangeCycle: "WLTP",
+    sourceNote: "Audi Official / 100kWh (94.9kWh net) / WLTP 625km / Korea 468km",
     specs: {
-      batteryKwh: 100.0,  // 순용량 94.9kWh
-      rangeKm: 625,       // WLTP 625km (한국 인증 468km)
+      batteryKwh: 100.0,
+      rangeKm: 625,
       powerHp: 387,
       zeroToHundred: 5.9,
       topSpeedKmh: 210,
@@ -1429,26 +1351,21 @@ const EV_DATA = [
       drivetrain: "AWD",
       weightKg: 2400
     },
-    prices: {
-      us: 65800,
-      cn: 429000,
-      kr: 8290,           // 퍼포먼스 8,290만 ~ 콰트로 1억 690만원
-      eu: 74700
-    },
+    prices: { us: 65800, cn: 429000, kr: 8290, eu: 74700 },
     quarterlySales: {
       "2024 Q1": 0, "2024 Q2": 1200, "2024 Q3": 8900, "2024 Q4": 16400,
       "2025 Q1": 19500, "2025 Q2": 23800, "2025 Q3": 26400, "2025 Q4": 28100,
       "2026 Q1": 26900, "2026 Q2": 29200, "2026 Q3": 30800
     },
     highlights: [
-      "포르쉐 마칸 일렉트릭과 공유하는 차세대 PPE(Premium Platform Electric) 아키텍처",
-      "800V 시스템 및 270kW 초급속 충전 지원 (10분 충전에 255km 주행)",
-      "운전석 11.9인치 + 중앙 14.5인치 OLED 파노라믹 디스플레이 + 조수석 10.9인치 스크린"
+      "포르쉐와 공동 개발한 차세대 800V PPE(Premium Platform Electric) 아키텍처 첫 아우디 모델",
+      "100kWh 배터리 및 270kW 초급속 충전 지원 (10분 충전에 255km 주행 가능)",
+      "11.9인치 버추얼 콕핏 + 14.5인치 OLED 중앙 디스플레이 + 10.9인치 조수석 스크린 탑재"
     ],
     highlightsEn: [
-      "Built on the next-gen 800V PPE platform co-developed with Porsche",
-      "270 kW fast charging adds 255 km of range in just 10 minutes",
-      "Digital Stage cockpit with 11.9\" + 14.5\" curved OLED + 10.9\" passenger screen"
+      "First Audi built on the 800V PPE platform co-developed with Porsche",
+      "100 kWh gross battery & 270 kW fast charging (+255 km in 10 minutes)",
+      "Digital Stage cabin with 11.9\" + 14.5\" curved OLED + 10.9\" passenger display"
     ]
   },
   {
@@ -1456,21 +1373,22 @@ const EV_DATA = [
     brand: "Audi",
     brandKo: "아우디",
     name: "Q4 45 e-tron",
-    nameKo: "Q4 45 e-트론 (신형 모터)",
-    nameEn: "Q4 45 e-tron (Upgraded Motor)",
+    nameKo: "Q4 45 e-트론 (신형 APP550 모터)",
+    nameEn: "Q4 45 e-tron (Upgraded APP550)",
     origin: "DE",
-    originKo: "독일",
-    originEn: "Germany",
+    segmentCode: "SUV",
     segment: "준중형 SUV",
     segmentEn: "Compact Luxury SUV",
     releaseYear: 2024,
     isNew: false,
     isBestSeller: true,
-    badge: "아우디 글로벌 판매 1위 EV",
-    badgeEn: "Audi's #1 Best-Selling Global EV",
+    badge: "아우디 글로벌 최다 판매 전기차",
+    badgeEn: "Audi's #1 Best-Selling Global BEV",
+    rangeCycle: "WLTP",
+    sourceNote: "Audi Official / 82kWh (77kWh net) / WLTP 562km / Korea 411km",
     specs: {
       batteryKwh: 82.0,
-      rangeKm: 562,       // WLTP (한국 인증 411km)
+      rangeKm: 562,
       powerHp: 286,
       zeroToHundred: 6.7,
       topSpeedKmh: 180,
@@ -1480,26 +1398,21 @@ const EV_DATA = [
       drivetrain: "RWD",
       weightKg: 2145
     },
-    prices: {
-      us: 55200,
-      cn: 289900,
-      kr: 6410,
-      eu: 52950
-    },
+    prices: { us: 55200, cn: 289900, kr: 6410, eu: 52950 },
     quarterlySales: {
       "2024 Q1": 24800, "2024 Q2": 27900, "2024 Q3": 26500, "2024 Q4": 28400,
       "2025 Q1": 23100, "2025 Q2": 25400, "2025 Q3": 26200, "2025 Q4": 27000,
       "2026 Q1": 22800, "2026 Q2": 24500, "2026 Q3": 25100
     },
     highlights: [
-      "신형 APP550 리어 모터 적용으로 출력이 204마력→286마력으로 대폭 상승",
-      "아우디 전동화 라인업 중 글로벌 및 한국 시장 최다 판매 모델",
-      "짧은 오버행과 MEB 플랫폼 특유의 넓은 2열 레그룸"
+      "신형 고효율 APP550 리어 모터 적용으로 최고출력이 기존 204마력에서 286마력으로 대폭 향상",
+      "아우디 전동화 라인업 중 유럽 및 한국 수입차 시장 최다 판매 베스트셀러",
+      "짧은 오버행과 MEB 전용 플랫폼 설계로 상위 차급 수준의 2열 실내 공간 제공"
     ],
     highlightsEn: [
-      "New APP550 rear motor boosts output from 204 hp to 286 hp with higher efficiency",
-      "Audi's highest-volume electric model across Europe and Korea",
-      "Compact exterior footprint with generous 2nd-row legroom"
+      "Upgraded APP550 rear motor boosts output from 204 hp to 286 hp with higher efficiency",
+      "Audi's highest-volume electric vehicle across Europe and South Korea",
+      "Compact exterior footprint with mid-size SUV interior legroom"
     ]
   },
   {
@@ -1510,20 +1423,21 @@ const EV_DATA = [
     nameKo: "마칸 4 일렉트릭",
     nameEn: "Macan 4 Electric",
     origin: "DE",
-    originKo: "독일",
-    originEn: "Germany",
+    segmentCode: "SUV",
     segment: "중형 SUV",
     segmentEn: "Mid-size Performance SUV",
     releaseYear: 2024,
     isNew: true,
     isBestSeller: true,
-    badge: "포르쉐 전동화 베스트셀러",
-    badgeEn: "Porsche's Best-Selling 800V Performance SUV",
+    badge: "포르쉐 전동화 판매 1위 퍼포먼스 SUV",
+    badgeEn: "Porsche's Top-Selling 800V Performance SUV",
+    rangeCycle: "WLTP",
+    sourceNote: "Porsche Official / 100kWh / WLTP 613km / Korea MOTIE 454km",
     specs: {
       batteryKwh: 100.0,
-      rangeKm: 613,       // WLTP (한국 인증 454km)
-      powerHp: 408,       // 터보 모델은 639마력
-      zeroToHundred: 5.2, // 터보 모델은 3.3초
+      rangeKm: 613,
+      powerHp: 408,
+      zeroToHundred: 5.2,
       topSpeedKmh: 220,
       chargingKw: 270,
       chargeTimeMin: 21,
@@ -1531,26 +1445,21 @@ const EV_DATA = [
       drivetrain: "AWD",
       weightKg: 2405
     },
-    prices: {
-      us: 78800,
-      cn: 598000,
-      kr: 10590,          // 마칸 9,910만 / 마칸4 1억 590만 / 터보 1억 3,850만원
-      eu: 84100
-    },
+    prices: { us: 78800, cn: 598000, kr: 10590, eu: 84100 },
     quarterlySales: {
       "2024 Q1": 0, "2024 Q2": 0, "2024 Q3": 6800, "2024 Q4": 18200,
       "2025 Q1": 21400, "2025 Q2": 23500, "2025 Q3": 24800, "2025 Q4": 25900,
       "2026 Q1": 23200, "2026 Q2": 24900, "2026 Q3": 26100
     },
     highlights: [
-      "내연기관 마칸을 대체하는 포르쉐의 핵심 전동화 중형 SUV",
-      "800V PPE 아키텍처와 포르쉐 액티브 서스펜션 매니지먼트(PASM) 조합",
-      "출시 직후 타이칸을 제치고 포르쉐 내 최다 판매 전기차로 등극"
+      "포르쉐의 베스트셀러 마칸을 순수전기차(800V PPE 플랫폼)로 완전 세대교체한 핵심 모델",
+      "포르쉐 액티브 서스펜션 매니지먼트(PASM) 및 후륜 조향으로 스포츠카급 핸들링 구현",
+      "출시 직후 타이칸을 넘어 포르쉐 브랜드 내 최다 판매 전기차로 등극"
     ],
     highlightsEn: [
-      "All-electric successor to the iconic Porsche Macan sports SUV",
-      "800V PPE architecture paired with Porsche Active Suspension Management (PASM)",
-      "Surpassed the Taycan immediately after launch as Porsche's top-selling EV"
+      "All-electric generation of Porsche's iconic Macan built on 800V PPE platform",
+      "PASM active suspension and rear-axle steering deliver sports-car agility",
+      "Immediately surpassed the Taycan as Porsche's #1 selling electric model"
     ]
   },
   {
@@ -1558,21 +1467,22 @@ const EV_DATA = [
     brand: "Volkswagen",
     brandKo: "폭스바겐",
     name: "ID.4 Pro (2025)",
-    nameKo: "ID.4 프로 (신형 모터)",
+    nameKo: "ID.4 프로 (신형 286마력 모터)",
     nameEn: "ID.4 Pro (Upgraded 286hp)",
     origin: "DE",
-    originKo: "독일",
-    originEn: "Germany",
+    segmentCode: "SUV",
     segment: "중형 SUV",
     segmentEn: "Mid-size Family SUV",
     releaseYear: 2024,
     isNew: false,
     isBestSeller: true,
-    badge: "유럽 스테디셀러 패밀리 SUV",
+    badge: "유럽 스테디셀러 패밀리 전기 SUV",
     badgeEn: "European Steady-Selling Family Electric SUV",
+    rangeCycle: "WLTP",
+    sourceNote: "VW Official / 82kWh (77kWh net) / WLTP 550km / Korea 424km",
     specs: {
       batteryKwh: 82.0,
-      rangeKm: 550,       // WLTP (한국 인증 424km)
+      rangeKm: 550,
       powerHp: 286,
       zeroToHundred: 6.7,
       topSpeedKmh: 180,
@@ -1582,31 +1492,169 @@ const EV_DATA = [
       drivetrain: "RWD",
       weightKg: 2150
     },
-    prices: {
-      us: 44875,
-      cn: 149900,         // 중국 현지 합작 할인가 반영
-      kr: 5490,
-      eu: 48635
-    },
+    prices: { us: 44875, cn: 149900, kr: 5490, eu: 48635 },
     quarterlySales: {
       "2024 Q1": 38000, "2024 Q2": 45200, "2024 Q3": 47800, "2024 Q4": 51200,
       "2025 Q1": 42500, "2025 Q2": 46800, "2025 Q3": 48900, "2025 Q4": 50400,
       "2026 Q1": 44100, "2026 Q2": 47200, "2026 Q3": 49100
     },
     highlights: [
-      "신형 고효율 드라이브 시스템(APP550)과 12.9인치 개선형 인포테인먼트 탑재",
-      "중국 시장에서는 공격적 가격 인하, 유럽·한국에서는 높은 보조금 혜택으로 꾸준한 인기",
-      "우수한 회전반경(10.2m)과 패밀리카에 최적화된 실내 공간"
+      "신형 APP550 구동 시스템(286마력, 55.6kg·m)과 12.9인치 차세대 인포테인먼트 적용",
+      "유럽 시장 상위권 판매 및 한국 수입 전기차 중 최고 수준의 국고보조금 혜택",
+      "10.2m의 짧은 최소 회전반경과 패밀리카에 최적화된 정숙성·공간감"
     ],
     highlightsEn: [
-      "Upgraded APP550 drive unit (286 hp) and revised 12.9-inch infotainment",
-      "Strong global volume supported by aggressive JV pricing in China & subsidies in EU/KR",
-      "Tight 10.2m turning circle and spacious family-oriented cabin"
+      "Upgraded APP550 drive unit (286 hp, 545 Nm) and revised 12.9-inch display",
+      "Strong global volume across Europe, China (JV pricing), and South Korea",
+      "Tight 10.2m turning radius with spacious family-oriented cabin"
+    ]
+  },
+
+  // ======================== JAPAN (Pure BEV Only) ========================
+  {
+    id: "toyota-bz4x",
+    brand: "Toyota",
+    brandKo: "토요타",
+    name: "bZ4X (2025 Refresh)",
+    nameKo: "신형 bZ4X (e-TNGA 순수전기 SUV)",
+    nameEn: "bZ4X (2025/2026 Refresh FWD)",
+    origin: "JP",
+    segmentCode: "SUV",
+    segment: "중형 SUV",
+    segmentEn: "Mid-size SUV",
+    releaseYear: 2025,
+    isNew: true,
+    isBestSeller: true,
+    badge: "일본 브랜드 글로벌 최다 판매 BEV",
+    badgeEn: "Toyota's #1 Global Pure Electric SUV",
+    rangeCycle: "WLTP",
+    sourceNote: "Toyota Europe Official (2025 Refresh) / 73.1kWh / WLTP 569km",
+    specs: {
+      batteryKwh: 73.1,
+      rangeKm: 569,
+      powerHp: 224,
+      zeroToHundred: 7.4,
+      topSpeedKmh: 160,
+      chargingKw: 150,
+      chargeTimeMin: 28,
+      architectureV: 400,
+      drivetrain: "FWD",
+      weightKg: 1970
+    },
+    prices: { us: 37070, cn: 179800, kr: null, eu: 44900 },
+    quarterlySales: {
+      "2024 Q1": 24500, "2024 Q2": 28200, "2024 Q3": 29800, "2024 Q4": 31500,
+      "2025 Q1": 27900, "2025 Q2": 31400, "2025 Q3": 33800, "2025 Q4": 35200,
+      "2026 Q1": 32100, "2026 Q2": 34900, "2026 Q3": 36800
+    },
+    highlights: [
+      "토요타 전기차 전용 e-TNGA 플랫폼 기반의 순수전기(BEV) 중형 SUV",
+      "2025/2026 부분변경을 통해 73.1kWh 배터리·신형 실리콘 카바이드(SiC) 인버터 적용 (WLTP 569km)",
+      "북미 가격을 3.7만 달러대로 대폭 인하하고 배터리 프리컨디셔닝 기본화로 글로벌 판매 반등"
+    ],
+    highlightsEn: [
+      "Toyota's global pure electric (BEV) crossover built on the dedicated e-TNGA platform",
+      "2025/2026 refresh introduces 73.1 kWh pack & SiC inverter for up to 569 km WLTP range",
+      "Significant US MSRP price cut ($37,070) and standard battery pre-conditioning"
+    ]
+  },
+  {
+    id: "honda-prologue",
+    brand: "Honda",
+    brandKo: "혼다",
+    name: "Prologue Touring",
+    nameKo: "프롤로그 (북미 돌풍 중형 전기 SUV)",
+    nameEn: "Prologue Touring FWD",
+    origin: "JP",
+    segmentCode: "SUV",
+    segment: "중형 SUV",
+    segmentEn: "Mid-size SUV",
+    releaseYear: 2024,
+    isNew: true,
+    isBestSeller: true,
+    badge: "북미 일본차 전기 SUV 판매 1위",
+    badgeEn: "Best-Selling Japanese Brand EV in North America",
+    rangeCycle: "EPA",
+    sourceNote: "Honda US Official / 85.0kWh Ultium / EPA 308 mi (496 km)",
+    specs: {
+      batteryKwh: 85.0,
+      rangeKm: 496,
+      powerHp: 220,
+      zeroToHundred: 7.4,
+      topSpeedKmh: 180,
+      chargingKw: 155,
+      chargeTimeMin: 32,
+      architectureV: 400,
+      drivetrain: "FWD",
+      weightKg: 2255
+    },
+    prices: { us: 47400, cn: null, kr: null, eu: null },
+    quarterlySales: {
+      "2024 Q1": 500, "2024 Q2": 4200, "2024 Q3": 12600, "2024 Q4": 15800,
+      "2025 Q1": 14200, "2025 Q2": 16800, "2025 Q3": 18500, "2025 Q4": 17900,
+      "2026 Q1": 15600, "2026 Q2": 17200, "2026 Q3": 18400
+    },
+    highlights: [
+      "GM 얼티엄(Ultium) 85kWh 배터리 플랫폼에 혼다 고유의 네오-러기드 디자인과 서스펜션 튜닝 결합",
+      "출시 직후 북미 시장에서 월 5천~6천 대 이상 판매되며 일본 브랜드 전기차 1위 등극",
+      "2025년형부터 전륜 모터 출력 개선 및 EPA 주행거리 496km(308마일)로 향상"
+    ],
+    highlightsEn: [
+      "Co-developed on the 85 kWh Ultium BEV platform with Honda-tuned multi-link suspension",
+      "Surged to #1 among Japanese-brand EVs in North America immediately after launch",
+      "Upgraded for 2025 with 308 miles (496 km) EPA range and Google built-in cockpit"
+    ]
+  },
+  {
+    id: "nissan-ariya",
+    brand: "Nissan",
+    brandKo: "닛산",
+    name: "Ariya 87kWh Evolve",
+    nameKo: "아리야 87kWh (플래그십 전기 크로스오버)",
+    nameEn: "Ariya 87kWh Evolve",
+    origin: "JP",
+    segmentCode: "SUV",
+    segment: "중형 SUV",
+    segmentEn: "Mid-size Crossover",
+    releaseYear: 2024,
+    isNew: false,
+    isBestSeller: false,
+    badge: "닛산 전용 플랫폼 쿠페형 SUV",
+    badgeEn: "Nissan's Flagship Electric Coupe-Crossover",
+    rangeCycle: "WLTP",
+    sourceNote: "Nissan Official / 87kWh Usable (91kWh gross) / WLTP 536km",
+    specs: {
+      batteryKwh: 87.0,
+      rangeKm: 536,
+      powerHp: 242,
+      zeroToHundred: 7.6,
+      topSpeedKmh: 160,
+      chargingKw: 130,
+      chargeTimeMin: 35,
+      architectureV: 400,
+      drivetrain: "FWD",
+      weightKg: 2115
+    },
+    prices: { us: 41190, cn: 199900, kr: null, eu: 53490 },
+    quarterlySales: {
+      "2024 Q1": 11200, "2024 Q2": 12800, "2024 Q3": 13500, "2024 Q4": 14200,
+      "2025 Q1": 11800, "2025 Q2": 13100, "2025 Q3": 13900, "2025 Q4": 14500,
+      "2026 Q1": 12400, "2026 Q2": 13600, "2026 Q3": 14100
+    },
+    highlights: [
+      "르노-닛산 CMF-EV 전용 플랫폼 기반의 라운지형 플랫 플로어 실내와 전동 슬라이딩 센터 콘솔",
+      "87kWh 가용 배터리 모델 기준 WLTP 536km 주행 및 듀얼모터 e-4ORCE 사륜구동 트림(최대 435마력 NISMO) 운영",
+      "일본·유럽·북미 3대 권역에서 동시에 판매되는 닛산의 주력 순수전기 SUV"
+    ],
+    highlightsEn: [
+      "Built on the dedicated CMF-EV platform with a flat lounge floor & power sliding console",
+      "87 kWh usable battery delivers up to 536 km WLTP range (plus 435 hp Ariya NISMO AWD)",
+      "Nissan's global pure electric SUV sold across Japan, Europe, China, and North America"
     ]
   }
 ];
 
-// Manufacturer Global BEV Quarterly Sales Summary (in thousands of units)
+// Manufacturer Global Pure BEV Quarterly Sales Summary (in thousands of units, excluding PHEVs)
 const BRAND_QUARTERLY_SUMMARY = {
   "BYD": {
     labelKo: "BYD (순수전기 BEV)",
@@ -1641,17 +1689,6 @@ const BRAND_QUARTERLY_SUMMARY = {
       "2026 Q1": 342.0, "2026 Q2": 378.0, "2026 Q3": 405.0
     }
   },
-  "HMG": {
-    labelKo: "Hyundai·Kia (현대·기아)",
-    labelEn: "Hyundai·Kia (HMG)",
-    origin: "KR",
-    color: "#10b981",
-    sales: {
-      "2024 Q1": 122.5, "2024 Q2": 144.0, "2024 Q3": 152.8, "2024 Q4": 158.2,
-      "2025 Q1": 148.0, "2025 Q2": 172.5, "2025 Q3": 186.0, "2025 Q4": 194.5,
-      "2026 Q1": 176.0, "2026 Q2": 195.0, "2026 Q3": 208.5
-    }
-  },
   "VWGroup": {
     labelKo: "VW Group (폭스바겐·아우디·포르쉐)",
     labelEn: "VW Group (VW·Audi·Porsche)",
@@ -1663,15 +1700,15 @@ const BRAND_QUARTERLY_SUMMARY = {
       "2026 Q1": 192.0, "2026 Q2": 224.0, "2026 Q3": 238.0
     }
   },
-  "BMWGroup": {
-    labelKo: "BMW Group",
-    labelEn: "BMW Group",
-    origin: "DE",
-    color: "#06b6d4",
+  "HMG": {
+    labelKo: "Hyundai·Kia (현대·기아)",
+    labelEn: "Hyundai·Kia (HMG)",
+    origin: "KR",
+    color: "#10b981",
     sales: {
-      "2024 Q1": 82.7, "2024 Q2": 107.9, "2024 Q3": 103.4, "2024 Q4": 114.5,
-      "2025 Q1": 94.2, "2025 Q2": 115.8, "2025 Q3": 119.5, "2025 Q4": 128.4,
-      "2026 Q1": 112.0, "2026 Q2": 134.5, "2026 Q3": 146.2
+      "2024 Q1": 122.5, "2024 Q2": 144.0, "2024 Q3": 152.8, "2024 Q4": 158.2,
+      "2025 Q1": 148.0, "2025 Q2": 172.5, "2025 Q3": 186.0, "2025 Q4": 194.5,
+      "2026 Q1": 176.0, "2026 Q2": 195.0, "2026 Q3": 208.5
     }
   },
   "Xiaomi": {
@@ -1685,9 +1722,31 @@ const BRAND_QUARTERLY_SUMMARY = {
       "2026 Q1": 192.0, "2026 Q2": 211.5, "2026 Q3": 224.2
     }
   },
+  "BMWGroup": {
+    labelKo: "BMW Group",
+    labelEn: "BMW Group",
+    origin: "DE",
+    color: "#06b6d4",
+    sales: {
+      "2024 Q1": 82.7, "2024 Q2": 107.9, "2024 Q3": 103.4, "2024 Q4": 114.5,
+      "2025 Q1": 94.2, "2025 Q2": 115.8, "2025 Q3": 119.5, "2025 Q4": 128.4,
+      "2026 Q1": 112.0, "2026 Q2": 134.5, "2026 Q3": 146.2
+    }
+  },
+  "JapanOEM": {
+    labelKo: "Toyota·Honda·Nissan (일본 3사 BEV)",
+    labelEn: "Toyota·Honda·Nissan (Japan BEV)",
+    origin: "JP",
+    color: "#6366f1",
+    sales: {
+      "2024 Q1": 62.0, "2024 Q2": 71.5, "2024 Q3": 83.2, "2024 Q4": 91.0,
+      "2025 Q1": 84.5, "2025 Q2": 94.0, "2025 Q3": 102.5, "2025 Q4": 108.0,
+      "2026 Q1": 98.2, "2026 Q2": 107.5, "2026 Q3": 114.8
+    }
+  },
   "Mercedes": {
-    labelKo: "Mercedes-Benz (벤츠)",
-    labelEn: "Mercedes-Benz",
+    labelKo: "Mercedes-Benz (벤츠 BEV)",
+    labelEn: "Mercedes-Benz (Pure BEV)",
     origin: "DE",
     color: "#eab308",
     sales: {

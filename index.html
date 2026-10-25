@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EV Global Hub | 글로벌 전기차 판매량·가격·성능 비교 대시보드</title>
-  <meta name="description" content="독일 3사, 현대·기아, 테슬라, 중국(BYD·샤오미·지리), 미국 전기차의 4개국 가격, 핵심 성능, 2024~2026 연도/분기별 판매량 순위를 한눈에 비교하세요." />
+  <title>EV Global Hub | 글로벌 순수전기차(BEV) 판매량·가격·성능 비교 대시보드</title>
+  <meta name="description" content="한국(현대·기아), 독일 3사+, 미국(테슬라·GM·포드), 중국(BYD·샤오미·지리), 일본(토요타·혼다·닛산) 순수전기차(BEV)의 4개국 가격, 핵심 성능, 2024~2026 연도/분기별 판매량 순위를 비교하세요." />
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -53,12 +53,12 @@
             <h1 class="text-lg sm:text-xl font-bold tracking-tight bg-gradient-to-r from-slate-900 via-slate-800 to-sky-600 dark:from-white dark:via-slate-100 dark:to-sky-400 bg-clip-text text-transparent">
               EV Global Hub
             </h1>
-            <span class="hidden md:inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-sky-500/15 text-sky-700 dark:text-sky-300 border border-sky-500/30">
-              2024 – 2026.Q3 Edition
+            <span class="hidden md:inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30">
+              100% Pure BEV · Verified Data
             </span>
           </div>
           <p id="headerSubtitle" class="text-xs text-slate-500 dark:text-slate-400 hidden sm:block">
-            전 세계 베스트셀링 & 최신 전기차 4개국 가격 · 성능 · 분기별 판매량 비교
+            전 세계 베스트셀링 & 최신 순수전기차(BEV) 4개국 가격 · 성능 · 분기별 판매량 비교
           </p>
         </div>
       </div>
@@ -69,7 +69,7 @@
         <div class="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-800 rounded-lg px-2 sm:px-2.5 py-1.5">
           <span id="periodLabelText" class="text-xs text-slate-500 dark:text-slate-400 hidden lg:inline">📅 기준 기간:</span>
           <select id="globalPeriodSelect" class="bg-transparent text-xs sm:text-sm font-semibold text-sky-600 dark:text-sky-400 focus:outline-none cursor-pointer">
-            <!-- Populated dynamically for KO/EN -->
+            <!-- Populated dynamically -->
           </select>
         </div>
 
@@ -82,7 +82,7 @@
         <!-- Language Toggle (KO / EN) -->
         <button id="langToggleBtn" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 transition flex items-center gap-1" title="한국어 / English 전환">
           <span>🌐</span>
-          <span id="langToggleLabel">EN</span>
+          <span id="langToggleLabel">English</span>
         </button>
 
         <!-- Normal Mode / Night Mode Toggle -->
@@ -95,73 +95,22 @@
   </header>
 
   <!-- Main Container -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6 pb-28">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5 pb-28">
 
-    <!-- KPI Summary Cards -->
-    <section class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4" id="kpiSection">
-      <div class="glass-card p-4 rounded-2xl border border-slate-200 dark:border-slate-800/80">
-        <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-1">
-          <span id="kpiSalesTitle">선택 기간 최다 판매 모델</span>
-          <span id="kpiSalesBadge" class="text-sky-600 dark:text-sky-400 font-semibold">🏆 판매 1위</span>
-        </div>
-        <div class="text-base sm:text-lg font-bold text-slate-900 dark:text-white truncate" id="kpiTopSellerName">-</div>
-        <div class="text-xs text-sky-600 dark:text-sky-400 font-mono mt-1" id="kpiTopSellerVal">-</div>
-      </div>
+    <!-- KPI Summary Cards (Rendered dynamically via JS) -->
+    <section class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4" id="kpiSection"></section>
 
-      <div class="glass-card p-4 rounded-2xl border border-slate-200 dark:border-slate-800/80">
-        <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-1">
-          <span id="kpiRangeTitle">최장 1회 충전 주행거리</span>
-          <span id="kpiRangeBadge" class="text-emerald-600 dark:text-emerald-400 font-semibold">🔋 주행거리 1위</span>
-        </div>
-        <div class="text-base sm:text-lg font-bold text-slate-900 dark:text-white truncate" id="kpiTopRangeName">-</div>
-        <div class="text-xs text-emerald-600 dark:text-emerald-400 font-mono mt-1" id="kpiTopRangeVal">-</div>
-      </div>
-
-      <div class="glass-card p-4 rounded-2xl border border-slate-200 dark:border-slate-800/80">
-        <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-1">
-          <span id="kpiAccelTitle">최단 제로백 (0→100km/h)</span>
-          <span id="kpiAccelBadge" class="text-rose-600 dark:text-rose-400 font-semibold">🚀 가속력 1위</span>
-        </div>
-        <div class="text-base sm:text-lg font-bold text-slate-900 dark:text-white truncate" id="kpiTopAccelName">-</div>
-        <div class="text-xs text-rose-600 dark:text-rose-400 font-mono mt-1" id="kpiTopAccelVal">-</div>
-      </div>
-
-      <div class="glass-card p-4 rounded-2xl border border-slate-200 dark:border-slate-800/80">
-        <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-1">
-          <span id="kpiChargeTitle">최고 충전 속도 / 전압</span>
-          <span id="kpiChargeBadge" class="text-amber-600 dark:text-amber-400 font-semibold">⚡ 초급속 1위</span>
-        </div>
-        <div class="text-base sm:text-lg font-bold text-slate-900 dark:text-white truncate" id="kpiTopChargeName">-</div>
-        <div class="text-xs text-amber-600 dark:text-amber-400 font-mono mt-1" id="kpiTopChargeVal">-</div>
-      </div>
-    </section>
-
-    <!-- Filter & Search Control Bar -->
-    <section class="glass-card p-4 sm:p-5 rounded-2xl border border-slate-200 dark:border-slate-800/90 space-y-4">
-      <!-- Top Row: Region Tabs + Search + Sort -->
-      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
-        <!-- Region Filter Pills -->
-        <div class="flex flex-wrap items-center gap-1.5" id="regionFilterGroup">
-          <button data-region="ALL" class="region-pill active px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition">
-            🌐 <span id="regionLabelAll">전체</span> (<span id="count-ALL">24</span>)
-          </button>
-          <button data-region="KR" class="region-pill px-3 py-1.5 rounded-xl text-xs sm:text-sm font-medium transition">
-            🇰🇷 <span id="regionLabelKR">한국 · 현대/기아</span> (<span id="count-KR">7</span>)
-          </button>
-          <button data-region="DE" class="region-pill px-3 py-1.5 rounded-xl text-xs sm:text-sm font-medium transition">
-            🇩🇪 <span id="regionLabelDE">독일 3사+</span> (<span id="count-DE">10</span>)
-          </button>
-          <button data-region="US" class="region-pill px-3 py-1.5 rounded-xl text-xs sm:text-sm font-medium transition">
-            🇺🇸 <span id="regionLabelUS">미국 · 테슬라/GM/포드</span> (<span id="count-US">7</span>)
-          </button>
-          <button data-region="CN" class="region-pill px-3 py-1.5 rounded-xl text-xs sm:text-sm font-medium transition">
-            🇨🇳 <span id="regionLabelCN">중국 · BYD/샤오미/지리</span> (<span id="count-CN">7</span>)
-          </button>
-        </div>
+    <!-- Structured 3-Tier Filter & Search Control Panel -->
+    <section class="glass-card p-4 sm:p-5 rounded-2xl border border-slate-200 dark:border-slate-800/90 space-y-3.5">
+      
+      <!-- Tier 1: Country / Region Tabs (Single Line, Clean Labels) + Search + Sort -->
+      <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-3">
+        <!-- Region Filter Pills (Dynamically rendered from REGIONS) -->
+        <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 xl:pb-0" id="regionFilterGroup"></div>
 
         <!-- Search & Sort Controls -->
-        <div class="flex flex-wrap sm:flex-nowrap items-center gap-2">
-          <div class="relative flex-1 sm:w-56">
+        <div class="flex flex-wrap sm:flex-nowrap items-center gap-2 shrink-0">
+          <div class="relative flex-1 sm:w-60">
             <input
               type="text"
               id="searchInput"
@@ -171,66 +120,67 @@
             <span class="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs">🔍</span>
           </div>
 
-          <select id="sortSelect" class="bg-white dark:bg-slate-900/90 border border-slate-300 dark:border-slate-700/80 rounded-xl px-3 py-1.5 text-xs sm:text-sm text-slate-800 dark:text-slate-200 focus:outline-none focus:border-sky-500 cursor-pointer">
-            <!-- Populated dynamically for KO/EN -->
-          </select>
+          <select id="sortSelect" class="bg-white dark:bg-slate-900/90 border border-slate-300 dark:border-slate-700/80 rounded-xl px-3 py-1.5 text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 focus:outline-none focus:border-sky-500 cursor-pointer"></select>
         </div>
       </div>
 
-      <!-- Second Row: Brand Chips, Segment, Voltage, Category Toggles -->
-      <div class="pt-3 border-t border-slate-200 dark:border-slate-800/80 flex flex-col md:flex-row md:items-center justify-between gap-3">
-        <!-- Brand Multi-Filter Chips -->
-        <div class="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 no-scrollbar" id="brandFilterGroup">
-          <!-- Populated dynamically via JS -->
+      <!-- Tier 2: Manufacturer Brand Selector (Dedicated Row - No Overlap or Clipping) -->
+      <div class="pt-3 border-t border-slate-200/80 dark:border-slate-800/80 flex items-start sm:items-center gap-2.5">
+        <span id="brandRowLabel" class="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider shrink-0 pt-1 sm:pt-0">
+          브랜드
+        </span>
+        <div class="flex flex-wrap items-center gap-1.5 flex-1" id="brandFilterGroup">
+          <!-- Populated dynamically via JS without duplicate country flags -->
         </div>
+      </div>
 
-        <!-- Quick Feature Filters -->
-        <div class="flex flex-wrap items-center gap-2 shrink-0">
-          <select id="segmentFilter" class="bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-lg px-2.5 py-1 text-xs text-slate-700 dark:text-slate-300 focus:outline-none">
-            <!-- Populated dynamically for KO/EN -->
-          </select>
+      <!-- Tier 3: Segment & Quick Specification Toggles + Result Counter -->
+      <div class="pt-3 border-t border-slate-200/80 dark:border-slate-800/80 flex flex-wrap items-center justify-between gap-3">
+        <div class="flex flex-wrap items-center gap-2">
+          <span id="specRowLabel" class="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mr-0.5">
+            세부 조건
+          </span>
+          <select id="segmentFilter" class="bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg px-2.5 py-1 text-xs font-medium text-slate-700 dark:text-slate-300 focus:outline-none cursor-pointer"></select>
 
-          <button id="filter800V" class="px-2.5 py-1 rounded-lg text-xs font-medium border border-slate-300 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">
-            ⚡ 800V+ 초급속만
+          <button id="filter800V" class="px-2.5 py-1 rounded-lg text-xs font-medium border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">
+            ⚡ 800V+ 초급속
           </button>
-          <button id="filterNewOnly" class="px-2.5 py-1 rounded-lg text-xs font-medium border border-slate-300 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">
-            🆕 신차·최신형만
+          <button id="filterNewOnly" class="px-2.5 py-1 rounded-lg text-xs font-medium border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">
+            🆕 신차·최신형
           </button>
-          <button id="filterBestOnly" class="px-2.5 py-1 rounded-lg text-xs font-medium border border-slate-300 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">
-            🔥 베스트셀러만
+          <button id="filterBestOnly" class="px-2.5 py-1 rounded-lg text-xs font-medium border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">
+            🔥 베스트셀러
           </button>
           <button id="resetFiltersBtn" class="px-2.5 py-1 rounded-lg text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-rose-500 dark:hover:text-rose-400 transition">
-            ↺ 초기화
+            ↺ 필터 초기화
           </button>
+        </div>
+
+        <div class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2 ml-auto">
+          <span id="resultCountWrapper"></span>
         </div>
       </div>
     </section>
 
     <!-- View Mode Navigation Tabs -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 dark:border-slate-800 pb-3">
-      <div class="flex items-center gap-2" id="viewTabs">
-        <button data-view="cards" class="view-tab active px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition">
+      <div class="flex items-center gap-2 overflow-x-auto no-scrollbar" id="viewTabs">
+        <button data-view="cards" class="view-tab active px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition shrink-0">
           <span>🗂️</span> <span id="tabCardsLabel">차량 카드 & 4개국 가격 비교</span>
         </button>
-        <button data-view="table" class="view-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition">
-          <span>📋</span> <span id="tabTableLabel">한눈에 보는 스펙·가격·판매량 표</span>
+        <button data-view="table" class="view-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition shrink-0">
+          <span>📋</span> <span id="tabTableLabel">전체 스펙·가격·판매량 일람표</span>
         </button>
-        <button data-view="charts" class="view-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition">
-          <span>📈</span> <span id="tabChartsLabel">연도/분기별 판매 추이 & 가성비 차트</span>
+        <button data-view="charts" class="view-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition shrink-0">
+          <span>📈</span> <span id="tabChartsLabel">분기별 판매 추이 & 포지셔닝 차트</span>
         </button>
       </div>
 
-      <div class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2">
-        <span id="resultCountWrapper">검색 결과 <strong class="text-slate-900 dark:text-white font-mono" id="resultCount">31</strong>대</span>
-        <span class="text-slate-300 dark:text-slate-600">|</span>
-        <span id="compareHintText">💡 카드의 <strong class="text-sky-600 dark:text-sky-400">[+ 비교 담기]</strong>를 눌러 최대 4대까지 1:1 정밀 비교 가능</span>
-      </div>
+      <div class="text-xs text-slate-500 dark:text-slate-400 hidden md:block" id="compareHintText"></div>
     </div>
 
     <!-- VIEW 1: Vehicle Cards Grid -->
-    <section id="view-cards" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
-      <!-- Populated by app.js -->
-    </section>
+    <section id="view-cards" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"></section>
 
     <!-- VIEW 2: Comprehensive Table View -->
     <section id="view-table" class="hidden">
@@ -238,13 +188,9 @@
         <div class="overflow-x-auto">
           <table class="w-full text-left border-collapse text-xs sm:text-sm">
             <thead>
-              <tr id="tableHeadRow" class="bg-slate-100 dark:bg-slate-900/95 border-b border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 font-semibold whitespace-nowrap">
-                <!-- Populated dynamically for KO/EN -->
-              </tr>
+              <tr id="tableHeadRow" class="bg-slate-100 dark:bg-slate-900/95 border-b border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 font-semibold whitespace-nowrap"></tr>
             </thead>
-            <tbody id="evTableBody" class="divide-y divide-slate-200 dark:divide-slate-800/70 font-mono text-xs">
-              <!-- Populated by app.js -->
-            </tbody>
+            <tbody id="evTableBody" class="divide-y divide-slate-200 dark:divide-slate-800/70 font-mono text-xs"></tbody>
           </table>
         </div>
       </div>
@@ -252,73 +198,53 @@
 
     <!-- VIEW 3: Analytics & Quarterly Sales Charts -->
     <section id="view-charts" class="hidden space-y-6">
-      <!-- Top Row: Quarterly Leaderboard Bar Chart + Brand Trend Line Chart -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div class="glass-card p-5 rounded-2xl border border-slate-200 dark:border-slate-800">
-          <div class="flex items-center justify-between mb-4">
-            <div>
-              <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                <span>🏆</span> <span id="chartSalesTitle">2026년 3분기 글로벌 판매 TOP 12 모델</span>
-              </h3>
-              <p id="chartSalesSub" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">상단 기간 선택기와 지역 필터에 맞춰 실시간으로 순위가 변경됩니다.</p>
-            </div>
+          <div class="mb-4">
+            <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span>🏆</span> <span id="chartSalesTitle"></span>
+            </h3>
+            <p id="chartSalesSub" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5"></p>
           </div>
-          <div class="h-80">
-            <canvas id="topModelsBarChart"></canvas>
-          </div>
+          <div class="h-80"><canvas id="topModelsBarChart"></canvas></div>
         </div>
 
         <div class="glass-card p-5 rounded-2xl border border-slate-200 dark:border-slate-800">
-          <div class="flex items-center justify-between mb-4">
-            <div>
-              <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                <span>📈</span> <span id="chartBrandTitle">주요 제조사 그룹별 분기 순수전기차(BEV) 판매 추이</span>
-              </h3>
-              <p id="chartBrandSub" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">2024 Q1 ~ 2026 Q3 글로벌 분기별 인도량 (단위: 천 대)</p>
-            </div>
+          <div class="mb-4">
+            <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span>📈</span> <span id="chartBrandTitle"></span>
+            </h3>
+            <p id="chartBrandSub" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5"></p>
           </div>
-          <div class="h-80">
-            <canvas id="brandTrendLineChart"></canvas>
-          </div>
+          <div class="h-80"><canvas id="brandTrendLineChart"></canvas></div>
         </div>
       </div>
 
-      <!-- Bottom Row: 4-Region Price Comparison Chart & Range vs Price Scatter -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div class="glass-card p-5 rounded-2xl border border-slate-200 dark:border-slate-800">
-          <div class="flex items-center justify-between mb-4">
-            <div>
-              <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                <span>🌍</span> <span id="chartPriceTitle">주요 모델 4개국(미국·중국·한국·유럽) 출시 가격 비교 (USD 환산)</span>
-              </h3>
-              <p id="chartPriceSub" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">동일 모델의 국가별 가격 정책 및 관세·보조금 전 시작가 격차 비교</p>
-            </div>
+          <div class="mb-4">
+            <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span>🌍</span> <span id="chartPriceTitle"></span>
+            </h3>
+            <p id="chartPriceSub" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5"></p>
           </div>
-          <div class="h-80">
-            <canvas id="regionalPriceBarChart"></canvas>
-          </div>
+          <div class="h-80"><canvas id="regionalPriceBarChart"></canvas></div>
         </div>
 
         <div class="glass-card p-5 rounded-2xl border border-slate-200 dark:border-slate-800">
-          <div class="flex items-center justify-between mb-4">
-            <div>
-              <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                <span>🎯</span> <span id="chartScatterTitle">가격 대비 주행거리(가성비) 포지셔닝 맵</span>
-              </h3>
-              <p id="chartScatterSub" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">X축: 글로벌 평균 시작가(USD 환산) / Y축: 1회 충전 주행거리(km)</p>
-            </div>
+          <div class="mb-4">
+            <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span>🎯</span> <span id="chartScatterTitle"></span>
+            </h3>
+            <p id="chartScatterSub" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5"></p>
           </div>
-          <div class="h-80">
-            <canvas id="priceRangeScatterChart"></canvas>
-          </div>
+          <div class="h-80"><canvas id="priceRangeScatterChart"></canvas></div>
         </div>
       </div>
     </section>
 
-    <!-- Market Insights & Reference Footnote -->
-    <section id="footnoteSection" class="glass-card p-5 rounded-2xl border border-slate-200 dark:border-slate-800/80 text-xs text-slate-600 dark:text-slate-400 space-y-2">
-      <!-- Populated dynamically for KO/EN -->
-    </section>
+    <!-- Data Verification & Sources Footnote -->
+    <section id="footnoteSection" class="glass-card p-5 rounded-2xl border border-slate-200 dark:border-slate-800/80 text-xs text-slate-600 dark:text-slate-400 space-y-2"></section>
 
   </main>
 
@@ -326,15 +252,11 @@
   <div id="compareDock" class="fixed bottom-0 inset-x-0 z-40 transform translate-y-full transition-transform duration-300">
     <div class="max-w-5xl mx-auto px-4 pb-4">
       <div class="bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-sky-500/40 rounded-2xl p-3 sm:p-4 shadow-2xl shadow-sky-950/30 dark:shadow-sky-950/60 flex flex-col sm:flex-row items-center justify-between gap-3">
-        <div class="flex items-center gap-2 sm:gap-3 w-full sm:w-auto overflow-x-auto no-scrollbar" id="compareSlotList">
-          <!-- Populated dynamically -->
-        </div>
+        <div class="flex items-center gap-2 sm:gap-3 w-full sm:w-auto overflow-x-auto no-scrollbar" id="compareSlotList"></div>
         <div class="flex items-center gap-2 shrink-0 w-full sm:w-auto justify-end">
-          <button id="clearCompareBtn" class="px-3 py-2 rounded-xl text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
-            비우기
-          </button>
+          <button id="clearCompareBtn" class="px-3 py-2 rounded-xl text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition"></button>
           <button id="openCompareModalBtn" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white shadow-lg shadow-sky-500/25 transition">
-            <span id="openCompareBtnText">⚡ 선택 차량 상세 비교하기</span> (<span id="compareCountBadge">0</span>/4)
+            <span id="openCompareBtnText"></span> (<span id="compareCountBadge">0</span>/4)
           </button>
         </div>
       </div>
@@ -344,23 +266,16 @@
   <!-- Head-to-Head Comparison Modal -->
   <div id="compareModal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-6 bg-slate-950/70 backdrop-blur-md">
     <div class="bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-3xl max-w-6xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
-      <!-- Modal Header -->
       <div class="px-6 py-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
         <div>
-          <h2 id="modalTitle" class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            ⚔️ 전기차 1:1 스펙 · 4개국 가격 · 판매량 정밀 비교
-          </h2>
-          <p id="modalSub" class="text-xs text-slate-500 dark:text-slate-400">각 항목에서 가장 우수한 스펙에 WIN 배지가 표시됩니다.</p>
+          <h2 id="modalTitle" class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2"></h2>
+          <p id="modalSub" class="text-xs text-slate-500 dark:text-slate-400"></p>
         </div>
         <button id="closeCompareModalBtn" class="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center text-lg font-bold transition">
           ✕
         </button>
       </div>
-
-      <!-- Modal Content -->
-      <div class="p-4 sm:p-6 overflow-y-auto space-y-6" id="compareModalBody">
-        <!-- Spec Comparison Table populated by app.js -->
-      </div>
+      <div class="p-4 sm:p-6 overflow-y-auto space-y-6" id="compareModalBody"></div>
     </div>
   </div>
 
