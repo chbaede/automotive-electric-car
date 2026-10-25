@@ -1,0 +1,10 @@
+{
+  "name": "ev-global-hub",
+  "private": true,
+  "description": "Global pure BEV price, spec and quarterly sales comparison dashboard",
+  "scripts": {
+    "build": "npx -y tailwindcss@3.4.17 -i ./src/input.css -o ./assets/css/main.css --minify",
+    "watch": "npx -y tailwindcss@3.4.17 -i ./src/input.css -o ./assets/css/main.css --watch"
+  }
+}
+

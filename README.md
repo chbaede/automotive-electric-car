@@ -1,6 +1,6 @@
 # ⚡ EV Global Hub (글로벌 순수전기차 BEV 판매량·4개국 가격·성능 비교 대시보드)
 
-전 세계에서 가장 많이 팔리는 베스트셀러 순수전기차(BEV)들과 최신 출시 전기차(2024~2026)를 한눈에 비교할 수 있는 정적 웹 애플리케이션입니다. 하이브리드(HEV/PHEV/EREV)를 완전히 배제한 **100% 순수 배터리 전기차(Pure BEV)**만을 다루며, 별도의 빌드 과정 없이 **GitHub Pages**에 즉시 호스팅할 수 있도록 설계되었습니다.
+전 세계에서 가장 많이 팔리는 베스트셀러 순수전기차(BEV)들과 최신 출시 전기차(2024~2026)를 한눈에 비교할 수 있는 정적 웹 애플리케이션입니다. 하이브리드(HEV/PHEV/EREV)를 완전히 배제한 **100% 순수 배터리 전기차(Pure BEV)**만을 다루며, **GitHub Pages** (`https://electric.yocto.co.kr/`)에 호스팅되어 있습니다.
 
 ## ✨ 주요 특징 및 아키텍처
 
@@ -11,17 +11,20 @@
    - 🇨🇳 **중국 (BYD·샤오미·지리·지커 7종)**: BYD 시걸(돌핀 서프), 아토 3(한국 출시), 씰(Seal) / 샤오미 SU7 Max, YU7 Max / 지리 싱위안 / 지커(Zeekr) 7X
    - 🇯🇵 **일본 (토요타·혼다·닛산 3종)**: 토요타 신형 bZ4X, 혼다 프롤로그(Prologue), 닛산 아리야(Ariya 87kWh)
 
-2. **확장이 쉬운 데이터 중심(Data-Driven) 아키텍처**
-   - 새로운 전기차 모델을 추가할 때 HTML이나 UI 로직(`app.js`)을 수정할 필요 없이 [`data.js`](data.js)의 `EV_DATA` 배열에 객체 하나만 추가하면 국가별 카운트, 브랜드 필터 칩, 차트, 테이블이 자동으로 생성됩니다.
-   - 모든 모델에 공식 인증 주행거리 기준(`WLTP` / `EPA` / `CLTC`)과 검증 출처(`sourceNote`)가 명시되어 있습니다.
+2. **모듈형 데이터 중심(Data-Driven) 아키텍처 (`assets/`)**
+   - `assets/js/data.js`: 34개 순수전기차(BEV) 마스터 데이터, 분기별 판매량, 공식 인증 기준(`WLTP` / `EPA` / `CLTC`) 및 검증 출처(`sourceNote`)
+   - `assets/js/i18n.js`: 한국어(KO) / 영어(EN) 다국어 사전 분리 및 `?lang=en` URL 파라미터 연동
+   - `assets/js/app.js`: 이벤트 위임(`[data-action]`), 디바운스 검색, `localStorage` 사용자 설정 저장, Chart.js 지연 로딩(Lazy Loading)
+   - `assets/css/main.css`: 런타임 CDN 스크립트 대신 사전 컴파일된 경량 Tailwind CSS 번들 (`npm run build`)
 
-3. **깔끔한 3단 필터 패널 & 다국어(KO/EN) · 테마(Normal/Night Mode) 전환**
-   - **1단**: 국가 탭 (국기 + 국가명 + 모델 수) + 검색창 + 정렬 선택기
-   - **2단**: 제조사 브랜드 전용 선택 행 (말줄임 잘림이나 국기 중복 없이 깔끔한 칩 배치)
-   - **3단**: 차종(SUV/세단/트럭) 및 `800V+ 초급속`, `신차·최신형`, `베스트셀러` 원클릭 필터
+3. **다중 국가 복수 선택 & 원클릭 '🚫 중국 제외' 비교 필터**
+   - **1단 (다중 국가 필터)**: 여러 국가 버튼(`🇰🇷 한국`, `🇩🇪 독일`, `🇺🇸 미국`, `🇨🇳 중국`, `🇯🇵 일본`)을 동시에 클릭하여 원하는 국가 조합만 비교할 수 있으며, **`🚫 중국 제외 (KR·DE·US·JP)`** 프리셋 버튼으로 중국 제조사를 제외한 27개 모델만 즉시 필터링할 수 있습니다.
+   - **2단 (제조사 브랜드 필터)**: 선택된 국가들에 속한 제조사 브랜드 칩만 동적으로 표시됩니다.
+   - **3단 (차종 & 핵심 스펙)**: 차종(SUV/세단/트럭) 및 `800V+ 초급속`, `신차·최신형`, `베스트셀러` 원클릭 필터
 
 ---
 
-## 🚀 GitHub Pages 배포
+## 🚀 빌드 및 배포
 
-이 저장소는 GitHub Actions 워크플로우([`.github/workflows/deploy.yml`](.github/workflows/deploy.yml))를 통해 `main` 브랜치 푸시 시 자동으로 배포됩니다.
+- 스타일시트 재빌드: `npm run build` (`src/input.css` → `assets/css/main.css`)
+- GitHub Actions 워크플로우([`.github/workflows/deploy.yml`](.github/workflows/deploy.yml))를 통해 `main` 브랜치 푸시 시 자동으로 배포됩니다.

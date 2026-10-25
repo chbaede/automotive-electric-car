@@ -6,17 +6,25 @@
   
   <!-- Primary SEO Meta Tags -->
   <meta name="google-site-verification" content="2VmKKN5VGVIL9P-KiYywyJoeJQiKVCxEhRM4japgnzE" />
-  <title>EV Global Hub | 글로벌 순수전기차(BEV) 판매량·4개국 가격·성능 비교 대시보드</title>
-  <meta name="description" content="한국(현대·기아), 독일(BMW·벤츠·아우디·포르쉐), 미국(테슬라·GM·포드·리비안·루시드), 중국(BYD·샤오미·지리·지커), 일본(토요타·혼다·닛산) 34개 핵심 순수전기차(BEV)의 4개국 출시 가격, 주행거리, 2024~2026 연도/분기별 판매량 순위를 한눈에 비교하세요." />
-  <meta name="keywords" content="전기차 비교, 전기차 판매량 순위, 글로벌 전기차, 테슬라 모델Y 주니퍼, 아이오닉9, 기아 EV3, EV4, BYD 아토3, 샤오미 YU7, 벤츠 전기 CLA, GLE EQ, BMW 노이어 클라쎄 iX3, EV comparison, BEV sales ranking" />
+  <title>전기차 비교 2026 | 글로벌 순수전기차 가격·주행거리·판매량 순위 - EV Global Hub</title>
+  <meta name="description" content="테슬라 모델 Y, 아이오닉 9, 기아 EV3, BYD, 샤오미 YU7, BMW iX3, 벤츠 CLA, 토요타 bZ4X 등 34종 순수전기차(BEV)의 한국·미국·중국·유럽 가격, 주행거리, 충전 속도, 2024~2026 분기별 판매량을 한눈에 비교하세요." />
+  <meta name="keywords" content="전기차 비교, 전기차 판매량 순위, 글로벌 전기차, 테슬라 모델Y 주니퍼, 아이오닉9, 기아 EV3, EV4, BYD 아토3, 샤오미 YU7, 벤츠 전기 CLA, GLC EQ, GLE EQ, BMW 노이어 클라쎄 iX3, 토요타 bZ4X, EV comparison, BEV sales ranking" />
   <meta name="author" content="Changhyeok Bae" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="theme-color" content="#020617" />
 
-  <!-- Canonical & Multilingual Hreflang -->
+  <!-- Early Theme Initialization (Prevents Flash of Unstyled Theme) -->
+  <script>
+    try {
+      const p = JSON.parse(localStorage.getItem("evhub:prefs"));
+      if (p && p.theme === "light") document.documentElement.classList.remove("dark");
+    } catch (e) {}
+  </script>
+
+  <!-- Canonical & Multilingual Hreflang (Distinct URLs for KO & EN) -->
   <link rel="canonical" href="https://electric.yocto.co.kr/" />
   <link rel="alternate" hreflang="ko" href="https://electric.yocto.co.kr/" />
-  <link rel="alternate" hreflang="en" href="https://electric.yocto.co.kr/" />
+  <link rel="alternate" hreflang="en" href="https://electric.yocto.co.kr/?lang=en" />
   <link rel="alternate" hreflang="x-default" href="https://electric.yocto.co.kr/" />
 
   <!-- Open Graph / Facebook / KakaoTalk -->
@@ -25,29 +33,33 @@
   <meta property="og:site_name" content="EV Global Hub" />
   <meta property="og:locale" content="ko_KR" />
   <meta property="og:locale:alternate" content="en_US" />
-  <meta property="og:title" content="EV Global Hub | 글로벌 순수전기차(BEV) 판매량·4개국 가격·성능 비교" />
-  <meta property="og:description" content="테슬라, 현대·기아, 독일 3사, BYD·샤오미, 일본 3사 등 34종 순수전기차의 미국·중국·한국·유럽 출시가와 2024~2026 분기별 판매량을 실시간으로 비교하세요." />
+  <meta property="og:title" content="전기차 비교 2026 | 글로벌 순수전기차(BEV) 4개국 가격·성능·판매량 순위" />
+  <meta property="og:description" content="한국·독일·미국·중국·일본 34종 순수전기차의 4개국 출시가, 인증 주행거리, 2024~2026 분기별 판매량을 원하는 국가 조합(중국 제외 등)으로 비교하세요." />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:url" content="https://electric.yocto.co.kr/" />
-  <meta name="twitter:title" content="EV Global Hub | 글로벌 순수전기차(BEV) 가격·성능·판매량 비교" />
+  <meta name="twitter:title" content="전기차 비교 2026 | 글로벌 순수전기차(BEV) 가격·성능·판매량 순위" />
   <meta name="twitter:description" content="전 세계 베스트셀링 & 최신 순수전기차 34종의 4개국 가격·제원·분기별 판매량 대시보드" />
 
-  <!-- Inline SVG Favicon (Zero network overhead) -->
+  <!-- Inline SVG Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230284c7'/><text y='.9em' x='50%' text-anchor='middle' font-size='72'>⚡</text></svg>" />
 
   <!-- Performance Preconnects -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin />
+
+  <!-- Precompiled & Minified Tailwind CSS (Eliminates 300KB render-blocking runtime JS) -->
+  <link rel="stylesheet" href="./assets/css/main.css" />
+
+  <!-- Non-blocking Pretendard Variable Font -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" media="print" onload="this.media='all'" />
 
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6854824605420161"
      crossorigin="anonymous"></script>
 
-  <!-- JSON-LD Structured Data for Google Search (WebApplication + Dataset) -->
+  <!-- JSON-LD Structured Data for Google Search (WebApplication + Dataset + FAQPage) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -59,6 +71,7 @@
         "applicationCategory": "AutomotiveApplication",
         "operatingSystem": "Web",
         "inLanguage": ["ko", "en"],
+        "dateModified": "2026-10-25",
         "description": "Global Pure Battery Electric Vehicle (BEV) comparison dashboard featuring 4-region pricing (USA, China, South Korea, Europe), verified technical specifications, and 2024–2026 quarterly sales rankings.",
         "author": {
           "@type": "Person",
@@ -70,41 +83,45 @@
         "name": "Global Pure BEV Pricing, Specifications & Quarterly Sales Dataset (2024–2026)",
         "description": "Verified dataset of 34 global best-selling and latest pure battery electric vehicles across South Korea, Germany, USA, China, and Japan.",
         "url": "https://electric.yocto.co.kr/",
+        "dateModified": "2026-10-25",
         "keywords": ["Electric Vehicles", "BEV", "EV Sales", "EV Price Comparison", "WLTP", "EPA"],
         "creator": {
           "@type": "Person",
           "name": "Changhyeok Bae"
         }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "전 세계에서 가장 많이 팔리는 전기차는 무엇인가요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "단일 모델 기준으로는 테슬라 모델 Y(주니퍼)와 모델 3(하이랜드)가 전 세계 순수전기차(BEV) 판매 1·2위를 기록하고 있으며, 제조사 연간 합산 기준으로는 2025년부터 BYD가 순수전기차 1위에 올랐습니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "왜 같은 전기차인데 미국·중국·한국·유럽 가격이 다른가요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "각국의 수입 관세, 현지 공장 생산 여부, 부가가치세(유럽 19% 등), 보조금 기준선에 맞춘 제조사의 전략적 가격 책정 차이 때문입니다. 상단의 원화/달러 환산 버튼으로 동일한 통화 기준에서 비교할 수 있습니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "WLTP, EPA, CLTC 주행거리는 어떻게 다른가요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "동일 차량 기준 일반적으로 중국 CLTC > 유럽 WLTP > 미국 EPA 및 한국 산업부 인증 순으로 주행거리 수치가 높게 측정됩니다. 각 차량 카드에 적용된 인증 기준이 함께 표기되어 있습니다."
+            }
+          }
+        ]
       }
     ]
   }
   </script>
-
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'Roboto', 'sans-serif'],
-            mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'monospace']
-          }
-        }
-      }
-    };
-  </script>
-
-  <!-- Pretendard & JetBrains Mono Fonts -->
-  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
-
-  <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
-
-  <!-- Custom Styles -->
-  <link rel="stylesheet" href="./styles.css" />
 </head>
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen selection:bg-sky-500 selection:text-white antialiased transition-colors duration-200">
 
@@ -124,15 +141,18 @@
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <h1 class="text-lg sm:text-xl font-bold tracking-tight bg-gradient-to-r from-slate-900 via-slate-800 to-sky-600 dark:from-white dark:via-slate-100 dark:to-sky-400 bg-clip-text text-transparent">
+            <span class="text-lg sm:text-xl font-bold tracking-tight bg-gradient-to-r from-slate-900 via-slate-800 to-sky-600 dark:from-white dark:via-slate-100 dark:to-sky-400 bg-clip-text text-transparent">
               EV Global Hub
-            </h1>
+            </span>
             <span class="hidden md:inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30">
               100% Pure BEV · Verified Data
             </span>
           </div>
-          <p id="headerSubtitle" class="text-xs text-slate-500 dark:text-slate-400 hidden sm:block">
-            전 세계 베스트셀링 & 최신 순수전기차(BEV) 4개국 가격 · 성능 · 분기별 판매량 비교
+          <h1 id="heroTitle" class="text-xs text-slate-500 dark:text-slate-400 hidden sm:block font-normal">
+            글로벌 전기차 가격 · 성능 · 판매량 비교
+          </h1>
+          <p id="heroSub" class="sr-only">
+            한국·독일·미국·중국·일본 34종 순수전기차(BEV)의 4개국 출시가, 제원, 2024~2026 분기별 판매량
           </p>
         </div>
       </div>
@@ -140,21 +160,21 @@
       <!-- Right Controls: Period Selector, Currency, Language, Theme Mode -->
       <div class="flex items-center gap-1.5 sm:gap-2">
         <div class="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-800 rounded-lg px-2 sm:px-2.5 py-1.5">
-          <label for="globalPeriodSelect" id="periodLabelText" class="text-xs text-slate-500 dark:text-slate-400 hidden lg:inline">📅 기준 기간:</label>
-          <select id="globalPeriodSelect" aria-label="기준 기간 선택" class="bg-transparent text-xs sm:text-sm font-semibold text-sky-600 dark:text-sky-400 focus:outline-none cursor-pointer"></select>
+          <label for="globalPeriodSelect" id="periodLabelText" class="text-xs text-slate-500 dark:text-slate-400 hidden lg:inline">기준 기간</label>
+          <select id="globalPeriodSelect" aria-label="기준 기간" class="bg-transparent text-xs sm:text-sm font-semibold text-sky-600 dark:text-sky-400 focus:outline-none cursor-pointer"></select>
         </div>
 
-        <button id="currencyToggleBtn" type="button" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-medium border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 transition flex items-center gap-1" title="통화 표기 전환">
+        <button id="currencyToggleBtn" type="button" data-action="currency" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-medium border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 transition flex items-center gap-1" title="통화 표기 전환">
           <span aria-hidden="true">💱</span>
           <span id="currencyToggleLabel" class="hidden sm:inline">현지 통화</span>
         </button>
 
-        <button id="langToggleBtn" type="button" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 transition flex items-center gap-1" title="한국어 / English 전환">
+        <button id="langToggleBtn" type="button" data-action="lang" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 transition flex items-center gap-1" title="한국어 / English 전환">
           <span aria-hidden="true">🌐</span>
           <span id="langToggleLabel">English</span>
         </button>
 
-        <button id="themeToggleBtn" type="button" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 transition flex items-center gap-1" title="Normal Mode / Night Mode 전환">
+        <button id="themeToggleBtn" type="button" data-action="theme" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 transition flex items-center gap-1" title="Normal Mode / Night Mode 전환">
           <span id="themeToggleIcon" aria-hidden="true">🌙</span>
           <span id="themeToggleLabel" class="hidden md:inline">Night Mode</span>
         </button>
@@ -165,22 +185,22 @@
   <!-- Main Container -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5 pb-28">
 
-    <!-- KPI Summary Cards (Rendered dynamically via JS) -->
+    <!-- KPI Summary Cards -->
     <section aria-label="핵심 지표 요약" class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4" id="kpiSection"></section>
 
     <!-- Structured 3-Tier Filter & Search Control Panel -->
     <section aria-label="차량 필터 및 검색" class="glass-card p-4 sm:p-5 rounded-2xl border border-slate-200 dark:border-slate-800/90 space-y-3.5">
       
-      <!-- Tier 1: Country / Region Tabs + Search + Sort -->
+      <!-- Tier 1: Multi-Select Country / Region Pills (with Exclude China Quick Preset) + Search + Sort -->
       <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-3">
-        <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 xl:pb-0" id="regionFilterGroup" role="tablist" aria-label="국가별 필터"></div>
+        <div class="flex flex-wrap items-center gap-1.5" id="regionFilterGroup" role="group" aria-label="국가 다중 선택 필터"></div>
 
         <div class="flex flex-wrap sm:flex-nowrap items-center gap-2 shrink-0">
           <div class="relative flex-1 sm:w-60">
             <input
               type="search"
               id="searchInput"
-              aria-label="전기차 검색"
+              aria-label="모델명, 브랜드, 키워드 검색"
               placeholder="모델명, 브랜드, 키워드 검색..."
               class="w-full bg-white dark:bg-slate-900/90 border border-slate-300 dark:border-slate-700/80 rounded-xl pl-8 pr-3 py-1.5 text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-sky-500"
             />
@@ -207,16 +227,16 @@
           </span>
           <select id="segmentFilter" aria-label="차종 필터" class="bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg px-2.5 py-1 text-xs font-medium text-slate-700 dark:text-slate-300 focus:outline-none cursor-pointer"></select>
 
-          <button id="filter800V" type="button" class="px-2.5 py-1 rounded-lg text-xs font-medium border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">
+          <button id="filter800V" type="button" data-action="quick" data-key="800v" aria-pressed="false" class="quick-toggle">
             ⚡ 800V+ 초급속
           </button>
-          <button id="filterNewOnly" type="button" class="px-2.5 py-1 rounded-lg text-xs font-medium border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">
+          <button id="filterNewOnly" type="button" data-action="quick" data-key="new" aria-pressed="false" class="quick-toggle">
             🆕 신차·최신형
           </button>
-          <button id="filterBestOnly" type="button" class="px-2.5 py-1 rounded-lg text-xs font-medium border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">
+          <button id="filterBestOnly" type="button" data-action="quick" data-key="best" aria-pressed="false" class="quick-toggle">
             🔥 베스트셀러
           </button>
-          <button id="resetFiltersBtn" type="button" class="px-2.5 py-1 rounded-lg text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-rose-500 dark:hover:text-rose-400 transition">
+          <button id="resetFiltersBtn" type="button" data-action="reset" class="px-2.5 py-1 rounded-lg text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-rose-500 dark:hover:text-rose-400 transition">
             ↺ 필터 초기화
           </button>
         </div>
@@ -229,14 +249,14 @@
 
     <!-- View Mode Navigation Tabs -->
     <nav aria-label="뷰 모드 전환" class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 dark:border-slate-800 pb-3">
-      <div class="flex items-center gap-2 overflow-x-auto no-scrollbar" id="viewTabs">
-        <button data-view="cards" type="button" class="view-tab active px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition shrink-0">
+      <div class="flex items-center gap-2 overflow-x-auto no-scrollbar" id="viewTabs" role="tablist">
+        <button data-action="view" data-view="cards" role="tab" aria-selected="true" type="button" class="view-tab active px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition shrink-0">
           <span aria-hidden="true">🗂️</span> <span id="tabCardsLabel">차량 카드 & 4개국 가격 비교</span>
         </button>
-        <button data-view="table" type="button" class="view-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition shrink-0">
+        <button data-action="view" data-view="table" role="tab" aria-selected="false" type="button" class="view-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition shrink-0">
           <span aria-hidden="true">📋</span> <span id="tabTableLabel">전체 스펙·가격·판매량 일람표</span>
         </button>
-        <button data-view="charts" type="button" class="view-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition shrink-0">
+        <button data-action="view" data-view="charts" role="tab" aria-selected="false" type="button" class="view-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition shrink-0">
           <span aria-hidden="true">📈</span> <span id="tabChartsLabel">분기별 판매 추이 & 포지셔닝 차트</span>
         </button>
       </div>
@@ -261,8 +281,9 @@
       </div>
     </section>
 
-    <!-- VIEW 3: Analytics & Quarterly Sales Charts -->
+    <!-- VIEW 3: Analytics & Quarterly Sales Charts (Chart.js Lazy-Loaded on Demand) -->
     <section id="view-charts" aria-label="분기별 판매량 및 가격 분석 차트" class="hidden space-y-6">
+      <div id="chartLoading" class="hidden text-center py-6 text-xs text-slate-400 font-mono">차트를 불러오는 중...</div>
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div class="glass-card p-5 rounded-2xl border border-slate-200 dark:border-slate-800">
           <div class="mb-4">
@@ -308,9 +329,9 @@
       </div>
     </section>
 
-    <!-- Non-intrusive Google AdSense Banner (Placed cleanly below main content before footnotes) -->
+    <!-- Non-intrusive Google AdSense Banner -->
     <aside aria-label="스폰서 광고" class="glass-card px-4 py-3 rounded-2xl border border-slate-200/80 dark:border-slate-800/70 overflow-hidden">
-      <div class="text-[10px] font-mono uppercase tracking-widest text-slate-400 dark:text-slate-600 mb-1.5 text-center">
+      <div id="sponsoredLabel" class="text-[10px] font-mono uppercase tracking-widest text-slate-400 dark:text-slate-600 mb-1.5 text-center">
         Sponsored
       </div>
       <ins class="adsbygoogle"
@@ -324,15 +345,27 @@
       </script>
     </aside>
 
-    <!-- Data Verification & Sources Footnote + Noscript SEO Fallback -->
-    <footer id="footnoteSection" class="glass-card p-5 rounded-2xl border border-slate-200 dark:border-slate-800/80 text-xs text-slate-600 dark:text-slate-400 space-y-2"></footer>
+    <!-- Crawlable FAQ Section (Matches JSON-LD FAQPage Schema for Google Rich Results) -->
+    <section id="aboutSection" class="glass-card p-5 rounded-2xl border border-slate-200 dark:border-slate-800/80 text-xs text-slate-600 dark:text-slate-400 space-y-3">
+      <h2 class="text-sm font-bold text-slate-900 dark:text-white">자주 묻는 질문 (FAQ)</h2>
+      <div class="grid gap-4 md:grid-cols-3 leading-relaxed">
+        <div>
+          <h3 class="font-semibold text-slate-800 dark:text-slate-200 mb-1">전 세계에서 가장 많이 팔리는 전기차는 무엇인가요?</h3>
+          <p>단일 모델 기준으로는 테슬라 모델 Y(주니퍼)와 모델 3(하이랜드)가 전 세계 순수전기차(BEV) 판매 1·2위를 기록하고 있으며, 제조사 연간 합산 기준으로는 2025년부터 BYD가 순수전기차 1위에 올랐습니다.</p>
+        </div>
+        <div>
+          <h3 class="font-semibold text-slate-800 dark:text-slate-200 mb-1">왜 같은 전기차인데 국가별 출시 가격이 다른가요?</h3>
+          <p>각국의 수입 관세, 현지 공장 생산 여부, 부가가치세(유럽 19% 등), 보조금 기준선에 맞춘 제조사의 가격 정책 차이 때문입니다. 상단의 원화/달러 환산 버튼으로 동일한 통화 기준에서 비교할 수 있습니다.</p>
+        </div>
+        <div>
+          <h3 class="font-semibold text-slate-800 dark:text-slate-200 mb-1">WLTP, EPA, CLTC 주행거리는 어떻게 다른가요?</h3>
+          <p>동일 차량 기준 일반적으로 중국 CLTC &gt; 유럽 WLTP &gt; 미국 EPA 및 한국 산업부 인증 순으로 주행거리 수치가 높게 측정됩니다. 각 차량 카드에 적용된 인증 기준이 함께 표기되어 있습니다.</p>
+        </div>
+      </div>
+    </section>
 
-    <noscript>
-      <section class="p-4 rounded-xl border border-slate-300 dark:border-slate-800 text-xs text-slate-500">
-        <h2>글로벌 순수전기차(BEV) 비교 목록 (EV Global Hub)</h2>
-        <p>본 페이지에서는 테슬라 모델 Y 주니퍼, 모델 3 하이랜드, 사이버트럭, 현대 아이오닉 9, 더 뉴 아이오닉 5, 캐스퍼 일렉트릭(인스터), 기아 EV3, EV4, EV6, EV9, BMW 노이어 클라쎄 iX3, i4, iX1, 메르세데스-벤츠 전기 CLA, GLC EQ, GLE EQ, 아우디 Q6 e-트론, Q4 e-트론, 포르쉐 마칸 일렉트릭, 폭스바겐 ID.4, BYD 시걸, 아토 3, 씰, 샤오미 SU7, YU7, 지리 싱위안, 지커 7X, 토요타 bZ4X, 혼다 프롤로그, 닛산 아리야의 한국·미국·중국·유럽 가격과 성능 및 분기별 판매량을 비교할 수 있습니다.</p>
-      </section>
-    </noscript>
+    <!-- Data Verification & Sources Footnote -->
+    <footer id="footnoteSection" class="glass-card p-5 rounded-2xl border border-slate-200 dark:border-slate-800/80 text-xs text-slate-600 dark:text-slate-400 space-y-2"></footer>
 
   </main>
 
@@ -342,8 +375,8 @@
       <div class="bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-sky-500/40 rounded-2xl p-3 sm:p-4 shadow-2xl shadow-sky-950/30 dark:shadow-sky-950/60 flex flex-col sm:flex-row items-center justify-between gap-3">
         <div class="flex items-center gap-2 sm:gap-3 w-full sm:w-auto overflow-x-auto no-scrollbar" id="compareSlotList"></div>
         <div class="flex items-center gap-2 shrink-0 w-full sm:w-auto justify-end">
-          <button id="clearCompareBtn" type="button" class="px-3 py-2 rounded-xl text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition"></button>
-          <button id="openCompareModalBtn" type="button" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white shadow-lg shadow-sky-500/25 transition">
+          <button id="clearCompareBtn" type="button" data-action="clear-compare" class="px-3 py-2 rounded-xl text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition"></button>
+          <button id="openCompareModalBtn" type="button" data-action="open-compare" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white shadow-lg shadow-sky-500/25 transition">
             <span id="openCompareBtnText"></span> (<span id="compareCountBadge">0</span>/4)
           </button>
         </div>
@@ -359,7 +392,7 @@
           <h2 id="modalTitle" class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2"></h2>
           <p id="modalSub" class="text-xs text-slate-500 dark:text-slate-400"></p>
         </div>
-        <button id="closeCompareModalBtn" type="button" aria-label="비교 창 닫기" class="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center text-lg font-bold transition">
+        <button id="closeCompareModalBtn" type="button" data-action="close-compare" aria-label="비교 창 닫기" class="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center text-lg font-bold transition">
           ✕
         </button>
       </div>
@@ -367,8 +400,9 @@
     </div>
   </div>
 
-  <!-- Scripts -->
-  <script src="./data.js"></script>
-  <script src="./app.js"></script>
+  <!-- Deferred Modular Scripts -->
+  <script defer src="./assets/js/data.js"></script>
+  <script defer src="./assets/js/i18n.js"></script>
+  <script defer src="./assets/js/app.js"></script>
 </body>
 </html>

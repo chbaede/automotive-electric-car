@@ -1,0 +1,78 @@
+/* Source stylesheet — compiled to assets/css/main.css via `npm run build` */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .glass-card {
+    @apply bg-white/85 shadow-[0_4px_20px_-4px_rgba(15,23,42,0.06)] backdrop-blur-xl dark:bg-slate-900/70 dark:shadow-none;
+  }
+
+  /* Region pills */
+  .region-pill {
+    @apply border border-slate-300 bg-slate-100/90 text-slate-600 hover:bg-slate-200 hover:text-slate-900
+      dark:border-slate-700/70 dark:bg-slate-800/70 dark:text-slate-400 dark:hover:bg-slate-700/80 dark:hover:text-slate-50;
+  }
+  .region-pill.active {
+    @apply border-sky-400/60 bg-gradient-to-br from-sky-500 to-indigo-600 text-white shadow-[0_4px_15px_-3px_rgba(14,165,233,0.35)];
+  }
+
+  /* View tabs */
+  .view-tab {
+    @apply border border-slate-300 bg-white text-slate-600 hover:border-slate-400 hover:text-slate-900
+      dark:border-slate-700/70 dark:bg-slate-900/80 dark:text-slate-400 dark:hover:border-slate-500 dark:hover:text-slate-100;
+  }
+  .view-tab.active {
+    @apply border-sky-500 bg-sky-500/10 text-sky-700 dark:border-sky-400/50 dark:bg-sky-500/15 dark:text-sky-400;
+  }
+
+  /* Brand chips */
+  .brand-chip {
+    @apply whitespace-nowrap border border-slate-300 bg-slate-50 text-slate-600 hover:border-slate-400 hover:text-slate-900
+      dark:border-slate-700/70 dark:bg-slate-900/90 dark:text-slate-400 dark:hover:border-slate-500 dark:hover:text-slate-200;
+  }
+  .brand-chip.active {
+    @apply border-sky-600 bg-sky-500/15 text-sky-700 dark:border-sky-400 dark:bg-sky-400/20 dark:text-sky-400;
+  }
+
+  /* Quick toggle filters */
+  .quick-toggle {
+    @apply rounded-lg border border-slate-300 bg-white px-2.5 py-1 text-xs font-medium text-slate-600 transition
+      hover:text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-400 dark:hover:text-white;
+  }
+  .quick-toggle.active {
+    @apply border-emerald-500/50 bg-emerald-500/15 text-emerald-700 dark:text-emerald-400;
+  }
+
+  .ev-card {
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .ev-card:hover {
+    @apply -translate-y-[3px] border-sky-500/50 shadow-[0_12px_30px_-10px_rgba(14,165,233,0.2)];
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  /* Skip rendering of off-screen cards until needed */
+  .cv-auto {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 640px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
